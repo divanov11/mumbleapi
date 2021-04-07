@@ -24,7 +24,13 @@ def routes(request):
 
 @api_view(['GET'])
 def posts(request):
+    query = request.query_params.get('q')
+    if query == None:
+        query = ''
+
+    #Make sure parent==None is always on
     posts = Post.objects.filter(parent=None)
+    posts = posts.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 

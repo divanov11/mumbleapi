@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 from .models import Post
@@ -22,41 +23,54 @@ def routes(request):
     return Response(urls)
 
 @api_view(['GET'])
-def posts(requests):
+def posts(request):
     posts = Post.objects.filter(parent=None)
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def postComments(requests, pk):
+def postComments(request, pk):
     post = Post.objects.get(id=pk)
     comments = post.post_set.all()
     serializer = PostSerializer(comments, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def users(requests):
-    users = User.objects.all()
+def users(request):
+
+    query = request.query_params.get('q')
+    if query == None:
+        query = ''
+
+    #users = User.objects.filter(username__icontains=query)
+    users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query))
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def usersRecommended(request):
+    users = User.objects.all()[0:3]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def user(requests, username):
+def user(request, username):
     user = User.objects.get(username=username)
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def userPosts(requests, username):
+def userPosts(request, username):
     user = User.objects.get(username=username)
     posts = user.post_set.filter(parent=None)
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
 # @api_view(['GET'])
-# def userTags(requests, pk):
+# def userTags(request, pk):
 #     user = User.objects.get(id=pk)
 #     tags = user._set.filter(parent=None)
 #     serializer = PostSerializer(posts, many=True)

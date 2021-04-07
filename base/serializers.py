@@ -14,7 +14,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_profile_pic(self, obj):
         try:
-            pic = '/static' + obj.profile_pic.url
+            pic = 'https://mumbleapi.herokuapp.com/static' + obj.profile_pic.url
         except:
             pic = None
         return pic

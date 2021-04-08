@@ -57,7 +57,7 @@ def users(request):
 
 @api_view(['GET'])
 def usersRecommended(request):
-    users = User.objects.all()[0:3]
+    users = User.objects.all()[0:5]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 

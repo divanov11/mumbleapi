@@ -4,9 +4,29 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 
 from .models import Post
-from .serializers import PostSerializer, UserSerializer
+from .serializers import PostSerializer, UserSerializer, UserSerializerWithToken
+
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        serializer = UserSerializerWithToken(self.user).data
+        for k, v in serializer.items():
+            data[k] = v
+
+        return data
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 @api_view(['GET'])
 def routes(request):

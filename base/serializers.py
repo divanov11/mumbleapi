@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 from .models import Post, UserProfile
+
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -36,6 +39,18 @@ class UserSerializer(serializers.ModelSerializer):
         profile = obj.userprofile
         serializer = UserProfileSerializer(profile, many=False)
         return serializer.data
+
+
+class UserSerializerWithToken(UserSerializer):
+    token = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = '__all__'
+
+    def get_token(self, obj):
+        token = RefreshToken.for_user(obj)
+        return str(token.access_token)
 
 
 

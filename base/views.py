@@ -76,7 +76,6 @@ def postComments(request, pk):
 
 @api_view(['GET'])
 def users(request):
-
     query = request.query_params.get('q')
     if query == None:
         query = ''
@@ -89,7 +88,8 @@ def users(request):
 
 @api_view(['GET'])
 def usersRecommended(request):
-    users = User.objects.all()[0:5]
+    user = request.user
+    users = User.objects.filter().exclude(pk=user.id)[0:5]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 

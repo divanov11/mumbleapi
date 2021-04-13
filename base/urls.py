@@ -6,6 +6,9 @@ urlpatterns = [
 
     path('', views.routes, name="routes"),
     path('posts/', views.posts, name="posts"),
+
+    path('posts/create/', views.createPost, name="posts-create"),
+
     path('posts/<str:pk>/comments/', views.postComments, name="posts-comments"),
 
     path('users/', views.users, name="users"),

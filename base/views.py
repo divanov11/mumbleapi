@@ -66,6 +66,18 @@ def posts(request):
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
+@api_view(['POST'])
+def createPost(request):
+    user = request.user
+    data = request.data
+    print('Data:', data)
+    post = Post.objects.create(
+        user=user,
+        content=data['content'],
+    )
+    serializer = PostSerializer(post, many=False)
+    return Response(serializer.data)
+
 
 @api_view(['GET'])
 def postComments(request, pk):

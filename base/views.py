@@ -61,8 +61,17 @@ def posts(request):
     if query == None:
         query = ''
 
+    user = request.user
+    following = user.following.select_related('user')
+
+    following = user.following.all()
+
+    ids = [user.id]
+    for i in following:
+        ids.append(i.user.id)
+
     #Make sure parent==None is always on
-    posts = Post.objects.filter(parent=None)
+    posts = Post.objects.filter(parent=None, user__id__in=ids)
     posts = posts.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
@@ -122,7 +131,8 @@ def usersRecommended(request):
 
     ids = []
     for i in following:
-        ids.append(i.user.id)
+        pass
+        #ids.append(i.user.id)
 
     #Exlude logged in users and user i am already following from recommendations
     users = User.objects.filter(~Q(id=user.id), ~Q(id__in=ids))[0:5]
@@ -148,6 +158,7 @@ def userPosts(request, username):
 
 @api_view(['POST'])
 def followUser(request, username):
+    print('HEADERS:', request.headers)
     user = request.user
     otherUser = User.objects.get(username=username).userprofile
     if user in otherUser.followers.all():

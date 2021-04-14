@@ -80,7 +80,6 @@ def posts(request):
 def createPost(request):
     user = request.user
     data = request.data
-    print('DATA:', data)
 
     isComment = data['isComment']
 
@@ -158,14 +157,17 @@ def userPosts(request, username):
 
 @api_view(['POST'])
 def followUser(request, username):
-    print('HEADERS:', request.headers)
     user = request.user
     otherUser = User.objects.get(username=username).userprofile
     if user in otherUser.followers.all():
         otherUser.followers.remove(user)
+        otherUser.followers_count =  len(otherUser.followers.all())
+        otherUser.save()
         return Response('User unfollowed')
     else:
         otherUser.followers.add(user)
+        otherUser.followers_count =  len(otherUser.followers.all())
+        otherUser.save()
         return Response('User followed')
 
 

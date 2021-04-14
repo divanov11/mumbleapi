@@ -28,6 +28,8 @@ class UserProfile(models.Model):
 #This needs to be shareable
 class Post(models.Model):
     parent =models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    #For re-mumble (Share) functionality
+    remumble =models.ForeignKey("self", on_delete=models.SET_NULL, related_name='original', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     image = models.ImageField(blank=True, null=True)
@@ -43,6 +45,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.content[0:80]
+
+    
 
 
 

@@ -56,7 +56,7 @@ class UserSerializerWithToken(UserSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    #comments = serializers.SerializerMethodField(read_only=True)
+    remumble = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Post
         fields = '__all__'
@@ -67,8 +67,11 @@ class PostSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
+    def get_remumble(self, obj):
+        origional = obj.remumble
+        if origional != None:
+            serializer = PostSerializer(origional, many=False)
+            return serializer.data
+        else:
+            return None
 
-    # def get_comments(self, obj):
-    #     comments = obj.post_set.all()
-    #     serializer = PostSerializer(comments, many=True)
-    #     return serializer.data

@@ -170,6 +170,20 @@ def followUser(request, username):
         otherUser.save()
         return Response('User followed')
 
+@api_view(['POST'])
+def remumble(request):
+    user = request.user
+    data = request.data
+    origionalPost = Post.objects.get(id=data['id'])
+
+    post = Post.objects.create(
+        remumble=origionalPost,
+        user=user,
+        content='Filler data for now..'
+    )
+    serializer = PostSerializer(post, many=False)
+    return Response(serializer.data)
+
 
 # @api_view(['GET'])
 # def userTags(request, pk):

@@ -31,8 +31,14 @@ def updatePost(sender, instance, **kwargs):
     if instance.parent:
         parent = instance.parent 
         parent.comment_count += 1
+    
         parent.save()
-        
-    print('Instance', instance)
+
+    if instance.remumble:
+        print('THis is a remumble')
+        parentPost = instance.remumble 
+        parentPost.share_count = len(parentPost.shares)
+        parentPost.save()
+
 
 pre_save.connect(updatePost, sender=Post)

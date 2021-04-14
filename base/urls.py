@@ -8,6 +8,7 @@ urlpatterns = [
     path('posts/', views.posts, name="posts"),
 
     path('posts/create/', views.createPost, name="posts-create"),
+    path('posts/remumble/', views.remumble, name="posts-remumble"),
 
     path('posts/<str:pk>/comments/', views.postComments, name="posts-comments"),
 

@@ -2,9 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
-
 from .models import Post, UserProfile
-
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -56,7 +54,7 @@ class UserSerializerWithToken(UserSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    remumble = serializers.SerializerMethodField(read_only=True)
+    origional_mumble = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Post
         fields = '__all__'
@@ -67,7 +65,7 @@ class PostSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-    def get_remumble(self, obj):
+    def get_origional_mumble(self, obj):
         origional = obj.remumble
         if origional != None:
             serializer = PostSerializer(origional, many=False)

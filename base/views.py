@@ -23,6 +23,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['name'] = user.userprofile.name
         token['profile_pic'] = 'static' + user.userprofile.profile_pic.url
         token['is_staff'] = user.is_staff
+        token['id'] = user.id
 
         return token
 
@@ -107,7 +108,6 @@ def users(request):
     if query == None:
         query = ''
 
-    #users = User.objects.filter(username__icontains=query)
     users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query))
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
@@ -115,8 +115,19 @@ def users(request):
 
 @api_view(['GET'])
 def usersRecommended(request):
+    user = User.objects.get(username="dennis")
+    following = user.following.select_related('user')
+
+    following = user.following.all()
+
+    ids = []
+    for i in following:
+        ids.append(i.user.id)
+    print('IDS:', ids)
+    #Exlude logged in users and user i am already following from recommendations
+    users = User.objects.filter(~Q(id=user.id), ~Q(id__in=ids))[0:5]
+
     user = request.user
-    users = User.objects.filter().exclude(pk=user.id)[0:5]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 

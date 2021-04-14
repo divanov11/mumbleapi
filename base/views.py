@@ -70,11 +70,26 @@ def posts(request):
 def createPost(request):
     user = request.user
     data = request.data
-    print('Data:', data)
-    post = Post.objects.create(
-        user=user,
-        content=data['content'],
-    )
+    print('DATA:', data)
+
+    isComment = data['isComment']
+
+    if isComment:
+        print('Creating a comment')
+        parent = Post.objects.get(id=data['postId'])
+        post = Post.objects.create(
+            parent=parent,
+            user=user,
+            content=data['content'],
+            )
+        print('PARENT:', parent)
+    else:
+        print('Creating a standard post')
+        post = Post.objects.create(
+            user=user,
+            content=data['content']
+            )
+
     serializer = PostSerializer(post, many=False)
     return Response(serializer.data)
 

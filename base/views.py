@@ -115,7 +115,7 @@ def users(request):
 
 @api_view(['GET'])
 def usersRecommended(request):
-    user = User.objects.get(username="dennis")
+    user = request.user
     following = user.following.select_related('user')
 
     following = user.following.all()
@@ -123,7 +123,7 @@ def usersRecommended(request):
     ids = []
     for i in following:
         ids.append(i.user.id)
-    print('IDS:', ids)
+
     #Exlude logged in users and user i am already following from recommendations
     users = User.objects.filter(~Q(id=user.id), ~Q(id__in=ids))[0:5]
 

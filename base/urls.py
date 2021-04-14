@@ -17,6 +17,8 @@ urlpatterns = [
     path('users/token/', views.MyTokenObtainPairView.as_view(), name='token'),
     #path('users/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    path('users/<str:username>/follow/', views.followUser, name="follow-user"),
+
     path('users/<str:username>/', views.user, name="user"),
     path('users/<str:username>/posts/', views.userPosts, name="user-posts"),
     # path('users/<str:pk>/tags/', views.userTags, name="user-tags"),

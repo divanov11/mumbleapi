@@ -145,6 +145,19 @@ def userPosts(request, username):
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+def followUser(request, username):
+    user = request.user
+    otherUser = User.objects.get(username=username).userprofile
+    if user in otherUser.followers.all():
+        otherUser.followers.remove(user)
+        return Response('User unfollowed')
+    else:
+        otherUser.followers.add(user)
+        return Response('User followed')
+
+
 # @api_view(['GET'])
 # def userTags(request, pk):
 #     user = User.objects.get(id=pk)

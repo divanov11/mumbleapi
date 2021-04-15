@@ -29,7 +29,7 @@ class UserProfile(models.Model):
 class Post(models.Model):
     parent =models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     #For re-mumble (Share) functionality
-    remumble =models.ForeignKey("self", on_delete=models.SET_NULL, related_name='remumbles', null=True, blank=True)
+    remumble = models.ForeignKey("self", on_delete=models.SET_NULL, related_name='remumbles', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     image = models.ImageField(blank=True, null=True)
@@ -53,7 +53,19 @@ class Post(models.Model):
 
     
 
+class PostVote(models.Model):
+    
+    CHOICES = (
+        ('upvote', 'upvote'),
+        ('downvote', 'downvote'),
+        )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
+    value = models.CharField(max_length=20, choices=CHOICES)
+
+    def __str__(self):
+        return str(self.user) + ' ' +  str(self.value) + 'd ' + '"' + str(self.post) + '"'
 
 
 

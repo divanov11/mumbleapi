@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
-from .models import UserProfile, Post
+from .models import UserProfile, Post, PostVote
 
 
 def create_profile(sender, instance, created, **kwargs):
@@ -39,5 +39,17 @@ def updatePost(sender, instance, **kwargs):
         parentPost.share_count = len(parentPost.shares)
         parentPost.save()
 
+def voteUpdate(sender, instance, **kwargs):
+    vote = instance
+    post = instance.post
+
+    upvotes =  len(post.postvote_set.filter(value="upvote"))
+    downvotes =  len(post.postvote_set.filter(value="downvote"))
+
+    post.vote_rank = (upvotes -downvotes)
+    post.save()
+
 
 pre_save.connect(updatePost, sender=Post)
+post_save.connect(voteUpdate, sender=PostVote)
+

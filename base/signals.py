@@ -35,7 +35,6 @@ def updatePost(sender, instance, **kwargs):
         parent.save()
 
     if instance.remumble:
-        print('THis is a remumble')
         parentPost = instance.remumble 
         parentPost.share_count = len(parentPost.shares)
         parentPost.save()

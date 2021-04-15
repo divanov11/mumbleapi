@@ -40,15 +40,23 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializerWithToken(UserSerializer):
-    token = serializers.SerializerMethodField(read_only=True)
+    access = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
         fields = '__all__'
 
-    def get_token(self, obj):
+    def get_access(self, obj):
         token = RefreshToken.for_user(obj)
+
+        token['username'] = obj.username
+        token['name'] = obj.userprofile.name
+        token['profile_pic'] = 'static' + obj.userprofile.profile_pic.url
+        token['is_staff'] = obj.is_staff
+        token['id'] = obj.id
         return str(token.access_token)
+
+    #Add route to return refresh token
 
 
 

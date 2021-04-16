@@ -26,12 +26,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def get_skills(self, obj):
         return ['Python', 'C#', 'D3 Charts', 'Flutter']
 
-
 class UserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'profile', 'username', 'is_superuser', 'is_staff']
 
     def get_profile(self, obj):
         profile = obj.userprofile
@@ -63,6 +62,8 @@ class UserSerializerWithToken(UserSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
     origional_mumble = serializers.SerializerMethodField(read_only=True)
+    upVoters = serializers.SerializerMethodField(read_only=True)
+    downVoters = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Post
         fields = '__all__'
@@ -80,4 +81,26 @@ class PostSerializer(serializers.ModelSerializer):
             return serializer.data
         else:
             return None
+
+    def get_upVoters(self, obj):
+        user_ids = []
+        votes = obj.postvote_set.filter(value="upvote")
+        for vote in votes:
+            user_ids.append(vote.user.id)
+        return user_ids
+        # voters = User.objects.filter(id__in=user_ids)
+        # serializer = UserSerializer(voters, many=True)
+        # return serializer.data
+
+    def get_downVoters(self, obj):
+        user_ids = []
+        votes = obj.postvote_set.filter(value="downvote")
+        for vote in votes:
+            user_ids.append(vote.user.id)
+        return user_ids
+        # voters = User.objects.filter(id__in=user_ids)
+        # serializer = UserSerializer(voters, many=True)
+        # return serializer.data
+
+
 

@@ -10,7 +10,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
-from .models import Post
+from .models import Post, PostVote
 from .serializers import PostSerializer, UserSerializer, UserSerializerWithToken
 
 
@@ -201,6 +201,32 @@ def remumble(request):
         content='Filler data for now..'
     )
     serializer = PostSerializer(post, many=False)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def updateVote(request):
+    user = request.user 
+    data = request.data
+    print('DATA:', data)
+
+    post = Post.objects.get(id=data['post_id'])
+    #What if user is trying to remove their vote?
+    vote, created = PostVote.objects.get_or_create(post=post, user=user)
+    print('VOTE:', vote)
+    print('CREATED:', created)
+    if vote.value == data['value']:
+        print('Start delete vote..')
+        #If same value is sent, user is clicking on vote to remove it
+        vote.delete() 
+    else:
+
+        vote.value=data['value']
+        vote.save()
+
+    #We re-query the vote to get the latest vote rank value
+    post = Post.objects.get(id=data['post_id'])
+    serializer = PostSerializer(post, many=False)
+
     return Response(serializer.data)
 
 

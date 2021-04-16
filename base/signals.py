@@ -41,19 +41,13 @@ def updatePost(sender, instance, **kwargs):
 
 def voteUpdate(sender, instance, **kwargs):
     vote = instance
-    print('VOTE IN POST DELETE', vote)
     post = instance.post
 
     upvotes =  len(post.postvote_set.filter(value="upvote"))
     downvotes =  len(post.postvote_set.filter(value="downvote"))
-    print('UPVOTES COUNT:', upvotes)
-    print("upvotes -downvotes:", (upvotes - downvotes))
-
 
     post.vote_rank = (upvotes - downvotes)
-    print('post.vote_rank:', post.vote_rank)
     post.save()
-    print('post.vote_rank:', post.vote_rank)
 
 
 pre_save.connect(updatePost, sender=Post)

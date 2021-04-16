@@ -207,15 +207,11 @@ def remumble(request):
 def updateVote(request):
     user = request.user 
     data = request.data
-    print('DATA:', data)
 
     post = Post.objects.get(id=data['post_id'])
     #What if user is trying to remove their vote?
     vote, created = PostVote.objects.get_or_create(post=post, user=user)
-    print('VOTE:', vote)
-    print('CREATED:', created)
     if vote.value == data['value']:
-        print('Start delete vote..')
         #If same value is sent, user is clicking on vote to remove it
         vote.delete() 
     else:

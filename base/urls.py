@@ -17,7 +17,7 @@ urlpatterns = [
     path('users/recommended/', views.usersRecommended, name="users-recommended"),
 
     path('users/register/', views.registerUser, name='register'),
-    path('users/token/', views.MyTokenObtainPairView.as_view(), name='token'),
+    path('users/login/', views.MyTokenObtainPairView.as_view(), name='token'),
     #path('users/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('users/<str:username>/follow/', views.followUser, name="follow-user"),

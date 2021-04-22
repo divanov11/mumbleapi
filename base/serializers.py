@@ -97,6 +97,3 @@ class PostSerializer(serializers.ModelSerializer):
         voter_objects = obj.votes.filter(id__in=voters)
         serializer = UserSerializer(voter_objects, many=True)
         return serializer.data
-
-
-

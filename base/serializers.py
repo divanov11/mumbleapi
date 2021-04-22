@@ -83,24 +83,20 @@ class PostSerializer(serializers.ModelSerializer):
             return None
 
     def get_upVoters(self, obj):
-        user_ids = []
-        votes = obj.postvote_set.filter(value="upvote")
-        for vote in votes:
-            user_ids.append(vote.user.id)
-        return user_ids
-        # voters = User.objects.filter(id__in=user_ids)
-        # serializer = UserSerializer(voters, many=True)
-        # return serializer.data
+        # Returns list of users that upvoted post
+        voters = obj.votes.through.objects.filter(post=obj, value='upvote').values_list('user', flat=True)
+
+        voter_objects = obj.votes.filter(id__in=voters)
+        serializer = UserSerializer(voter_objects, many=True)
+        return serializer.data
 
     def get_downVoters(self, obj):
-        user_ids = []
-        votes = obj.postvote_set.filter(value="downvote")
-        for vote in votes:
-            user_ids.append(vote.user.id)
-        return user_ids
-        # voters = User.objects.filter(id__in=user_ids)
-        # serializer = UserSerializer(voters, many=True)
-        # return serializer.data
+        # Returns list of users that upvoted post
+        voters = obj.votes.through.objects.filter(post=obj, value='downvote').values_list('user', flat=True)
+
+        voter_objects = obj.votes.filter(id__in=voters)
+        serializer = UserSerializer(voter_objects, many=True)
+        return serializer.data
 
 
 

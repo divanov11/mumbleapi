@@ -39,6 +39,7 @@ class Post(models.Model):
     comment_count = models.IntegerField(blank=True, null=True, default=0)
     share_count = models.IntegerField(blank=True, null=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
+    votes = models.ManyToManyField(User, related_name='post_user', blank=True, through='PostVote')
 
     class Meta:
         ordering = ['-created']

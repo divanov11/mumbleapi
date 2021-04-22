@@ -46,7 +46,11 @@ class Post(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return self.content[0:80]
+        try:
+            content = self.content[0:80]
+        except:
+            content = 'Remumbled: ' + str(self.remumble.content[0:80])
+        return content
 
     @property
     def shares(self):

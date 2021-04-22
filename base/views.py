@@ -198,7 +198,6 @@ def remumble(request):
     post = Post.objects.create(
         remumble=origionalPost,
         user=user,
-        content='Filler data for now..'
     )
     serializer = PostSerializer(post, many=False)
     return Response(serializer.data)

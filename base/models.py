@@ -27,11 +27,12 @@ class UserProfile(models.Model):
 
 #This needs to be shareable
 class Post(models.Model):
-    parent =models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    parent =models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True)
     #For re-mumble (Share) functionality
     remumble = models.ForeignKey("self", on_delete=models.SET_NULL, related_name='remumbles', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    #content is allowed to be plan for remumbles
+    content = models.TextField(null=True, blank=True)
     image = models.ImageField(blank=True, null=True)
     #ups = models.IntegerField(default=0)
     #downs = models.IntegerField(default=0)
@@ -50,6 +51,12 @@ class Post(models.Model):
     @property
     def shares(self):
         queryset = self.remumbles.all()
+        return queryset
+
+    @property
+    def comments(self):
+        #Still need a way to get all sub elemsnts
+        queryset = self.post_set.all()
         return queryset
 
     

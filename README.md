@@ -5,6 +5,7 @@ If you are trying to use this project for the first time, you can get up and run
 Make sure you have Python 3.x installed and the latest version of pip installed before running these steps.
 
 - `git clone git@github.com:divanov11/mumbleapi.git`
+- `cd mumbleapi`
 - `python3 -m venv env`
 - `source env/bin/activate`
 - `pip install -r requirements.txt`

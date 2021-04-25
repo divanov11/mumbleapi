@@ -37,7 +37,7 @@ def createMumble(request):
     user = request.user
     data = request.data
 
-    isComment = data['isComment']
+    isComment = data.get('isComment')
     if isComment:
         parent = Mumble.objects.get(id=data['postId'])
         mumble = Mumble.objects.create(
@@ -86,7 +86,7 @@ def updateVote(request):
     #What if user is trying to remove their vote?
     vote, created = MumbleVote.objects.get_or_create(mumble=mumble, user=user)
 
-    if vote.value == data['value']:
+    if vote.value == data.get('value'):
         #If same value is sent, user is clicking on vote to remove it
         vote.delete() 
     else:

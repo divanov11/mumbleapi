@@ -68,10 +68,10 @@ def mumbleComments(request, pk):
 def remumble(request):
     user = request.user
     data = request.data
-    origionalMumble = Mumble.objects.get(id=data['id'])
+    originalMumble = Mumble.objects.get(id=data['id'])
 
     mumble = Mumble.objects.create(
-        remumble=origionalMumble,
+        remumble=originalMumble,
         user=user,
     )
     serializer = MumbleSerializer(mumble, many=False)

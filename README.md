@@ -42,7 +42,7 @@ Make sure you have **Python 3.x** installed and **the latest version of pip** *i
 - `git clone git@github.com:divanov11/mumbleapi.git`
 - `cd mumbleapi`
 - `python3 -m venv env`
-- `source env/bin/activate`
+- `source env/Scripts/activate`
 - `pip install -r requirements.txt`
 - `python manage.py runserver`
 

@@ -6,14 +6,15 @@
 
 <!--- Thanks for considering that !-->
 
-## Well detailed description of the change :
+### Well detailed description of the change :
 
 <!-- Explain what you have done !-->
 
      I worked on the .....
 
+#
 
-## Context of the change :
+### Context of the change :
 
 <!-- Make sure to answer to these questions !-->
 
@@ -21,10 +22,13 @@
  
 <!-- Link the issue below if you are resolving an issue !-->
 
+<!-- If you aren't, delete the question !-->
+
 - Does it solve a problem ? (please link the issue)
  
+#
 
-## Type of change :
+### Type of change :
 
 <!-- You should choice 1 option -->
 
@@ -37,19 +41,22 @@
 - [ ] New feature
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
+#
 
-## Preview (Screenshots) :
+### Preview (Screenshots) :
 
 <!-- While providing screenshots, delete the text below !-->
 
 <!-- try as much as possible to explain each change in each screenshot !-->
 
+<!-- Don't forget to delete the p element while providing screeshots !-->
+
 <p align="center">If it is possible, please link screenshots of your changes preview !
 </p>
 
+#
 
-
-## Checklist:
+### Checklist:
 
 <!-- Check your work !-->
 
@@ -57,8 +64,8 @@
 
 <!-- let things that you didn't do !-->
 
+- [ ] I have read the **Code Of Conduct** document.
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] My code follows the **STYLE_GUIDE** of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings

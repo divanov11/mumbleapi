@@ -39,12 +39,34 @@ If you are trying to use this project for the first time, you can get up and run
 
 Make sure you have **Python 3.x** installed and **the latest version of pip** *installed* before running these steps.
 
-- `git clone git@github.com:divanov11/mumbleapi.git`
-- `cd mumbleapi`
-- `python3 -m venv env`
-- `source env/bin/activate`
-- `pip install -r requirements.txt`
-- `python manage.py runserver`
+-> Clone the repository using the following command
+```bash
+git clone git@github.com:divanov11/mumbleapi.git
+# After cloning, move into the directory having the project files using the change directory command
+cd mumbleapi
+```
+-> Now create a virtual environment where all the required python packages will be installed
+```bash
+# Use this on Windows
+py -3 -m venv env
+# Use this on Linux and Mac
+python -m venv env
+```
+-> Activate the virtual environment
+```bash
+# Windows
+.\env\Scripts\activate
+# Linux and Mac
+source env/bin/activate
+```
+-> Install all the project Requirements
+```bash
+pip install -r requirements.txt
+```
+-> Finally, run the django development server
+```bash
+python manage.py runserver
+```
 
 
-> ⚠ If everything is good and has been done successfully, your **Django Rest API** should be hosted on port 8000.  
+> ⚠ If everything is good and has been done successfully, your **Django Rest API** should be hosted on port 8000 i.e http://127.0.0.1:8000/ or http://localhost:8000/  

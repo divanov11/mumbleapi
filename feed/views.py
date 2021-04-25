@@ -22,10 +22,9 @@ def mumbles(request):
 
     following = user.following.all()
 
-    ids = [user.id]
-    for i in following:
-        ids.append(i.user.id)
-
+    ids = []
+    ids = [i.user.id for i in following]
+    ids.append(user.id)
     #Make sure parent==None is always on
     mumbles = Mumble.objects.filter(parent=None, user__id__in=ids)
     mumbles = mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))

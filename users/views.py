@@ -51,7 +51,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['POST'])
 def registerUser(request):
-    print('REGISTER VIEW TRIGGERED')
     data = request.data
     #try:
     user = User.objects.create(
@@ -124,12 +123,16 @@ def followUser(request, username):
 class UserProfileUpdate(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserProfileSerializer
+    #http_method_names = ['patch', 'head']
+
 
     def patch(self, *args, **kwargs):
+        profile = self.request.user.userprofile
         serializer = self.serializer_class(
-            self.request.user.details, data=self.request.data, partial=True)
+            profile, data=self.request.data, partial=True)
         if serializer.is_valid():
             user = serializer.save().user
+            
             response = {'success': True, 'message': 'successfully updated your info',
                         'user': UserSerializer(user).data}
             return Response(response, status=200)
@@ -144,11 +147,11 @@ class ProfilePictureUpdate(APIView):
     parser_class=(FileUploadParser,)
 
     def patch(self, *args, **kwargs):
-        print(self.request.user)
+     
         profile_pic=self.request.FILES['profile_pic']
         profile_pic.name='{}.png'.format(self.request.user.id)
         serializer=self.serializer_class(
-            self.request.user.details, data=self.request.data, partial=True)
+            self.request.user.profile, data=self.request.data, partial=True)
         if serializer.is_valid():
             serializer.profile_pic.name=datetime.datetime.now()
             user=serializer.save().user

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .admin import (Article,ArticleComment,ArticleVote)
+from .models import (Article,ArticleComment,ArticleVote)
 # Register your models here.
 
 admin.site.register(Article)

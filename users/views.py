@@ -1,8 +1,13 @@
 from django.shortcuts import render
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
+from .models import UserProfile
+from .serializers import UserProfileSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -113,3 +118,43 @@ def followUser(request, username):
         otherUser.save()
         
         return Response('User followed')
+    
+    
+
+class UserProfileUpdate(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileSerializer
+
+    def patch(self, *args, **kwargs):
+        serializer = self.serializer_class(
+            self.request.user.details, data=self.request.data, partial=True)
+        if serializer.is_valid():
+            user = serializer.save().user
+            response = {'success': True, 'message': 'successfully updated your info',
+                        'user': UserSerializer(user).data}
+            return Response(response, status=200)
+        else:
+            response = serializer.errors
+            return Response(response, status=401)
+        
+
+class ProfilePictureUpdate(APIView):
+    permission_classes=[IsAuthenticated]
+    serializer_class=UserProfileSerializer
+    parser_class=(FileUploadParser,)
+
+    def patch(self, *args, **kwargs):
+        print(self.request.user)
+        profile_pic=self.request.FILES['profile_pic']
+        profile_pic.name='{}.png'.format(self.request.user.id)
+        serializer=self.serializer_class(
+            self.request.user.details, data=self.request.data, partial=True)
+        if serializer.is_valid():
+            serializer.profile_pic.name=datetime.datetime.now()
+            user=serializer.save().user
+            response={'type': 'Success', 'message': 'successfully updated your info',
+                        'user': UserSerializer(user).data}
+        else:
+            response=serializer.errors
+        return Response(response)
+    

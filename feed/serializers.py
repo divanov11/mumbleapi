@@ -7,7 +7,7 @@ from users.serializers import UserProfileSerializer, UserSerializer
 
 class MumbleSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    origional_mumble = serializers.SerializerMethodField(read_only=True)
+    original_mumble = serializers.SerializerMethodField(read_only=True)
     upVoters = serializers.SerializerMethodField(read_only=True)
     downVoters = serializers.SerializerMethodField(read_only=True)
 
@@ -21,10 +21,10 @@ class MumbleSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-    def get_origional_mumble(self, obj):
-        origional = obj.remumble
-        if origional != None:
-            serializer = MumbleSerializer(origional, many=False)
+    def get_original_mumble(self, obj):
+        original = obj.remumble
+        if original != None:
+            serializer = MumbleSerializer(original, many=False)
             return serializer.data
         else:
             return None

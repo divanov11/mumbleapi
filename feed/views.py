@@ -22,10 +22,9 @@ def mumbles(request):
 
     following = user.following.all()
 
-    ids = [user.id]
-    for i in following:
-        ids.append(i.user.id)
-
+    ids = []
+    ids = [i.user.id for i in following]
+    ids.append(user.id)
     #Make sure parent==None is always on
     mumbles = Mumble.objects.filter(parent=None, user__id__in=ids)
     mumbles = mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))
@@ -38,7 +37,7 @@ def createMumble(request):
     user = request.user
     data = request.data
 
-    isComment = data['isComment']
+    isComment = data.get('isComment')
     if isComment:
         parent = Mumble.objects.get(id=data['postId'])
         mumble = Mumble.objects.create(
@@ -68,10 +67,10 @@ def mumbleComments(request, pk):
 def remumble(request):
     user = request.user
     data = request.data
-    origionalMumble = Mumble.objects.get(id=data['id'])
+    originalMumble = Mumble.objects.get(id=data['id'])
 
     mumble = Mumble.objects.create(
-        remumble=origionalMumble,
+        remumble=originalMumble,
         user=user,
     )
     serializer = MumbleSerializer(mumble, many=False)
@@ -87,7 +86,7 @@ def updateVote(request):
     #What if user is trying to remove their vote?
     vote, created = MumbleVote.objects.get_or_create(mumble=mumble, user=user)
 
-    if vote.value == data['value']:
+    if vote.value == data.get('value'):
         #If same value is sent, user is clicking on vote to remove it
         vote.delete() 
     else:

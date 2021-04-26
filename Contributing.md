@@ -1,10 +1,16 @@
 #
-<p align="center">
+<div align="center">
   <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
   <h1 align="center">
     Contributing to MUMBLE API
   </h1>
-</p>
+
+  <a href="https://discord.gg/TxgpyK8pzf">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
+  <a href="http://mumbleapi.herokuapp.com/">![Mumble](https://img.shields.io/badge/Mumble-API-9cf?style=for-the-badge)</a>
+
+</div>
+
+<br/>
 
 A big welcome to Mumble ! 
 <br />
@@ -14,7 +20,7 @@ It’s because of people like you that open source projects emerge !
 
 Reading and following these guidelines will help us make the contribution process easy.
 
-> ⚠ Those who want to contribute on the repo, please refer to the [README.md](https://github.com/divanov11/mumbleapi/blob/master/README.md) and read the [Code Of Conduct](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md) for more informations.
+> ⚠ Those who want to contribute on the repo, please refer to the [README.md](https://github.com/divanov11/mumbleapi/blob/master/README.md) and read the [Code Of Conduct](https://github.com/divanov11/mumbleapi/blob/master/CodeOfConduct.md) for more informations.
 
 #
 
@@ -29,7 +35,7 @@ Reading and following these guidelines will help us make the contribution proces
 
 - NB  
 
-      - Minor Updates and Pull Requests
+      - Fork-and-Pull
       - Getting Help
 
 #
@@ -81,8 +87,8 @@ In general, PRs should:
 ### NB
 
 In general, we follow the **fork-and-pull**
-<br />
 
+<br />
 
 #### Steps :
 

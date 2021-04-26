@@ -15,7 +15,7 @@ If you are trying to use this project for the first time, you can get up and run
 
 > ⚠ Note, this step assumes you are using **github ssh keys** for the *git clone method*
 
-
+ER Diagram: https://drawsql.app/dennis-ivy/diagrams/mumble
 ## Requirements 
 
 |Technology|Version|

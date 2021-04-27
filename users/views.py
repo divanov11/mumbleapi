@@ -20,7 +20,7 @@ from datetime import datetime
 
 from .serializers import UserSerializerWithToken, UserSerializer
 from feed.serializers import MumbleSerializer
-
+import datetime
 # Create your views here.
 
 class RegisterView(APIView):
@@ -166,9 +166,7 @@ class UserProfileUpdate(APIView):
 #     permission_classes=[IsAuthenticated]
 #     serializer_class=UserProfileSerializer
 #     parser_class=(FileUploadParser,)
-
-#     def patch(self, *args, **kwargs):
-     
+#     def patch(self, *args, **kwargs):    
 #         profile_pic=self.request.FILES['profile_pic']
 #         profile_pic.name='{}.png'.format(self.request.user.id)
 #         serializer=self.serializer_class(
@@ -195,4 +193,5 @@ def update_profile_pic(request):
         profile.save()
     data = {'user': UserSerializer(user).data}
     return Response(data)
+
 

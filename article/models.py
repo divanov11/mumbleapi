@@ -27,7 +27,7 @@ class ArticleVote(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     comment = models.ForeignKey(ArticleComment, on_delete=models.CASCADE)
-    value = models.BigIntegerField()
+    value = models.BigIntegerField(blank=True, null=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

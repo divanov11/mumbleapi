@@ -5,9 +5,9 @@ import uuid
 
 #This needs to be shareable
 class Mumble(models.Model):
-    parent =models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True)
+    parent =models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     #For re-mumble (Share) functionality
-    remumble = models.ForeignKey("self", on_delete=models.SET_NULL, related_name='remumbles', null=True, blank=True)
+    remumble = models.ForeignKey("self", on_delete=models.CASCADE, related_name='remumbles', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     #content is allowed to be plan for remumbles
     content = models.TextField(null=True, blank=True)

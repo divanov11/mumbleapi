@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'mumbles-api'
+
 urlpatterns = [
      path('', views.mumbles, name="mumbles"),
      path('create/', views.createMumble, name="mumble-create"),

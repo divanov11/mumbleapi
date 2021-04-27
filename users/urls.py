@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.users, name='users'),
     path('recommended/', views.usersRecommended, name="users-recommended"),
 
-    path('register/', views.registerUser, name='register'),
+    path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.MyTokenObtainPairView.as_view(), name='login'),
 
     path('profile_update/', views.UserProfileUpdate.as_view(), name="profile_update"), 

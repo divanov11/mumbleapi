@@ -22,14 +22,13 @@ def deleteMumbleComments(sender, instance, **kwargs):
         if instance.parent:
             updateCommentCounts(instance.parent, 'delete')
     except Exception as e:
-        print('parent did not exist')
+        print('mumble associated with comment was deleted')
 
     try:
         if instance.remumble:
-            parent = instance.remumble
-            updateRemumbleCounts(parent, 'delete')
+            updateRemumbleCounts(instance.remumble, 'delete')
     except Exception as e:
-        print('remumble did not exist')
+        print('remumble associated with comment was deleted')
 
 post_save.connect(updateMumble, sender=Mumble)
 post_delete.connect(deleteMumbleComments, sender=Mumble)
@@ -37,7 +36,6 @@ post_delete.connect(deleteMumbleComments, sender=Mumble)
 
 def voteUpdate(sender, instance, **kwargs):
     print('Update Vote Triggered')
-    print(instance)
     try:
             
         vote = instance
@@ -49,7 +47,7 @@ def voteUpdate(sender, instance, **kwargs):
         mumble.vote_rank = (upvotes - downvotes)
         mumble.save()
     except Exception as e:
-        print('parent did not exist')
+        print('mumble the vote was associated with was already deleted')
 
 
 

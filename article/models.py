@@ -4,6 +4,7 @@ import uuid
 # Create your models here.
 
 class Article(models.Model):
+    id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     content = models.TextField(max_length=10000)
     tags = models.CharField(max_length=100)

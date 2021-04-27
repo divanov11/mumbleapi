@@ -19,7 +19,7 @@ from rest_framework import status
 
 from .serializers import UserSerializerWithToken, UserSerializer
 from feed.serializers import MumbleSerializer
-
+import datetime
 # Create your views here.
 
 class RegisterView(APIView):
@@ -162,7 +162,7 @@ class ProfilePictureUpdate(APIView):
     parser_class=(FileUploadParser,)
 
     def patch(self, *args, **kwargs):
-     
+    
         profile_pic=self.request.FILES['profile_pic']
         profile_pic.name='{}.png'.format(self.request.user.id)
         serializer=self.serializer_class(

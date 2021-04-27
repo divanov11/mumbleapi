@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('users.urls')),
     path('api/mumbles/', include('feed.urls')),
+    path('api/articles/', include('article.urls')),
 ]

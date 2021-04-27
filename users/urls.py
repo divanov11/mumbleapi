@@ -9,7 +9,8 @@ urlpatterns = [
     path('register/', views.registerUser, name='register'),
     path('login/', views.MyTokenObtainPairView.as_view(), name='login'),
 
-    path('profile_update/', views.UserProfileUpdate.as_view(), name="profile_update"), 
+    path('profile_update/', views.UserProfileUpdate.as_view(), name="profile_update"),
+    path('profile_update/photo/', views.update_profile_pic, name="profile_pic_update"), 
     path('<str:username>/follow/', views.followUser, name="follow-user"),
 
     path('<str:username>/', views.user, name="user"),

@@ -1,7 +1,8 @@
+from functools import partial
 from django.shortcuts import render
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
@@ -14,7 +15,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
-
+from datetime import datetime
 
 from .serializers import UserSerializerWithToken, UserSerializer
 from feed.serializers import MumbleSerializer
@@ -32,14 +33,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['profile_pic'] = 'static' + user.userprofile.profile_pic.url
         token['is_staff'] = user.is_staff
         token['id'] = user.id
-
         return token
 
     def validate(self, attrs):
         data = super().validate(attrs)
 
         serializer = UserSerializerWithToken(self.user).data
-        for k, v in serializer.items():
+        for k, v in serializer.items(): 
             data[k] = v
 
         return data
@@ -72,7 +72,7 @@ def users(request):
     if query == None:
         query = ''
 
-    users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query))
+    users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query)).select_related('userprofile').prefetch_related('userprofile__followers')
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
@@ -81,7 +81,7 @@ def users(request):
 def usersRecommended(request):
     user = request.user
 
-    users = User.objects.filter(~Q(id=user.id))[0:5]
+    users = User.objects.filter(~Q(id=user.id)).select_related('userprofile').prefetch_related('userprofile__followers')[0:5]
 
     user = request.user
     serializer = UserSerializer(users, many=True)
@@ -91,6 +91,7 @@ def usersRecommended(request):
 def user(request, username):
     user = User.objects.get(username=username)
     serializer = UserSerializer(user, many=False)
+    print(serializer.data)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -128,6 +129,11 @@ class UserProfileUpdate(APIView):
 
     def patch(self, *args, **kwargs):
         profile = self.request.user.userprofile
+        email = self.request.data.get('email')
+        if email:
+            user = self.request.user
+            user.email = email
+            user.save()
         serializer = self.serializer_class(
             profile, data=self.request.data, partial=True)
         if serializer.is_valid():
@@ -141,23 +147,37 @@ class UserProfileUpdate(APIView):
             return Response(response, status=401)
         
 
-class ProfilePictureUpdate(APIView):
-    permission_classes=[IsAuthenticated]
-    serializer_class=UserProfileSerializer
-    parser_class=(FileUploadParser,)
+# class ProfilePictureUpdate(APIView):
+#     permission_classes=[IsAuthenticated]
+#     serializer_class=UserProfileSerializer
+#     parser_class=(FileUploadParser,)
 
-    def patch(self, *args, **kwargs):
+#     def patch(self, *args, **kwargs):
      
-        profile_pic=self.request.FILES['profile_pic']
-        profile_pic.name='{}.png'.format(self.request.user.id)
-        serializer=self.serializer_class(
-            self.request.user.profile, data=self.request.data, partial=True)
-        if serializer.is_valid():
-            serializer.profile_pic.name=datetime.datetime.now()
-            user=serializer.save().user
-            response={'type': 'Success', 'message': 'successfully updated your info',
-                        'user': UserSerializer(user).data}
-        else:
-            response=serializer.errors
-        return Response(response)
-    
+#         profile_pic=self.request.FILES['profile_pic']
+#         profile_pic.name='{}.png'.format(self.request.user.id)
+#         serializer=self.serializer_class(
+#             self.request.user.userprofile, data=self.request.data, partial=True)
+#         if serializer.is_valid():
+#             # serializer.profile_pic.name=datetime.datetime.now()
+#             user=serializer.save().user
+#             response={'type': 'Success', 'message': 'successfully updated your info',
+#                         'user': UserSerializer(user).data}
+#         else:
+#             response=serializer.errors
+#         return Response(response)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_profile_pic(request):
+    user = request.user
+    image = request.data.get('profile_pic')
+    if image:
+        image.name=f'{user.username}.png'
+        profile = UserProfile.objects.get(user=user)
+        profile.profile_pic = image
+        profile.save()
+    data = {'user': UserSerializer(user).data}
+    return Response(data)
+

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'debug_toolbar',
 
     'users.apps.UsersConfig',
     'feed.apps.FeedConfig',
@@ -96,6 +96,7 @@ SIMPLE_JWT = {
 
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
     'corsheaders.middleware.CorsMiddleware',
@@ -188,3 +189,9 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]

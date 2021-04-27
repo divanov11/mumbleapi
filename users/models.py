@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+from .utils import profile_pic_location
 
 
 # Create your models here.
@@ -8,8 +9,8 @@ import uuid
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
-    username = models.CharField(max_length=200, null=True)
-    profile_pic = models.ImageField(blank=True, null=True, default='default.png')
+    username = models.CharField(max_length=200, null=True, db_index=True)
+    profile_pic = models.ImageField(blank=True, null=True, default='default.png', upload_to=profile_pic_location)
     bio = models.TextField(null=True)
     vote_ratio = models.IntegerField(blank=True, null=True, default=0)
     followers_count = models.IntegerField(blank=True, null=True, default=0)

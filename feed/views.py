@@ -99,3 +99,4 @@ def updateVote(request):
     serializer = MumbleSerializer(mumble, many=False)
 
     return Response(serializer.data)
+

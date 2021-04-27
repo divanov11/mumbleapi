@@ -15,6 +15,7 @@ class Article(models.Model):
 
 
 class ArticleComment(models.Model):
+    id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     article = models.ForeignKey(Article,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     content = models.TextField(max_length=1000)
@@ -25,6 +26,7 @@ class ArticleComment(models.Model):
 
 
 class ArticleVote(models.Model):
+    id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     comment = models.ForeignKey(ArticleComment, on_delete=models.CASCADE)

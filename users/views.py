@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 from django.db.models import Q
 from .models import UserProfile
 from .serializers import UserProfileSerializer
@@ -21,6 +22,20 @@ from .serializers import UserSerializerWithToken, UserSerializer
 from feed.serializers import MumbleSerializer
 
 # Create your views here.
+
+class RegisterView(APIView):
+    permission_classes = [permissions.AllowAny]
+    authentication_classes = []
+
+    def post(self, request):
+        data = request.data
+        user = User.objects.create(
+            username=data['username'],
+            email=data['email'],
+            password=make_password(data['password'])
+        )
+        serializer = UserSerializerWithToken(user, many=False)
+        return Response(serializer.data)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     

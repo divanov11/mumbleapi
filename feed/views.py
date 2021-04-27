@@ -54,6 +54,17 @@ def createMumble(request):
     serializer = MumbleSerializer(mumble, many=False)
     return Response(serializer.data)
 
+@api_view(['DELETE'])
+def deleteMumble(request, pk):
+    user = request.user
+    try:
+        mumble = Mumble.objects.get(id=pk)
+        if user != mumble.user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def mumbleComments(request, pk):

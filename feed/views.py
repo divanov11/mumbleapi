@@ -54,6 +54,10 @@ def createMumble(request):
     serializer = MumbleSerializer(mumble, many=False)
     return Response(serializer.data)
 
+@api_view(['DELETE'])
+def deleteMumble(request, pk):
+    Mumble.objects.filter(id=pk).delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def mumbleComments(request, pk):

@@ -11,3 +11,14 @@ def artciles(request):
     article = Article.objects.all()
     serializer = ArticleSerializer(article, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def createArtcile(request):
+    user = request.user
+    data = request.data
+    content = data.get('content')
+    tags = data.get('tags')
+    article = Article.objects.create(user=user,content=content,tags=tags)
+    article.save()
+    serializer = ArticleSerializer(article, many=False)
+    return Response(serializer.data)

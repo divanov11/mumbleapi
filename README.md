@@ -48,7 +48,7 @@ cd mumbleapi
 -> Now create a virtual environment where all the required python packages will be installed
 ```bash
 # Use this on Windows
-python -m venv env
+py -3 -m venv env
 # Use this on Linux and Mac
 python -m venv env
 ```
@@ -65,6 +65,9 @@ pip install -r requirements.txt
 ```
 -> Finally, run the django development server
 ```bash
+# apply migrations and create your database
+python manage.py migrate
+# run django development server
 python manage.py runserver
 ```
 

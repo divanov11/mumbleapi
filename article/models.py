@@ -29,9 +29,9 @@ class ArticleVote(models.Model):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    comment = models.ForeignKey(ArticleComment, on_delete=models.CASCADE)
-    value = models.BigIntegerField(blank=True, null=True, default=0)
+    comment = models.ForeignKey(ArticleComment, on_delete=models.SET_NULL,null=True, blank=True)
+    value = models.IntegerField(blank=True, null=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.comment} - count - {self.value}"
+        return f"{self.article} - count - {self.value}"

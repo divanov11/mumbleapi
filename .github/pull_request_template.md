@@ -6,26 +6,12 @@
 
 <!--- Thanks for considering that !-->
 
-### Well detailed description of the change :
+### Describe the Change and Related Issue Number :
 
 <!-- Explain what you have done !-->
 
-     I worked on the .....
+I worked on the ..... because ...
 
-#
-
-### Context of the change :
-
-<!-- Make sure to answer to these questions !-->
-
-     - Why is this change required ?
- 
-<!-- Link the issue below if you are resolving an issue !-->
-
-<!-- If you aren't, delete the question !-->
-
-- Does it solve a problem ? (please link the issue)
- 
 #
 
 ### Type of change :

@@ -16,5 +16,6 @@ urlpatterns = [
 
     path('<str:username>/', views.user, name="user"),
     path('<str:username>/mumbles/', views.userMumbles, name="user-mumbles"),
+    path('<str:username>/articles/', views.userArticles, name="user-articles"),
 
 ]

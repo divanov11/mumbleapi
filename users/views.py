@@ -18,6 +18,7 @@ from rest_framework import status
 
 
 from .serializers import UserSerializerWithToken, UserSerializer
+from article.serializers import ArticleSerializer
 from feed.serializers import MumbleSerializer
 import datetime
 # Create your views here.
@@ -115,6 +116,12 @@ def userMumbles(request, username):
     serializer = MumbleSerializer(mumbles, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def userArticles(request, username):
+    user = User.objects.get(username=username)
+    articles = user.article_set
+    serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def followUser(request, username):

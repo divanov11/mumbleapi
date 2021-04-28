@@ -8,27 +8,41 @@ from .serializers import ArticleSerializer , ArticleCommentSerializer
 
 @api_view(['GET'])
 def getArticle(request, pk):
-    article = Article.objects.get(id=pk)
-    serializer = ArticleSerializer(article, many=False)
-    return Response(serializer.data)
+    try:
+        article = Article.objects.get(id=pk)
+        serializer = ArticleSerializer(article, many=False)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
 def editArticle(request,pk):
-    article = Article.objects.get(id=pk)
-    data = request.data
-    article.title = data.get('title')
-    article.content = data.get('content')
-    article.tags = data.get('tags')
-    article.save()
-    serializer = ArticleSerializer(article, many=False)
-    return Response(serializer.data)
+    try:
+        article = Article.objects.get(id=pk)
+        if article.user == request.user:
+            data = request.data
+            article.title = data.get('title')
+            article.content = data.get('content')
+            article.tags = data.get('tags')
+            article.save()
+            serializer = ArticleSerializer(article, many=False)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 def deleteArticle(request,pk):
-    article = Article.objects.get(id=pk)
-    serializer = ArticleSerializer(article, many=False)
-    article.delete()
-    return Response(serializer.data)
+    try:
+        article = Article.objects.get(id=pk)
+        if article.user == request.user:
+            article.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def articles(request):
@@ -42,16 +56,29 @@ def articles(request):
 
 @api_view(['PUT'])
 def editArticleComment(request,pk):
-    comment = ArticleComment.objects.get(id=pk)
-    serializer = ArticleCommentSerializer(comment,many=False)
-    return Response(serializer.data)
+    try:
+        comment = ArticleComment.objects.get(id=pk)
+        if comment.user == request.user:
+            serializer = ArticleCommentSerializer(comment,many=False)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 def deleteArticleComment(request,pk):
-    comment = ArticleComment.objects.get(id=pk)
-    serializer = ArticleCommentSerializer(comment,many=False)
-    comment.delete()
-    return Response(serializer.data)
+    try:
+        comment = ArticleComment.objects.get(id=pk)
+        if comment.user == request.user:
+            serializer = ArticleCommentSerializer(comment,many=False)
+            comment.delete()
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['POST'])
 def createArticle(request):

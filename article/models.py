@@ -6,13 +6,13 @@ import uuid
 class Article(models.Model):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
-    title = models.TextField(max_length=500, default="untitled")
+    title = models.CharField(max_length=500, default="untitled")
     content = models.TextField(max_length=10000)
     tags = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.title)
 
 
 class ArticleComment(models.Model):

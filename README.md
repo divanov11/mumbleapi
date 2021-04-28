@@ -8,6 +8,7 @@
 
 </div>
 
+<br/>
 
 ## Getting Started 
 
@@ -15,7 +16,12 @@ If you are trying to use this project for the first time, you can get up and run
 
 > ⚠ Note, this step assumes you are using **github ssh keys** for the *git clone method*
 
-ER Diagram: https://drawsql.app/dennis-ivy/diagrams/mumble
+<a align="center" href="https://drawsql.app/dennis-ivy/diagrams/mumble">
+
+<img width="80%" align="center" src="./img/drawSQL-MumbleApi.png"/>
+
+</a>
+
 ## Requirements 
 
 |Technology|Version|

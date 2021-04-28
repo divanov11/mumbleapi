@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'feed.apps.FeedConfig',
+    'article.apps.ArticleConfig',
 
     'rest_framework',
     'corsheaders',

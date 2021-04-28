@@ -2,18 +2,27 @@ from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.db.models import Q
 from .models import Article , ArticleComment , ArticleVote
 from .serializers import ArticleSerializer , ArticleCommentSerializer
-# Create your views here.
 
 @api_view(['GET'])
-def artciles(request):
-    article = Article.objects.all()
-    serializer = ArticleSerializer(article, many=True)
+def getArticle(request, pk):
+    article = Article.objects.get(id=pk)
+    serializer = ArticleSerializer(article, many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def articles(request):
+    query = request.query_params.get('q')
+    if query == None:
+        query = ''
+    articles = Article.objects.filter(Q(content__icontains=query)|Q(title__icontains=query))
+    serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
-def createArtcile(request):
+def createArticle(request):
     user = request.user
     data = request.data
     isComment = data.get('isComment')
@@ -30,7 +39,13 @@ def createArtcile(request):
     else:
         content = data.get('content')
         tags = data.get('tags')
-        article = Article.objects.create(user=user,content=content,tags=tags)
+        title = data.get('title')
+        article = Article.objects.create(
+            user=user,
+            content=content,
+            title=title,
+            tags=tags
+            )
         article.save()
     serializer = ArticleSerializer(article, many=False)
     return Response(serializer.data)

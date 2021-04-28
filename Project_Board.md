@@ -18,7 +18,7 @@ In our repository, there is a project board named Backend development, it helps 
 <br/>
 
 *Preview :*
-<img align="center" src="./img/introducing-project-board1.png"/>
+<img align="center" src="./img/introducing-project-board1.PNG"/>
 
 <img src="./img/project-board.gif">
 

@@ -32,6 +32,7 @@ Reading and following these guidelines will help us make the contribution proces
       - Getting Started
       - Issues
       - Pull Requests
+      - Project board
 
 - NB  
 
@@ -84,11 +85,31 @@ In general, PRs should:
 
 #
 
+### Project Board 
+
+In our repository, there is a project board named Backend development, it helps moderators to see how is the work going.
+<br/>
+
+*Preview :*
+<img align="center" src="./img/introducing-project-board1.png"/>
+
+<img src="./img/project-board.gif">
+
+<br />
+<br />
+
+**So please, while submitting a PR or Issue, make sure to :**
+
+<br/>
+
+<img src="./img/activate-project.gif">
+
+#
+
 ### NB
 
 In general, we follow the **fork-and-pull**
 
-<br />
 
 #### Steps :
 

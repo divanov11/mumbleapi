@@ -59,10 +59,6 @@ cover/
 *.log
 local_settings.py
 db.sqlite3
-<<<<<<< HEAD
-
-
-=======
 db.sqlite3-journal
 
 # Flask stuff:
@@ -140,4 +136,3 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
->>>>>>> upstream/master

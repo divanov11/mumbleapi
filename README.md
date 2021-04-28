@@ -73,9 +73,24 @@ pip install -r requirements.txt
 ```bash
 # apply migrations and create your database
 python manage.py migrate
+
+# Create a user with manage.py
+python manage.py createsuperuser
+
+# load data for feed
+python manage.py loaddata feeddata.json
+
+# load data for article
+python manage.py loaddata articledata.json
+
 # run django development server
 python manage.py runserver
 ```
+
+# Explore admin panel for model data or instances
+http://127.0.0.1:8000/admin or http://localhost:8000/admin
+
+# Login with the user credentials you just created using createsuperuser command
 
 <br />
 

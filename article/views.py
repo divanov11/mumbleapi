@@ -12,6 +12,24 @@ def getArticle(request, pk):
     serializer = ArticleSerializer(article, many=False)
     return Response(serializer.data)
 
+@api_view(['PUT'])
+def editArticle(request,pk):
+    article = Article.objects.get(id=pk)
+    data = request.data
+    article.title = data.get('title')
+    article.content = data.get('content')
+    article.tags = data.get('tags')
+    article.save()
+    serializer = ArticleSerializer(article, many=False)
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def deleteArticle(request,pk):
+    article = Article.objects.get(id=pk)
+    serializer = ArticleSerializer(article, many=False)
+    article.delete()
+    return Response(serializer.data)
+
 @api_view(['GET'])
 def articles(request):
     query = request.query_params.get('q')
@@ -19,6 +37,20 @@ def articles(request):
         query = ''
     articles = Article.objects.filter(Q(content__icontains=query)|Q(title__icontains=query))
     serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def editArticleComment(request,pk):
+    comment = ArticleComment.objects.get(id=pk)
+    serializer = ArticleCommentSerializer(comment,many=False)
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def deleteArticleComment(request,pk):
+    comment = ArticleComment.objects.get(id=pk)
+    serializer = ArticleCommentSerializer(comment,many=False)
+    comment.delete()
     return Response(serializer.data)
 
 @api_view(['POST'])

@@ -62,6 +62,7 @@ def deleteMumble(request, pk):
         if user != mumble.user:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:
+            mumble.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
     except Exception as e:
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -110,4 +111,3 @@ def updateVote(request):
     serializer = MumbleSerializer(mumble, many=False)
 
     return Response(serializer.data)
-

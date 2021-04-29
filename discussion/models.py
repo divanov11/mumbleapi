@@ -8,7 +8,8 @@ class Discussion(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     headline = models.CharField(max_length=500, default="no headline")
     content = models.TextField(max_length=10000)
-    tags = models.CharField(max_length=100)
+    # tags field will be included after issue 23 is resolved
+    # tags 
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

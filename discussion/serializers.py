@@ -10,6 +10,7 @@ from users.serializers import UserProfileSerializer
 
 class DiscussionSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
+    tags = serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = Discussion
@@ -19,6 +20,9 @@ class DiscussionSerializer(serializers.ModelSerializer):
         user = obj.user.userprofile
         serializer = UserProfileSerializer(user, many=False)
         return serializer.data
+
+    def get_tags(self, obj):
+        return ['Python', 'Django', 'Postman', 'API']
 
 class DiscussionCommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)

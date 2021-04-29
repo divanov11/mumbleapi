@@ -23,7 +23,8 @@ def editDiscussion(request,pk):
             data = request.data
             discussion.headline = data.get('headline')
             discussion.content = data.get('content')
-            discussion.tags = data.get('tags')
+            # tags field will be included after issue 23 is resolved
+            # discussion.tags = data.get('tags')
             discussion.save()
             serializer = DiscussionSerializer(discussion, many=False)
             return Response(serializer.data)
@@ -98,13 +99,14 @@ def createDiscussion(request):
         return Response(serializer.data)
     else:
         content = data.get('content')
-        tags = data.get('tags')
+        # tags field will be included after issue 23 is resolved
+        # tags = data.get('tags')
         headline = data.get('headline')
         discussion= Discussion.objects.create(
             user=user,
             content=content,
             headline=headline,
-            tags=tags
+            # tags=tags
             )
         discussion.save()
     serializer = DiscussionSerializer(discussion, many=False)

@@ -195,12 +195,13 @@ class ProfilePictureUpdate(APIView):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def SendActivationEmail(request):
+def sendActivationEmail(request):
     user = request.user
+    user_profile = UserProfile.objects.get(user=user)
     try:
         mail_subject = 'Activate your Mumble account.'
         message = render_to_string('email-template/email.html', {
-            'user': user,
+            'user': user_profile,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': default_token_generator.make_token(user),
         })
@@ -209,8 +210,7 @@ def SendActivationEmail(request):
             mail_subject, message, to=[to_email]
         )
         email.send()
-        print('Mail sent Successfully')
-        return Response('clients-list')
+        return Response('Mail sent Successfully')
     except Exception as e:
         print(e)
         return Response('Something went wrong , please try again')

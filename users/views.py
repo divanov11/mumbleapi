@@ -199,7 +199,7 @@ def sendActivationEmail(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
     try:
-        mail_subject = 'Activate your Mumble account.'
+        mail_subject = 'Verify your Mumble account.'
         message = render_to_string('email-template/email.html', {
             'user': user_profile,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -210,10 +210,9 @@ def sendActivationEmail(request):
             mail_subject, message, to=[to_email]
         )
         email.send()
-        return Response('Mail sent Successfully')
+        return Response('Mail sent Successfully',status=status.HTTP_200_OK)
     except Exception as e:
-        print(e)
-        return Response('Something went wrong , please try again')
+        return Response('Something went wrong , please try again',status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['GET'])

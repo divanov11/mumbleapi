@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
@@ -9,6 +9,7 @@ from rest_framework import permissions
 from django.db.models import Q
 from .models import UserProfile
 from .serializers import UserProfileSerializer
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -94,12 +95,10 @@ def users(request):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def usersRecommended(request):
     user = request.user
-
     users = User.objects.filter(~Q(id=user.id))[0:5]
-
-    user = request.user
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
@@ -124,6 +123,7 @@ def userArticles(request, username):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def followUser(request, username):
     user = request.user
     otherUser = User.objects.get(username=username).userprofile

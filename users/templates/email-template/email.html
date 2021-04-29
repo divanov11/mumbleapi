@@ -59,10 +59,11 @@ span {
     }
 }
 
-button {
+a.activate-link {
     background-color: #3f4156;
+    text-decoration: none;
     color: white;
-    height: 60px;
+    height: 100px;
     width: 170px;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
@@ -70,6 +71,7 @@ button {
     border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
+    padding: 1rem;
 }
 
 .email-footer {
@@ -138,7 +140,7 @@ h6 {
             <br/>
         </div>
         <div class="redirect">
-            <button>Verify the Email ➞</button>
+            <a class="activate-link" href="http://127.0.0.1:8000/api/users/verify/{{uid}}/{{token}}">Verify the Email ➞</a>
         </div>
         <br/>
         <hr>

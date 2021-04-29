@@ -223,8 +223,9 @@ def activate(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        return render(request, 'account_confirmed.html', {})
+        user_profile = UserProfile.objects.get(user=user)
+        user_profile.email_verified = True
+        user_profile.save()
+        return Response("Email Verified")
     else:
-        return Response('Activation link is invalid!',status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)

@@ -20,5 +20,5 @@ urlpatterns = [
 
     # email verification urls
     path('send-email-activation',views.sendActivationEmail,name='send-activation-email'),
-    # path('verify/<uidb64>/<token>/',views.activate, name='verify'),
+    path('verify/<uidb64>/<token>/',views.activate, name='verify'),
 ]

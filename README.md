@@ -83,6 +83,9 @@ python manage.py loaddata feeddata.json
 # load data for article
 python manage.py loaddata articledata.json
 
+# load data for discussion
+python manage.py loaddata discussiondata.json
+
 # run django development server
 python manage.py runserver
 ```

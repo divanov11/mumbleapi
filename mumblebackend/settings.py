@@ -194,3 +194,5 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+django_heroku.settings(locals())

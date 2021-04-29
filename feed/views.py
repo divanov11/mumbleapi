@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from django.db.models import Q
 from rest_framework import status
 
 from .models import Mumble, MumbleVote
-
+from rest_framework.permissions import IsAuthenticated
 from .serializers import MumbleSerializer
 
 # Create your views here.
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def mumbles(request):
     query = request.query_params.get('q')
     if query == None:
@@ -33,6 +34,7 @@ def mumbles(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def createMumble(request):
     user = request.user
     data = request.data
@@ -55,6 +57,7 @@ def createMumble(request):
     return Response(serializer.data)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteMumble(request, pk):
     user = request.user
     try:
@@ -76,6 +79,7 @@ def mumbleComments(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def remumble(request):
     user = request.user
     data = request.data
@@ -90,6 +94,7 @@ def remumble(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def updateVote(request):
     user = request.user 
     data = request.data

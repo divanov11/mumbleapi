@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from django.db.models import Q
 from .models import Article , ArticleComment , ArticleVote
 from .serializers import ArticleSerializer , ArticleCommentSerializer
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
 def getArticle(request, pk):
@@ -22,6 +23,7 @@ def articles(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def createArticle(request):
     user = request.user
     data = request.data
@@ -51,6 +53,7 @@ def createArticle(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def updateVote(request):
     user = request.user
     data = request.data

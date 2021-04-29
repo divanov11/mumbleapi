@@ -7,6 +7,15 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import permissions
 from django.db.models import Q
+
+#email verification imports
+from django.contrib.auth.tokens import default_token_generator
+# from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
 from .models import UserProfile
 from .serializers import UserProfileSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -139,8 +148,7 @@ def followUser(request, username):
         otherUser.save()
         
         return Response('User followed')
-    
-    
+
 
 class UserProfileUpdate(APIView):
     permission_classes = [IsAuthenticated]
@@ -161,7 +169,7 @@ class UserProfileUpdate(APIView):
         else:
             response = serializer.errors
             return Response(response, status=401)
-        
+
 
 class ProfilePictureUpdate(APIView):
     permission_classes=[IsAuthenticated]
@@ -182,4 +190,45 @@ class ProfilePictureUpdate(APIView):
         else:
             response=serializer.errors
         return Response(response)
-    
+
+# THIS EMAIL VERIFICATION SYSTEM IS ONLY VALID FOR LOCAL TESTING
+# IN PRODUCTION WE NEED A REAL EMAIL , TILL NOW WE ARE USING DEFAULT EMAIL BACKEND
+# THIS DEFAULT BACKEND WILL PRINT THE VERIFICATION EMAIL IN THE CONSOLE 
+# LATER WE CAN SETUP SMTP FOR REAL EMAIL SENDING TO USER
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def sendActivationEmail(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    try:
+        mail_subject = 'Verify your Mumble account.'
+        message = render_to_string('email-template/email.html', {
+            'user': user_profile,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': default_token_generator.make_token(user),
+        })
+        to_email = user.email
+        email = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        email.send()
+        return Response('Mail sent Successfully',status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response('Something went wrong , please try again',status=status.HTTP_403_FORBIDDEN)
+
+
+@api_view(['GET'])
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        user_profile = UserProfile.objects.get(user=user)
+        user_profile.email_verified = True
+        user_profile.save()
+        return Response("Email Verified")
+    else:
+        return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)

@@ -18,4 +18,7 @@ urlpatterns = [
     path('<str:username>/mumbles/', views.userMumbles, name="user-mumbles"),
     path('<str:username>/articles/', views.userArticles, name="user-articles"),
 
+    # email verification urls
+    path('send-email-activation',views.sendActivationEmail,name='send-activation-email'),
+    path('verify/<uidb64>/<token>/',views.activate, name='verify'),
 ]

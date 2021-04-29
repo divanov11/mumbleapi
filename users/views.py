@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import permissions
 from django.db.models import Q
+
+#email verification imports
+from django.contrib.auth.tokens import default_token_generator
+# from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .tokens import account_activation_token
+
 from .models import UserProfile
 from .serializers import UserProfileSerializer
 
@@ -139,8 +149,7 @@ def followUser(request, username):
         otherUser.save()
         
         return Response('User followed')
-    
-    
+
 
 class UserProfileUpdate(APIView):
     permission_classes = [IsAuthenticated]
@@ -161,7 +170,7 @@ class UserProfileUpdate(APIView):
         else:
             response = serializer.errors
             return Response(response, status=401)
-        
+
 
 class ProfilePictureUpdate(APIView):
     permission_classes=[IsAuthenticated]
@@ -182,4 +191,41 @@ class ProfilePictureUpdate(APIView):
         else:
             response=serializer.errors
         return Response(response)
-    
+
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def SendActivationEmail(request):
+    user = request.user
+    try:
+        mail_subject = 'Activate your Mumble account.'
+        message = render_to_string('email-template/email.html', {
+            'user': user,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': default_token_generator.make_token(user),
+        })
+        to_email = user.email
+        email = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        email.send()
+        print('Mail sent Successfully')
+        return Response('clients-list')
+    except Exception as e:
+        print(e)
+        return Response('Something went wrong , please try again')
+
+
+@api_view(['GET'])
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return render(request, 'account_confirmed.html', {})
+    else:
+        return Response('Activation link is invalid!',status=status.HTTP_406_NOT_ACCEPTABLE)

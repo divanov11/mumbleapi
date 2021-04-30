@@ -203,7 +203,7 @@ def sendActivationEmail(request):
     user_profile = UserProfile.objects.get(user=user)
     try:
         mail_subject = 'Verify your Mumble account.'
-        message = render_to_string('email-template/email.html', {
+        message = render_to_string('verify-email.html', {
             'user': user_profile,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': default_token_generator.make_token(user),

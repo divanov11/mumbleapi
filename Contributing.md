@@ -32,6 +32,7 @@ Reading and following these guidelines will help us make the contribution proces
       - Getting Started
       - Issues
       - Pull Requests
+      - Merging Pull Requests
       - Project board
 
 - NB  
@@ -65,9 +66,13 @@ To contribute :
 
 Issues are used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created.
 
-If you find an Issue that addresses the problem you're having, please complete this issue with comments.
+If you find an issue that addresses the problem you're having, please complete this issue with comments.
 <br />
-You can send screenshots or explain the bug... 
+You can send screenshots to further explain the bug you are encountering. 
+
+Before you make your changes, please open an issue using a [template](https://github.com/divanov11/mumbleapi/issues/new/choose). We'll use the issue to have a conversation about the feature or problem and how you want to go about it. 
+
+**Please don't work on said issue until you have been assigned to it.**
 
 #
 
@@ -82,8 +87,18 @@ In general, PRs should:
 - **Add unit or integration tests for fixed or changed functionality** (if a test suite already exists).
 - Address a single concern in the least number of **changed lines as possible**.
 - **Be accompanied by a complete Pull Request template (loaded automatically when a PR is created)**.
+- **Have 2 reviewers**.
+#
+
+### Merging Pull Requests
+
+
+1. It's mandatory that the PR author adds reviewers prior to submitting the PR. 
+2. All PRs will require the approval of both reviewers prior to the branch merge. Once the last reviewer approves the changes, they can merge the branch.
+3. The PR author should choose a label "Review: Needs 1" **OR** "Review: Needs 2" to further organize the repo and review system.
 
 #
+
 
 ### Project Board 
 

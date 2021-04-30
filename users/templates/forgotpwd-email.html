@@ -5,13 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
-    <title>Email Verification</title>
+    <title>Reset Password Email</title>
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap);
         
         @media only screen and (max-width: 488px) {
-            img{
+            img {
                 width: 54px;
+            }
+            .if {
+                font-size: 9px;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 400;
+                text-align: center;
             }
         }
 
@@ -20,6 +26,20 @@
                 background-color: #bdc3c7;
                 padding: 1rem;
             }
+
+            .if {
+                font-size: 12px;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 400; 
+                text-align: center;
+            }
+
+            .mumble-team {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
         }
 
     </style>
@@ -47,17 +67,20 @@
                 {{user.name}} !
             </span>
         </h2>
-    <br/>
         <h3 style="font-family: 'Poppins', sans-serif; font-weight: 500;">
-            Thanks for signing up ! 🙏 
+            Looks like you forgot your password ! 🙂 
         </h3>
     </div>
     <hr>
+    <br/>
     <div style="font-family: 'Poppins', sans-serif; font-weight: 500;">
-        <p>You’re almost ready to start enjoying MUMBLE
+        <p>Don't worry, you are going to take control of your MUMBLE account soon. 
         <br/>
         <br/>
-            Please verify your email address by clicking the below button to join the community where 
+            You’re almost ready to enjoy MUMBLE again !
+        <br/>
+        <br/>
+            Please click the button below to reset the password and re-join the community where 
             you can start discussions, share your projects and more.. !
         </p>
         <br/>
@@ -66,39 +89,38 @@
             <tr>
                 <td align="center">
                     <a class="button" style="background-color: #3f4156; text-decoration: none; color: white; 
-                    height: 40px;
-                    width: 150px;
+                    height: 50px;
+                    width: 140px;
                     font-family: 'Poppins', sans-serif;
                     font-weight: 400;
                     border: 2px solid black;
-                    border-radius: 10px;
+                    border-radius: 12px;
                     font-size: 16px;
-                    cursor: pointer;
                     padding: 0.5rem;
+                    cursor: pointer;
                     display: flex;
                     justify-content: center;"
-                    href="http://127.0.0.1:8000/api/users/verify/{{uid}}/{{token}}">
-                    Verify the Email ➞
+                    href="">
+                    Reset My Password
                     </a>
                 </td>
             </tr>
         </table>
         <br/>
     <hr>
-    <div style="font-family: 'Poppins', sans-serif; font-weight: 500;">
+    <div class="mumble-team">
         <p>Thanks !</p>
         <p>The Mumble Team</p>
     </div>
     <hr>
     <div>
-        <h6 style="font-family: 'Poppins', sans-serif; font-weight: 400; text-align: center;">
-            If you didn't sign up to MUMBLE, please ignore this email or contact us at 
+        <p class="if">
+            If you didn't ask for changing the password, please ignore this email or contact us at 
             <a style="color: #3f4156;"
             href="mailto:example@mumble.com">
                 example@mumble.com
             </a>
-        </h6>
+        </p>
     </div>
     </div>
 </body>
-</html>

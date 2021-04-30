@@ -6,6 +6,8 @@ from django.db.models import Q
 from .models import Discussion, DiscussionComment , DiscussionVote
 from .serializers import DiscussionSerializer , DiscussionCommentSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+
 
 @api_view(['GET'])
 def getDiscussion(request, pk):

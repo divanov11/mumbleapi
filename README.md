@@ -14,6 +14,7 @@
 
 If you are trying to use this project for the first time, you can get up and running by following these steps. 
 
+To contribute to this project, please see the [contributing guidelines](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md).
 > ⚠ Note, this step assumes you are using **github ssh keys** for the *git clone method*
 
 <a align="center" href="https://drawsql.app/dennis-ivy/diagrams/mumble">

@@ -46,11 +46,11 @@ I worked on the ..... because ...
 
 <!-- Check your work !-->
 
-<!-- Please choose the right Review label (Review: Needs 1 OR Review: Needs 2)!-->
+<!-- Please choose the right review label ("Review: Needs 1" OR "Review: Needs 2")!-->
 
 <!-- add a x in [] if done !-->
 
-<!-- let things that you didn't do !-->
+<!-- don't mark items that you didn't do !-->
 
 - [ ] I have read the **Code Of Conduct** document.
 - [ ] I have read the **CONTRIBUTING** document.
@@ -62,4 +62,4 @@ I worked on the ..... because ...
 - [ ] All new and existing tests passed.
 
 
-<!--- Mumble Community thank you a lot for explaining each detail !-->
+<!--- Mumble Community thanks you for explaining your changes in detail !-->

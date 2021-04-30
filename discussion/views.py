@@ -5,6 +5,7 @@ from rest_framework import status
 from django.db.models import Q
 from .models import Discussion, DiscussionComment , DiscussionVote
 from .serializers import DiscussionSerializer , DiscussionCommentSerializer
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
 def getDiscussion(request, pk):
@@ -83,6 +84,7 @@ def deleteDiscussionComment(request,pk):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def createDiscussion(request):
     user = request.user
     data = request.data
@@ -113,6 +115,7 @@ def createDiscussion(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def updateVote(request):
     user = request.user
     data = request.data

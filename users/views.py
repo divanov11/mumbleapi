@@ -1,36 +1,33 @@
-from django.shortcuts import render
-from rest_framework.parsers import FileUploadParser
-from rest_framework.response import Response 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.views import APIView
-from django.contrib.auth.models import User
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import permissions
-from django.db.models import Q
+import datetime
 
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 #email verification imports
 from django.contrib.auth.tokens import default_token_generator
 # from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
+from django.db.models import Q
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
-from .models import UserProfile
-from .serializers import UserProfileSerializer
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from rest_framework import permissions, status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from django.contrib.auth.hashers import make_password
-from rest_framework import status
-
-
-from .serializers import UserSerializerWithToken, UserSerializer
 from article.serializers import ArticleSerializer
 from feed.serializers import MumbleSerializer
-import datetime
+from notification.serializers import NotificationSerializer
+
+from .models import UserProfile
+from .serializers import (UserProfileSerializer, UserSerializer,
+                          UserSerializerWithToken)
+
 # Create your views here.
 
 class RegisterView(APIView):
@@ -232,3 +229,18 @@ def activate(request, uidb64, token):
         return Response("Email Verified")
     else:
         return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def userNotifications(request, username):
+    try:
+        user = User.objects.get(username=username)
+        if request.user != user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        user_profile = UserProfile.objects.get(user=user)
+        notifications = user.notifications
+        serializer = NotificationSerializer(notifications, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)

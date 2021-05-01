@@ -254,7 +254,8 @@ def passwordChange(request):
         return Response({'detail':'New password confirm field required'})
 
 
-@api_view(['POST'])
-@permission_classes((IsAuthenticated,))
-def passwordReset(request):
-    pass
+# @api_view(['POST'])
+# @permission_classes((IsAuthenticated,))
+# def passwordReset(request):
+#     user = request.user
+#     email = request.data.get('email')

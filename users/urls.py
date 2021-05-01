@@ -20,7 +20,7 @@ urlpatterns = [
 
     # Forget password or reset password
     path('password/change/',views.passwordChange,name="password-change"),
-    path('password/reset/',views.passwordReset,name="password-reset"),
+    # path('password/reset/',views.passwordReset,name="password-reset"),
 
     # email verification urls
     path('email/send-email-activation',views.sendActivationEmail,name='send-activation-email'),

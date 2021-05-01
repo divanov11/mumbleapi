@@ -95,10 +95,10 @@ python manage.py loaddata discussiondata.json
 python manage.py runserver
 ```
 
-# Explore admin panel for model data or instances
+## Explore admin panel for model data or instances
 http://127.0.0.1:8000/admin or http://localhost:8000/admin
 
-# Login with the user credentials you just created using createsuperuser command
+## Login with the user credentials you just created using createsuperuser command
 
 <br />
 

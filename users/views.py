@@ -230,7 +230,7 @@ def activate(request, uidb64, token):
     else:
         return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)
 
-      @api_view(['POST'])
+@api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def passwordChange(request):
     user = request.user

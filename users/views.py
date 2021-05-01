@@ -200,7 +200,7 @@ def sendActivationEmail(request):
     user_profile = UserProfile.objects.get(user=user)
     try:
         mail_subject = 'Verify your Mumble account.'
-        message = render_to_string('email-template/email.html', {
+        message = render_to_string('verify-email.html', {
             'user': user_profile,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': default_token_generator.make_token(user),
@@ -229,6 +229,32 @@ def activate(request, uidb64, token):
         return Response("Email Verified")
     else:
         return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)
+
+      @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def passwordChange(request):
+    user = request.user
+    data = request.data
+    new_password = data.get('new_password')
+    new_password_confirm = data.get('new_password_confirm')
+    if new_password_confirm and new_password is not None:
+        if new_password == new_password_confirm:
+            user.set_password(new_password)
+            user.save()
+            return Response({'detail':'Password changed successfully'},status=status.HTTP_200_OK)
+        else:
+            return Response({"detail":'Password doesn\'t match'})
+    elif new_password is None:
+        return Response({'detail':'New password field required'})
+    elif new_password_confirm is None:
+        return Response({'detail':'New password confirm field required'})
+
+
+# @api_view(['POST'])
+# @permission_classes((IsAuthenticated,))
+# def passwordReset(request):
+#     user = request.user
+#     email = request.data.get('email')
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))

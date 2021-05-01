@@ -4,9 +4,9 @@
 
 <!-- It may take from your time, but think that collaborators and contributors will get your changes in a good way !-->
 
-<!--- Thanks for considering that !-->
+<!--- Thank you for your contribution to Mumble !-->
 
-### Describe the Change and Related Issue Number :
+### Describe your changes. Be sure to tag your assigned issue:
 
 <!-- Explain what you have done !-->
 
@@ -18,7 +18,7 @@ I worked on the ..... because ...
 
 <!-- You should choice 1 option -->
 
-<!-- add a x in [ ] if true !-->
+<!-- add an x in [ ] if true !-->
 
 <!-- Delete options that aren't revelant!-->
 
@@ -46,17 +46,20 @@ I worked on the ..... because ...
 
 <!-- Check your work !-->
 
+<!-- Please choose the right review label ("Review: Needs 1" OR "Review: Needs 2")!-->
+
 <!-- add a x in [] if done !-->
 
-<!-- let things that you didn't do !-->
+<!-- don't mark items that you didn't do !-->
 
 - [ ] I have read the **Code Of Conduct** document.
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] I have performed a self-review of my own code
+- [ ] I have performed a self-review of my own 
+- [ ] I have added two reviewers to my PR
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] All new and existing tests passed.
 
 
-<!--- Mumble Community thank you a lot for explaining each detail !-->
+<!--- Mumble Community thanks you for explaining your changes in detail !-->

@@ -19,7 +19,11 @@ urlpatterns = [
     path('<str:username>/articles/', views.userArticles, name="user-articles"),
     path('<str:username>/notifications/', views.userNotifications, name="user-notifications"),
 
+    # Forget password or reset password
+    path('password/change/',views.passwordChange,name="password-change"),
+    # path('password/reset/',views.passwordReset,name="password-reset"),
+
     # email verification urls
-    path('send-email-activation',views.sendActivationEmail,name='send-activation-email'),
+    path('email/send-email-activation',views.sendActivationEmail,name='send-activation-email'),
     path('verify/<uidb64>/<token>/',views.activate, name='verify'),
 ]

@@ -14,6 +14,7 @@
 
 If you are trying to use this project for the first time, you can get up and running by following these steps. 
 
+To contribute to this project, please see the [contributing guidelines](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md).
 > ⚠ Note, this step assumes you are using **github ssh keys** for the *git clone method*
 
 <a align="center" href="https://drawsql.app/dennis-ivy/diagrams/mumble">
@@ -29,14 +30,18 @@ If you are trying to use this project for the first time, you can get up and run
 |**Python**|**3.x**|
 |**pip**|**latest version**|
 |**asgiref**|**3.3.4**|
+|**dj-database-url**|**0.5.0**|
 |**Django**|**3.2**|
 |**django-cors-headers**|**3.7.0**|
+|**django-heroku**|**0.3.1**|
 |**djangorestframework**|**3.12.4**|
 |**djangorestframework-simplejwt**|**4.6.0**|
 |**gunicorn**|**20.1.0**|
 |**Pillow**|**8.2.0**|
+|**psycopg2**|**2.8.6**|
 |**PyJWT**|**2.0.1**|
 |**pytz**|**2021.1**|
+|**six**|**1.15.0**|
 |**sqlparse**|**0.4.1**|
 |**whitenoise**|**5.2.0**|
 

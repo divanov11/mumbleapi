@@ -17,7 +17,6 @@ urlpatterns = [
     path('<str:username>/', views.user, name="user"),
     path('<str:username>/mumbles/', views.userMumbles, name="user-mumbles"),
     path('<str:username>/articles/', views.userArticles, name="user-articles"),
-    path('<str:username>/notifications/', views.userNotifications, name="user-notifications"),
 
     # Forget password or reset password
     path('password/change/',views.passwordChange,name="password-change"),

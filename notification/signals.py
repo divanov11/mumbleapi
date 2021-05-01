@@ -5,8 +5,9 @@ from article.models import Article
 from users.models import UserProfile
 
 from .models import Notification
-           
+
 def articleCreated(sender, instance, created, **kwargs):
+    if not created: return
     followers = instance.user.userprofile.followers.all()
     for follower in followers:
         notification = Notification.objects.create(

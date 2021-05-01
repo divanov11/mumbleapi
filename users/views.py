@@ -230,7 +230,7 @@ def activate(request, uidb64, token):
     else:
         return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)
 
-      @api_view(['POST'])
+@api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def passwordChange(request):
     user = request.user
@@ -248,25 +248,3 @@ def passwordChange(request):
         return Response({'detail':'New password field required'})
     elif new_password_confirm is None:
         return Response({'detail':'New password confirm field required'})
-
-
-# @api_view(['POST'])
-# @permission_classes((IsAuthenticated,))
-# def passwordReset(request):
-#     user = request.user
-#     email = request.data.get('email')
-
-@api_view(['GET'])
-@permission_classes((IsAuthenticated,))
-def userNotifications(request, username):
-    try:
-        user = User.objects.get(username=username)
-        if request.user != user:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-        user_profile = UserProfile.objects.get(user=user)
-        notifications = user.notifications
-        serializer = NotificationSerializer(notifications, many=True)
-        return Response(serializer.data)
-    except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -70,7 +70,9 @@ def editMumble(request,pk):
             serializer = MumbleSerializer(mumble,data = data)
             if serializer.is_valid():
                 serializer.save()
-            return Response(serializer.data,status=status.HTTP_200_OK)
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
     except Exception as e:
         return Response(status=status.HTTP_204_NO_CONTENT)    
 

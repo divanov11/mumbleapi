@@ -56,6 +56,24 @@ def createMumble(request):
     serializer = MumbleSerializer(mumble, many=False)
     return Response(serializer.data)
 
+@api_view(['PATCH'])
+@permission_classes((IsAuthenticated,))
+def editMumble(request,pk):
+    user = request.user
+    data = request.data
+
+    try:
+        mumble = Mumble.objects.get(id=pk)
+        if user != mumble.user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            serializer = MumbleSerializer(mumble,data = data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(status=status.HTTP_204_NO_CONTENT)    
+
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
 def deleteMumble(request, pk):

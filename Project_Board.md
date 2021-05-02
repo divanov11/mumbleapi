@@ -14,7 +14,7 @@
 
 ### Project Board 
 
-In our repository, there is a project board named Backend development, it helps moderators to see how is the work going.
+In our repository, there is a project board named Tasks - Mumble Api, it helps moderators to see how is the work going.
 <br/>
 
 *Preview :*

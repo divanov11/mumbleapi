@@ -6,9 +6,13 @@
 
 <!--- Thank you for your contribution to Mumble !-->
 
-### Describe your changes. Be sure to tag your assigned issue:
+### Describe your changes :
+
+<br/>
 
 <!-- Explain what you have done !-->
+
+<!-- Be sure to tag your assigned issue !-->
 
 I worked on the ..... because ...
 

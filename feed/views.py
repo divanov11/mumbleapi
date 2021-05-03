@@ -6,6 +6,7 @@ from rest_framework import status
 
 from .models import Mumble, MumbleVote
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 from .serializers import MumbleSerializer
 
 # Create your views here.
@@ -29,8 +30,11 @@ def mumbles(request):
     #Make sure parent==None is always on
     mumbles = Mumble.objects.filter(parent=None, user__id__in=ids)
     mumbles = mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))
-    serializer = MumbleSerializer(mumbles, many=True)
-    return Response(serializer.data)
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    result_page = paginator.paginate_queryset(mumbles, request)
+    serializer = MumbleSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['POST'])

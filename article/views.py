@@ -52,8 +52,11 @@ def articles(request):
     if query == None:
         query = ''
     articles = Article.objects.filter(Q(content__icontains=query)|Q(title__icontains=query))
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    result_page = paginator.paginate_queryset(articles,request)
     serializer = ArticleSerializer(articles, many=True)
-    return Response(serializer.data)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PUT'])

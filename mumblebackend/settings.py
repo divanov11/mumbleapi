@@ -142,12 +142,16 @@ WSGI_APPLICATION = 'mumblebackend.wsgi.application'
 if os.getcwd() == '/app':
     #SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     #SECURE_SSL_REDIRECT = True
-    DEBUG = True
+    #DEBUG = True
     
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('MUMBLE_DB_NAME'),
+            'USER':os.environ.get('MUMBLE_USER'),
+            'PASSWORD':os.environ.get('MUMBLE_DB_PASS'),
+            'HOST':os.environ.get('MUMBLE_HOST'),
+            'PORT':'5432',
         }
     }
     

@@ -56,8 +56,11 @@ def discussions(request):
         query = ''
     # Q objects is used to make complex query to search in discussion content and headline
     discussions = Discussion.objects.filter(Q(content__icontains=query)|Q(headline__icontains=query))
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    result_page = paginator.paginate_queryset(discussions,request)
     serializer = DiscussionSerializer(discussions, many=True)
-    return Response(serializer.data)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PUT'])

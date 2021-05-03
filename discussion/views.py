@@ -7,6 +7,7 @@ from .models import Discussion, DiscussionComment , DiscussionVote
 from .serializers import DiscussionSerializer , DiscussionCommentSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
 
 
 @api_view(['GET'])

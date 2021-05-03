@@ -5,6 +5,7 @@ from rest_framework import status
 from django.db.models import Q
 from .models import Article , ArticleComment , ArticleVote
 from .serializers import ArticleSerializer , ArticleCommentSerializer
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])

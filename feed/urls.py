@@ -6,6 +6,7 @@ app_name = 'mumbles-api'
 urlpatterns = [
      path('', views.mumbles, name="mumbles"),
      path('create/', views.createMumble, name="mumble-create"),
+     path('edit/<str:pk>/', views.editMumble, name="mumble-edit"),
      path('remumble/', views.remumble, name="mumble-remumble"),
      path('vote/', views.updateVote, name="posts-vote"),
      path('<str:pk>/', views.deleteMumble, name="delete-mumble"),

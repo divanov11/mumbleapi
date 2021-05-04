@@ -1,36 +1,33 @@
-from django.shortcuts import render
-from rest_framework.parsers import FileUploadParser
-from rest_framework.response import Response 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.views import APIView
-from django.contrib.auth.models import User
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import permissions
-from django.db.models import Q
+import datetime
 
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 #email verification imports
 from django.contrib.auth.tokens import default_token_generator
 # from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
+from django.db.models import Q
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
-from .models import UserProfile
-from .serializers import UserProfileSerializer
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from rest_framework import permissions, status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from django.contrib.auth.hashers import make_password
-from rest_framework import status
-
-
-from .serializers import UserSerializerWithToken, UserSerializer
 from article.serializers import ArticleSerializer
 from feed.serializers import MumbleSerializer
-import datetime
+from notification.serializers import NotificationSerializer
+
+from .models import UserProfile
+from .serializers import (UserProfileSerializer, UserSerializer,
+                          UserSerializerWithToken)
+
 # Create your views here.
 
 class RegisterView(APIView):
@@ -233,7 +230,6 @@ def activate(request, uidb64, token):
     else:
         return Response('Something went wrong , please try again',status=status.HTTP_406_NOT_ACCEPTABLE)
 
-
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def passwordChange(request):
@@ -252,10 +248,3 @@ def passwordChange(request):
         return Response({'detail':'New password field required'})
     elif new_password_confirm is None:
         return Response({'detail':'New password confirm field required'})
-
-
-# @api_view(['POST'])
-# @permission_classes((IsAuthenticated,))
-# def passwordReset(request):
-#     user = request.user
-#     email = request.data.get('email')

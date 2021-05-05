@@ -22,6 +22,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from article.serializers import ArticleSerializer
 from feed.serializers import MumbleSerializer
+from notification.models import Notification
 from notification.serializers import NotificationSerializer
 
 from .models import UserProfile
@@ -131,19 +132,30 @@ def userArticles(request, username):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def followUser(request, username):
-    user = request.user
-    otherUser = User.objects.get(username=username).userprofile
-    if user in otherUser.followers.all():
-        otherUser.followers.remove(user)
-        otherUser.followers_count =  otherUser.followers.count()
-        otherUser.save()
+    userWantingToFollowSomeone = request.user
+    userToFollow = User.objects.get(username=username)
+    userToFollowProfile = userToFollow.userprofile
 
+    if userWantingToFollowSomeone == userToFollow: 
+        return Response('You can not follow yourself')
+        
+    if userWantingToFollowSomeone in userToFollowProfile.followers.all():
+        userToFollowProfile.followers.remove(userWantingToFollowSomeone)
+        userToFollowProfile.followers_count =  userToFollowProfile.followers.count()
+        userToFollowProfile.save()
         return Response('User unfollowed')
     else:
-        otherUser.followers.add(user)
-        otherUser.followers_count =  otherUser.followers.count()
-        otherUser.save()
-        
+        userToFollowProfile.followers.add(userWantingToFollowSomeone)
+        userToFollowProfile.followers_count = userToFollowProfile.followers.count()
+        userToFollowProfile.save()
+        # doing this as a signal is much more difficult and hacky
+        Notification.objects.create(
+            to_user=userToFollow,
+            created_by=userWantingToFollowSomeone,
+            notification_type='follow',
+            content_id=userWantingToFollowSomeone.id,
+            content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
+        )
         return Response('User followed')
 
 

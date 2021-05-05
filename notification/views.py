@@ -11,7 +11,7 @@ from .models import Notification
 from .serializers import NotificationSerializer
 
 
-@api_view(['POST'])
+@api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def readNotification(request, pk):
     try:

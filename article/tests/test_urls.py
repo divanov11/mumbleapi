@@ -14,5 +14,25 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func,createArticle)
 
     def test_articles_vote_url_is_resolved(self):
-        url = reverse('vote')
+        url = reverse('article-vote')
         self.assertEquals(resolve(url).func,updateVote)
+
+    def test_get_article_url_is_resolved(self):
+        url = reverse('get-article',args=['sOmE-iD'])
+        self.assertEquals(resolve(url).func,getArticle)
+
+    def test_edit_article_url_is_resolved(self):
+        url = reverse('edit-article',args=['sOmE-iD'])
+        self.assertEquals(resolve(url).func,editArticle)
+
+    def test_delete_article_url_is_resolved(self):
+        url = reverse('delete-article',args=['sOmE-iD'])
+        self.assertEquals(resolve(url).func,deleteArticle)
+
+    def test_edit_article_comment_url_is_resolved(self):
+        url = reverse('edit-article-comment',args=['sOmE-iD'])
+        self.assertEquals(resolve(url).func,editArticleComment)
+
+    def test_delete_article_comment_url_is_resolved(self):
+        url = reverse('delete-article-comment',args=['sOmE-iD'])
+        self.assertEquals(resolve(url).func,deleteArticleComment)

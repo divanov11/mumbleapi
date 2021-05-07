@@ -17,9 +17,7 @@ If you are trying to use this project for the first time, you can get up and run
 To contribute to this project, please see the [contributing guidelines](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md).
 > ⚠ Note, this step assumes you are using **github ssh keys** for the *git clone method*
 
-<a align="center" href="https://drawsql.app/dennis-ivy/diagrams/mumble">
 
-<img width="80%" align="center" src="./img/drawSQL-MumbleApi.png"/>
 
 </a>
 
@@ -27,24 +25,27 @@ To contribute to this project, please see the [contributing guidelines](https://
 
 |Technology|Version|
 |:--:|:--:|
-|**Python**|**3.x**|
-|**pip**|**latest version**|
-|**asgiref**|**3.3.4**|
-|**dj-database-url**|**0.5.0**|
-|**Django**|**3.2**|
-|**django-cors-headers**|**3.7.0**|
-|**django-heroku**|**0.3.1**|
-|**djangorestframework**|**3.12.4**|
-|**djangorestframework-simplejwt**|**4.6.0**|
-|**gunicorn**|**20.1.0**|
-|**Pillow**|**8.2.0**|
-|**psycopg2**|**2.8.6**|
+|[**Python**](https://docs.python.org/3/)|**3.x**|
+|[**pip**](https://pypi.org/project/pip/)|**latest version**|
+|[**asgiref**](https://pypi.org/project/asgiref/)|**3.3.4**|
+|[**dj-database-url**](https://pypi.org/project/dj-database-url/)|**0.5.0**|
+|[**Django**](https://docs.djangoproject.com/en/3.2/)|**3.2**|
+|[**django-cors-headers**](https://pypi.org/project/django-cors-headers/)|**3.7.0**|
+|[**django-heroku**](https://pypi.org/project/django-heroku/)|**0.3.1**|
+|[**djangorestframework**](https://www.django-rest-framework.org/)|**3.12.4**|
+|[**djangorestframework-simplejwt**](https://pypi.org/project/djangorestframework-simplejwt/)|**4.6.0**|
+|[**gunicorn**](https://pypi.org/project/gunicorn/)|**20.1.0**|
+|[**Pillow**](https://pypi.org/project/Pillow/)|**8.2.0**|
+|[**psycopg2**](https://pypi.org/project/psycopg2/)|**2.8.6**|
 |**PyJWT**|**2.0.1**|
-|**pytz**|**2021.1**|
-|**six**|**1.15.0**|
-|**sqlparse**|**0.4.1**|
-|**whitenoise**|**5.2.0**|
+|[**pytz**](https://pypi.org/project/pytz/)|**2021.1**|
+|[**six**](https://pypi.org/project/six/)|**1.15.0**|
+|[**sqlparse**](https://pypi.org/project/sqlparse/)|**0.4.1**|
+|[**whitenoise**](https://pypi.org/project/whitenoise/)|**5.2.0**|
 
+<a align="center" href="https://drawsql.app/dennis-ivy/diagrams/mumble">
+
+<img width="80%" align="center" src="./img/drawSQL-MumbleApi.png"/>
 
 ## Running
 

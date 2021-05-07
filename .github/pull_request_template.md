@@ -16,6 +16,10 @@
 
 I worked on the ..... because ...
 
+
+
+
+
 #
 
 ### Type of change :
@@ -50,20 +54,23 @@ I worked on the ..... because ...
 
 <!-- Check your work !-->
 
-<!-- Please choose the right review label ("Review: Needs 1" OR "Review: Needs 2")!-->
+<!-- If you have access, please choose the right review label ("Review: Needs 1" OR "Review: Needs 2")!-->
 
-<!-- add a x in [] if done !-->
+<!-- add an x in [] if done !-->
 
 <!-- don't mark items that you didn't do !-->
 
 - [ ] I have read the **Code Of Conduct** document.
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] I have performed a self-review of my own 
-- [ ] I have added two reviewers to my PR
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] I have performed a self-review of my own. 
+- [ ] I have tagged my reviewers below.
+- [ ] I have commented my code, particularly in hard-to-understand areas.
+- [ ] My changes generate no new warnings.
+- [ ] I have added tests that prove my fix is effective or that my feature works.
 - [ ] All new and existing tests passed.
 
+
+
+**Reviewers:**  <!-- Please see the contributing guidelines and then add your reviewer(s) !-->
 
 <!--- Mumble Community thanks you for explaining your changes in detail !-->

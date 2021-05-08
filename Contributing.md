@@ -191,6 +191,6 @@ In general, we follow the **fork-and-pull**
 
 ### Getting Help
 
-Join us in **[the Discord Server]("https://discord.gg/TxgpyK8pzf")** and post your question there in the correct category with a descriptive tag.
+Join us in **[the Discord Server](https://discord.gg/9Du4KUY3dE)** and post your question there in the correct category with a descriptive tag.
 
 #

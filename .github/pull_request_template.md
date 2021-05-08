@@ -71,6 +71,18 @@ I worked on the ..... because ...
 
 
 
-**Reviewers:**  <!-- Please see the contributing guidelines and then add your reviewer(s) !-->
+#
+
+### Reviewers
+
+  <!-- Please see the contributing guidelines and then add your reviewer(s) !-->
 
 <!--- Mumble Community thanks you for explaining your changes in detail !-->
+
+<!--- If you are unsure of people to review your work, you can add anyone of these developers :) !-->
+
+
+
+<!--- Documentation: @MidouWebDev, @abhivemp -->
+
+<!--- Backend: @PraveenMalethia , @abhivemp, @codyseibert , @bashiru98, @divanov11 -->

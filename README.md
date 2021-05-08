@@ -75,7 +75,7 @@ cd mumbleapi
 -> Now create a virtual environment where all the required python packages will be installed
 ```bash
 # Use this on Windows
-py -3 -m venv env
+python -m venv env
 # Use this on Linux and Mac
 python -m venv env
 ```

@@ -19,3 +19,30 @@ class AccountTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get().username, 'test')
+
+    def test_admin_create_account(self):
+        url = reverse('users-api:register')
+        data = {
+            'username': 'admin',
+            'email': 'admin@gmail.com',
+            'password': 'admin'
+        } 
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(User.objects.get().username, 'admin')
+        
+    def test_admin_login_account(self):
+        user = User.objects.create(username='admin')
+        user.set_password('admin')
+        user.save()
+
+        url = reverse('users-api:login')
+        data = {
+            'username': 'admin',
+            'password': 'admin'
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(User.objects.get().username, 'admin')
+    

@@ -37,7 +37,7 @@ To contribute to this project, please see the [contributing guidelines](https://
 |[**gunicorn**](https://pypi.org/project/gunicorn/)|**20.1.0**|
 |[**Pillow**](https://pypi.org/project/Pillow/)|**8.2.0**|
 |[**psycopg2**](https://pypi.org/project/psycopg2/)|**2.8.6**|
-|**PyJWT**|**2.0.1**|
+|[**PyJWT**](https://pypi.org/project/PyJWT/)|**2.0.1**|
 |[**pytz**](https://pypi.org/project/pytz/)|**2021.1**|
 |[**six**](https://pypi.org/project/six/)|**1.15.0**|
 |[**sqlparse**](https://pypi.org/project/sqlparse/)|**0.4.1**|

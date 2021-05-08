@@ -4,6 +4,7 @@
 <h1>Welcome to the Mumble Api Repository</h1>
 
 <a href="https://discord.gg/TxgpyK8pzf">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
+<a href="https://drawsql.app/dennis-ivy/diagrams/mumble">![Mumble SQL Diagram](https://img.shields.io/badge/Mumble-Diagram-orange?style=for-the-badge)</a>
 <a href="http://mumbleapi.herokuapp.com/">![Mumble](https://img.shields.io/badge/Mumble-API-9cf?style=for-the-badge)</a>
 
 </div>
@@ -17,11 +18,23 @@ If you are trying to use this project for the first time, you can get up and run
 To contribute to this project, please see the [contributing guidelines](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md).
 > ⚠ Note, this step assumes you are using **github ssh keys** for the *git clone method*
 
-<a align="center" href="https://drawsql.app/dennis-ivy/diagrams/mumble">
 
+## The Mumble Diagram
+
+--> *Preview :*
+
+<div align="center">
+  <a href="https://drawsql.app/dennis-ivy/diagrams/mumble">
 <img width="80%" align="center" src="./img/drawSQL-MumbleApi.png"/>
+  </a>
+</div>
 
-</a>
+<br/>
+
+--> *Full View:*
+
+You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-ivy/diagrams/mumble"><img align="center" src="https://img.shields.io/badge/Mumble-SQL Diagram-9cf?style=for-the-badge"></a>
+
 
 ## Requirements 
 
@@ -96,12 +109,11 @@ python manage.py runserver
 ```
 
 ## Explore admin panel for model data or instances
+
 http://127.0.0.1:8000/admin or http://localhost:8000/admin
 
 <br/>
 
-## Login with the user credentials you just created using createsuperuser command
-
-<br />
+## Login with the user credentials (you created) using "createsuperuser" cmd
 
 > ⚠ If everything is good and has been done successfully, your **Django Rest API** should be hosted on port 8000 i.e http://127.0.0.1:8000/ or http://localhost:8000/  

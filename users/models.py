@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     #skills = 
     #interests = 
     followers = models.ManyToManyField(User, related_name='following', blank=True)
+    email_verified = models.BooleanField(default=False)
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
     """
     profile = UserProfile.objects.first()

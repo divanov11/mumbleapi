@@ -17,7 +17,7 @@ assignees: ''
 
 ### Describe the bug
 
-    A clear and concise description of what the bug is.
+A clear and concise description of what the bug is.
 
 #
 
@@ -34,12 +34,17 @@ Steps to reproduce the behavior:
 
 ### What was expected ?
 
-    A clear and concise description of what you expected to happen.
+A clear and concise description of what you expected to happen.
 
 #
 
 ### Screenshots
 
+<!-- While providing screenshots, delete the text below !-->
+
+<!-- try as much as possible to explain each change in each screenshot !-->
+
+<!-- Don't forget to delete the p element while providing screeshots !-->
 
 <p align="center">If applicable, add screenshots to help explain your problem.</p>
 

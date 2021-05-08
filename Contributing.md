@@ -1,10 +1,16 @@
 #
-<p align="center">
+<div align="center">
   <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
   <h1 align="center">
     Contributing to MUMBLE API
   </h1>
-</p>
+
+  <a href="https://discord.gg/TxgpyK8pzf">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
+  <a href="http://mumbleapi.herokuapp.com/">![Mumble](https://img.shields.io/badge/Mumble-API-9cf?style=for-the-badge)</a>
+
+</div>
+
+<br/>
 
 A big welcome to Mumble ! 
 <br />
@@ -14,7 +20,7 @@ It’s because of people like you that open source projects emerge !
 
 Reading and following these guidelines will help us make the contribution process easy.
 
-> ⚠ Those who want to contribute on the repo, please refer to the [README.md](https://github.com/divanov11/mumbleapi/blob/master/README.md) and read the [Code Of Conduct](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md) for more informations.
+> ⚠ Those who want to contribute on the repo, please refer to the [README.md](https://github.com/divanov11/mumbleapi/blob/master/README.md) and read the [Code Of Conduct](https://github.com/divanov11/mumbleapi/blob/master/CodeOfConduct.md) for more informations.
 
 #
 
@@ -26,10 +32,12 @@ Reading and following these guidelines will help us make the contribution proces
       - Getting Started
       - Issues
       - Pull Requests
+      - Merging Pull Requests
+      - Project board
 
 - NB  
 
-      - Minor Updates and Pull Requests
+      - Fork-and-Pull
       - Getting Help
 
 #
@@ -58,9 +66,13 @@ To contribute :
 
 Issues are used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created.
 
-If you find an Issue that addresses the problem you're having, please complete this issue with comments.
+If you find an issue that addresses the problem you're having, please complete this issue with comments.
 <br />
-You can send screenshots or explain the bug... 
+You can send screenshots to further explain the bug you are encountering. 
+
+Before you make your changes, please open an issue using a [template](https://github.com/divanov11/mumbleapi/issues/new/choose). We'll use the issue to have a conversation about the feature or problem and how you want to go about it. 
+
+**Please don't work on said issue until you have been assigned to it.**
 
 #
 
@@ -75,13 +87,43 @@ In general, PRs should:
 - **Add unit or integration tests for fixed or changed functionality** (if a test suite already exists).
 - Address a single concern in the least number of **changed lines as possible**.
 - **Be accompanied by a complete Pull Request template (loaded automatically when a PR is created)**.
+- **Have 2 reviewers**.
+#
+
+### Merging Pull Requests
+
+
+1. It's mandatory that the PR author adds reviewers prior to submitting the PR. 
+2. All PRs will require the approval of both reviewers prior to the branch merge. Once the last reviewer approves the changes, they can merge the branch.
+3. The PR author should choose a label "Review: Needs 1" **OR** "Review: Needs 2" to further organize the repo and review system.
+
+#
+
+
+### Project Board 
+
+In our repository, there is a project board named Backend development, it helps moderators to see how is the work going.
+<br/>
+
+*Preview :*
+<img align="center" src="./img/introducing-project-board1.png"/>
+
+<img src="./img/project-board.gif">
+
+<br />
+<br />
+
+**So please, while submitting a PR or Issue, make sure to :**
+
+<br/>
+
+<img src="./img/activate-project.gif">
 
 #
 
 ### NB
 
 In general, we follow the **fork-and-pull**
-<br />
 
 
 #### Steps :

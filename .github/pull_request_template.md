@@ -4,31 +4,25 @@
 
 <!-- It may take from your time, but think that collaborators and contributors will get your changes in a good way !-->
 
-<!--- Thanks for considering that !-->
+<!--- Thank you for your contribution to Mumble !-->
 
-## Well detailed description of the change :
+### Describe your changes :
+
+<br/>
 
 <!-- Explain what you have done !-->
 
-     I worked on the .....
+<!-- Be sure to tag your assigned issue !-->
 
+I worked on the ..... because ...
 
-## Context of the change :
+#
 
-<!-- Make sure to answer to these questions !-->
-
-     - Why is this change required ?
- 
-<!-- Link the issue below if you are resolving an issue !-->
-
-- Does it solve a problem ? (please link the issue)
- 
-
-## Type of change :
+### Type of change :
 
 <!-- You should choice 1 option -->
 
-<!-- add a x in [ ] if true !-->
+<!-- add an x in [ ] if true !-->
 
 <!-- Delete options that aren't revelant!-->
 
@@ -37,33 +31,39 @@
 - [ ] New feature
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
+#
 
-## Preview (Screenshots) :
+### Preview (Screenshots) :
 
 <!-- While providing screenshots, delete the text below !-->
 
 <!-- try as much as possible to explain each change in each screenshot !-->
 
+<!-- Don't forget to delete the p element while providing screeshots !-->
+
 <p align="center">If it is possible, please link screenshots of your changes preview !
 </p>
 
+#
 
-
-## Checklist:
+### Checklist:
 
 <!-- Check your work !-->
 
+<!-- Please choose the right review label ("Review: Needs 1" OR "Review: Needs 2")!-->
+
 <!-- add a x in [] if done !-->
 
-<!-- let things that you didn't do !-->
+<!-- don't mark items that you didn't do !-->
 
+- [ ] I have read the **Code Of Conduct** document.
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] My code follows the **STYLE_GUIDE** of this project
-- [ ] I have performed a self-review of my own code
+- [ ] I have performed a self-review of my own 
+- [ ] I have added two reviewers to my PR
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] All new and existing tests passed.
 
 
-<!--- Mumble Community thank you a lot for explaining each detail !-->
+<!--- Mumble Community thanks you for explaining your changes in detail !-->

@@ -87,15 +87,15 @@ In general, PRs should:
 - **Add unit or integration tests for fixed or changed functionality** (if a test suite already exists).
 - Address a single concern in the least number of **changed lines as possible**.
 - **Be accompanied by a complete Pull Request template (loaded automatically when a PR is created)**.
-- **Have 2 reviewers**.
+- **Tag 2 Reviewers**
 #
 
 ### Merging Pull Requests
 
 
-1. It's mandatory that the PR author adds reviewers prior to submitting the PR. 
+1. It's mandatory that the PR author adds reviewers prior to submitting the PR. Tag reviewers in the message. A collaborator of the repo will officially add them in PR as reviewer(s). 
 2. All PRs will require the approval of both reviewers prior to the branch merge. Once the last reviewer approves the changes, they can merge the branch.
-3. The PR author should choose a label "Review: Needs 1" **OR** "Review: Needs 2" to further organize the repo and review system.
+3. The PR author should **add two reviewers; unless the change is so minor (think documentation, code formatting)**. A collaborator will choose a label "Review: Needs 1" **OR** "Review: Needs 2" to further organize the repo and review system.
 
 #
 
@@ -191,6 +191,6 @@ In general, we follow the **fork-and-pull**
 
 ### Getting Help
 
-Join us in **[the Discord Server]("https://discord.gg/TxgpyK8pzf")** and post your question there in the correct category with a descriptive tag.
+Join us in **[the Discord Server](https://discord.gg/9Du4KUY3dE)** and post your question there in the correct category with a descriptive tag.
 
 #

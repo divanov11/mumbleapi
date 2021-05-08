@@ -21,18 +21,3 @@ class AccountTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get().username, 'test')
-
-    def test_list_accounts(self):
-        url = reverse('users-api:users')
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(resolve(url).func,views.users)
-
-    def test_list_recommended_accounts(self):
-        url = reverse('users-api:users-recommended')
-        user = User.objects.get(username='test')
-        client = APIClient()
-        client.force_authenticate(user=user)
-        response = client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(resolve(url).func,views.usersRecommended)

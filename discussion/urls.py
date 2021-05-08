@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('',views.discussions,name='discussions'),
     path('create/',views.createDiscussion,name='create-discussion'),
-    path('vote/',views.updateVote,name='vote'),
+    path('vote/',views.updateVote,name='discussion-vote'),
     path('<str:pk>/', views.getDiscussion, name="get-discussion"),
     path('edit/<str:pk>/', views.editDiscussion, name="edit-discussion"),
     path('delete/<str:pk>/', views.deleteDiscussion, name="delete-discussion"),

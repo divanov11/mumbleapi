@@ -87,7 +87,7 @@ In general, PRs should:
 - **Add unit or integration tests for fixed or changed functionality** (if a test suite already exists).
 - Address a single concern in the least number of **changed lines as possible**.
 - **Be accompanied by a complete Pull Request template (loaded automatically when a PR is created)**.
-- **Tag 2 Reviewers**
+- **Tag 2 [Reviewers](https://github.com/divanov11/mumbleapi/blob/master/Reviewers.md)**
 #
 
 ### Merging Pull Requests

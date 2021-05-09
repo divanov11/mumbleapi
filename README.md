@@ -111,11 +111,30 @@ python manage.py loaddata discussiondata.json
 python manage.py runserver
 ```
 
+## Reviewers :
+
+After submitting your PR, you should request a review from the Mumble Api Reviewers :
+
+**If it is a markdown file, documentation or email template changes :** 
+
+Request 
+[@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
+
+**If it is API and Backend stuff :**
+
+--> *Choose two reviewers :*
+
+[@Praveen Malethia](https://github.com/PraveenMalethia)
+
+[@Abhijit Vempati](https://github.com/abhivemp)
+
+[@Bashiru Bukari](https://github.com/bashiru98)
+
+[@Cody Seibert](https://github.com/codyseibert)
+
 ## Explore admin panel for model data or instances
 
 http://127.0.0.1:8000/admin or http://localhost:8000/admin
-
-<br/>
 
 ## Login with the user credentials (you created) using "createsuperuser" cmd
 

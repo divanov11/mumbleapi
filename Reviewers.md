@@ -12,29 +12,31 @@
 
 <br/>
 
-- After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following requests:
+After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following.
 
-  <br/>
+<br/>
 
-  - **Markdown, Documentation, or Email templates:** 
+- **Markdown, Documentation, Email templates:** 
 
-    Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review.
+   [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)
 
-  #
+  [@Abhi Vempati](https://github.com/abhivemp/)
 
-  - **API, Backend, Databases, Dependencies:**
+#
 
-    --> *Choose two reviewers :*
-  
-    [@Dennis Ivy](https://github.com/divanov11)
-  
-    [@Praveen Malethia](https://github.com/PraveenMalethia)
-  
-    [@Abhi Vempati](https://github.com/abhivemp)
-  
-    [@Bashiru Bukari](https://github.com/bashiru98)
-  
-    [@Cody Seibert](https://github.com/codyseibert)
+- **API, Backend, Databases, Dependencies:**
+
+  --> *Choose two reviewers :*
+
+  [@Dennis Ivy](https://github.com/divanov11)
+
+  [@Praveen Malethia](https://github.com/PraveenMalethia)
+
+  [@Abhi Vempati](https://github.com/abhivemp)
+
+  [@Bashiru Bukari](https://github.com/bashiru98)
+
+  [@Cody Seibert](https://github.com/codyseibert)
 
 ### Need Help ?
 

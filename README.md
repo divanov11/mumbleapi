@@ -62,9 +62,11 @@ You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-i
 
 
 
-## Running
+## Install and Run
 
-Make sure you have **Python 3.x** installed and **the latest version of pip** *installed* before running these steps
+Make sure you have **Python 3.x** installed and **the latest version of pip** *installed* before running these steps.
+
+To contribute, please follow the [guidelines](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md) process.
 
 Clone the repository using the following command
 
@@ -127,9 +129,11 @@ After submitting your PR, please tag reviewer(s) in your PR message. You can tag
 
 <br/>
 
-- **Markdown, Documentation, Email templates:** 
+- **Markdown, Documentation, Email templates:**
 
-     Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review.
+  [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)
+
+  [@Abhi Vempati](https://github.com/abhivemp/)
 
 #
 

@@ -113,17 +113,17 @@ python manage.py runserver
 
 ## Reviewers :
 
-After submitting your PR, you should request a review from the Mumble Api Reviewers :
+After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following requests:
 
 <br/>
 
-- **If it is a markdown file, documentation or email template changes :** 
+- **Markdown, Documentation, or Email templates:** 
 
-     Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
+     Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review.
 
 #
 
-- **If it is API and Backend stuff :**
+- **API, Backend, Databases, Dependencies:**
 
      --> *Choose two reviewers :*
 
@@ -131,12 +131,11 @@ After submitting your PR, you should request a review from the Mumble Api Review
     
     [@Praveen Malethia](https://github.com/PraveenMalethia)
 
-    [@Abhijit Vempati](https://github.com/abhivemp)
+    [@Abhi Vempati](https://github.com/abhivemp)
 
     [@Bashiru Bukari](https://github.com/bashiru98)
 
     [@Cody Seibert](https://github.com/codyseibert)
-    
 
 ## Explore admin panel for model data or instances
 

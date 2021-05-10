@@ -1,4 +1,5 @@
 #
+
 <div align="center">
 <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
 <h1>Reviewers at Mumble Api Repository</h1>
@@ -11,32 +12,29 @@
 
 <br/>
 
-After submitting your PR, you should request a review from the Mumble Api Reviewers :
+- After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following requests:
 
-#
+  <br/>
 
-#### If it is a markdown file, documentation or email template changes : 
+  - **Markdown, Documentation, or Email templates:** 
 
-Request 
-[@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
+    Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review.
 
-#
+  #
 
-#### If it is API and Backend stuff :
+  - **API, Backend, Databases, Dependencies:**
 
---> *Choose two reviewers :*
-
-[@Dennis Ivy](https://github.com/divanov11)
-
-[@Praveen Malethia](https://github.com/PraveenMalethia)
-
-[@Abhijit Vempati](https://github.com/abhivemp)
-
-[@Bashiru Bukari](https://github.com/bashiru98)
-
-[@Cody Seibert](https://github.com/codyseibert)
-
-#
+    --> *Choose two reviewers :*
+  
+    [@Dennis Ivy](https://github.com/divanov11)
+  
+    [@Praveen Malethia](https://github.com/PraveenMalethia)
+  
+    [@Abhi Vempati](https://github.com/abhivemp)
+  
+    [@Bashiru Bukari](https://github.com/bashiru98)
+  
+    [@Cody Seibert](https://github.com/codyseibert)
 
 ### Need Help ?
 

@@ -1,7 +1,8 @@
 #
+
 <div align="center">
 <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
-<h1>Reviewers at Mumble Api Repository</h1>
+<h1>Reviewers at Mumble API Repository</h1>
 
 <a href="https://discord.gg/TxgpyK8pzf">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
 <a href="https://drawsql.app/dennis-ivy/diagrams/mumble">![Mumble SQL Diagram](https://img.shields.io/badge/Mumble-Diagram-orange?style=for-the-badge)</a>
@@ -11,32 +12,31 @@
 
 <br/>
 
-After submitting your PR, you should request a review from the Mumble Api Reviewers :
+After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following.
+
+<br/>
+
+- **Markdown, Documentation, Email templates:** 
+
+   [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)
+
+  [@Abhi Vempati](https://github.com/abhivemp/)
 
 #
 
-#### If it is a markdown file, documentation or email template changes : 
+- **API, Backend, Databases, Dependencies:**
 
-Request 
-[@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
+  --> *Choose two reviewers :*
 
-#
+  [@Dennis Ivy](https://github.com/divanov11)
 
-#### If it is API and Backend stuff :
+  [@Praveen Malethia](https://github.com/PraveenMalethia)
 
---> *Choose two reviewers :*
+  [@Abhi Vempati](https://github.com/abhivemp)
 
-[@Dennis Ivy](https://github.com/divanov11)
+  [@Bashiru Bukari](https://github.com/bashiru98)
 
-[@Praveen Malethia](https://github.com/PraveenMalethia)
-
-[@Abhijit Vempati](https://github.com/abhivemp)
-
-[@Bashiru Bukari](https://github.com/bashiru98)
-
-[@Cody Seibert](https://github.com/codyseibert)
-
-#
+  [@Cody Seibert](https://github.com/codyseibert)
 
 ### Need Help ?
 

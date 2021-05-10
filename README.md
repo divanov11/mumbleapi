@@ -115,22 +115,28 @@ python manage.py runserver
 
 After submitting your PR, you should request a review from the Mumble Api Reviewers :
 
-**If it is a markdown file, documentation or email template changes :** 
+<br/>
 
-Request 
-[@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
+- **If it is a markdown file, documentation or email template changes :** 
 
-**If it is API and Backend stuff :**
+     Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
 
---> *Choose two reviewers :*
+#
 
-[@Praveen Malethia](https://github.com/PraveenMalethia)
+- **If it is API and Backend stuff :**
 
-[@Abhijit Vempati](https://github.com/abhivemp)
+     --> *Choose two reviewers :*
 
-[@Bashiru Bukari](https://github.com/bashiru98)
+    [@Dennis Ivy](https://github.com/divanov11)
+    
+    [@Praveen Malethia](https://github.com/PraveenMalethia)
 
-[@Cody Seibert](https://github.com/codyseibert)
+    [@Abhijit Vempati](https://github.com/abhivemp)
+
+    [@Bashiru Bukari](https://github.com/bashiru98)
+
+    [@Cody Seibert](https://github.com/codyseibert)
+    
 
 ## Explore admin panel for model data or instances
 

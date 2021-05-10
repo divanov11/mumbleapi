@@ -27,7 +27,7 @@ from notification.serializers import NotificationSerializer
 
 from .models import UserProfile
 from .serializers import (UserProfileSerializer, UserSerializer,
-                          UserSerializerWithToken)
+                        UserSerializerWithToken)
 
 # Create your views here.
 

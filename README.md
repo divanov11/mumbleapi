@@ -62,41 +62,51 @@ You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-i
 
 
 
-## Running
+## Install and Run
 
 Make sure you have **Python 3.x** installed and **the latest version of pip** *installed* before running these steps.
 
--> Clone the repository using the following command
+To contribute, please follow the [guidelines](https://github.com/divanov11/mumbleapi/blob/master/Contributing.md) process.
+
+Clone the repository using the following command
+
 ```bash
 git clone git@github.com:divanov11/mumbleapi.git
 # After cloning, move into the directory having the project files using the change directory command
 cd mumbleapi
 ```
--> Now create a virtual environment where all the required python packages will be installed
+Create a virtual environment where all the required python packages will be installed
+
 ```bash
 # Use this on Windows
 python -m venv env
 # Use this on Linux and Mac
 python -m venv env
 ```
--> Activate the virtual environment
+Activate the virtual environment
+
 ```bash
 # Windows
 .\env\Scripts\activate
 # Linux and Mac
 source env/bin/activate
 ```
--> Install all the project Requirements
+Install all the project Requirements
 ```bash
 pip install -r requirements.txt
 ```
--> Finally, run the django development server
+-Apply migrations and create your superuser (follow the prompts)
+
 ```bash
 # apply migrations and create your database
 python manage.py migrate
 
 # Create a user with manage.py
 python manage.py createsuperuser
+```
+Load test data to your databsae
+
+```bash
 
 # load data for feed
 python manage.py loaddata feeddata.json
@@ -106,24 +116,28 @@ python manage.py loaddata articledata.json
 
 # load data for discussion
 python manage.py loaddata discussiondata.json
+```
+Run the development server
 
+```bash
 # run django development server
 python manage.py runserver
 ```
+## Reviewers 
 
-## Reviewers :
-
-After submitting your PR, you should request a review from the Mumble Api Reviewers :
+After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following.
 
 <br/>
 
-- **If it is a markdown file, documentation or email template changes :** 
+- **Markdown, Documentation, Email templates:**
 
-     Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review !
+  [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)
+
+  [@Abhi Vempati](https://github.com/abhivemp/)
 
 #
 
-- **If it is API and Backend stuff :**
+- **API, Backend, Databases, Dependencies:**
 
      --> *Choose two reviewers :*
 
@@ -131,12 +145,11 @@ After submitting your PR, you should request a review from the Mumble Api Review
     
     [@Praveen Malethia](https://github.com/PraveenMalethia)
 
-    [@Abhijit Vempati](https://github.com/abhivemp)
+    [@Abhi Vempati](https://github.com/abhivemp)
 
     [@Bashiru Bukari](https://github.com/bashiru98)
 
     [@Cody Seibert](https://github.com/codyseibert)
-    
 
 ## Explore admin panel for model data or instances
 

@@ -64,39 +64,47 @@ You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-i
 
 ## Running
 
-Make sure you have **Python 3.x** installed and **the latest version of pip** *installed* before running these steps.
+Make sure you have **Python 3.x** installed and **the latest version of pip** *installed* before running these steps
 
--> Clone the repository using the following command
+Clone the repository using the following command
+
 ```bash
 git clone git@github.com:divanov11/mumbleapi.git
 # After cloning, move into the directory having the project files using the change directory command
 cd mumbleapi
 ```
--> Now create a virtual environment where all the required python packages will be installed
+Create a virtual environment where all the required python packages will be installed
+
 ```bash
 # Use this on Windows
 python -m venv env
 # Use this on Linux and Mac
 python -m venv env
 ```
--> Activate the virtual environment
+Activate the virtual environment
+
 ```bash
 # Windows
 .\env\Scripts\activate
 # Linux and Mac
 source env/bin/activate
 ```
--> Install all the project Requirements
+Install all the project Requirements
 ```bash
 pip install -r requirements.txt
 ```
--> Finally, run the django development server
+-Apply migrations and create your superuser (follow the prompts)
+
 ```bash
 # apply migrations and create your database
 python manage.py migrate
 
 # Create a user with manage.py
 python manage.py createsuperuser
+```
+Load test data to your databsae
+
+```bash
 
 # load data for feed
 python manage.py loaddata feeddata.json
@@ -106,18 +114,20 @@ python manage.py loaddata articledata.json
 
 # load data for discussion
 python manage.py loaddata discussiondata.json
+```
+Run the development server
 
+```bash
 # run django development server
 python manage.py runserver
 ```
+## Reviewers 
 
-## Reviewers :
-
-After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following requests:
+After submitting your PR, please tag reviewer(s) in your PR message. You can tag anyone below for the following.
 
 <br/>
 
-- **Markdown, Documentation, or Email templates:** 
+- **Markdown, Documentation, Email templates:** 
 
      Request [@Mehdi - MidouWebDev](https://github.com/MidouWebDev)'s review.
 

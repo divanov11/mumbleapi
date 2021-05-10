@@ -2,7 +2,7 @@
 
 <div align="center">
 <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
-<h1>Reviewers at Mumble Api Repository</h1>
+<h1>Reviewers at Mumble API Repository</h1>
 
 <a href="https://discord.gg/TxgpyK8pzf">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
 <a href="https://drawsql.app/dennis-ivy/diagrams/mumble">![Mumble SQL Diagram](https://img.shields.io/badge/Mumble-Diagram-orange?style=for-the-badge)</a>

@@ -20,6 +20,7 @@ def getDiscussion(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def editDiscussion(request,pk):
     try:
         discussion= Discussion.objects.get(id=pk)
@@ -38,6 +39,7 @@ def editDiscussion(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteDiscussion(request,pk):
     try:
         discussion= Discussion.objects.get(id=pk)
@@ -64,6 +66,7 @@ def discussions(request):
 
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def editDiscussionComment(request,pk):
     try:
         comment = DiscussionComment.objects.get(id=pk)
@@ -76,6 +79,7 @@ def editDiscussionComment(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteDiscussionComment(request,pk):
     try:
         comment = DiscussionComment.objects.get(id=pk)

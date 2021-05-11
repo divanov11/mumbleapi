@@ -30,6 +30,10 @@ def readNotification(request, pk):
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def getNotifications(request):
-    notifications = request.user.notifications
+    is_read = request.query_params.get('is_read')
+    if is_read == None:
+        notifications = request.user.notifications.order_by('-created')
+    else:
+        notifications = request.user.notifications.filter(is_read=is_read).order_by('-created')
     serializer = NotificationSerializer(notifications, many=True)
     return Response(serializer.data)

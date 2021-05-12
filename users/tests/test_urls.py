@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.urls import include, path, reverse , resolve
+from django.urls import include, path, reverse, resolve
 from rest_framework import status
 from rest_framework.test import APITestCase
 from users.views import followUser
@@ -9,6 +9,12 @@ class AccountTests(APITestCase):
 
     def setUp(self):
         pass
+
+    def test_main_page(self):
+        url = 'users-api:users'
+        reversed_url = reverse(url)
+        response = self.client.get(reversed_url)
+        self.assertEqual(response.status_code, 200)
 
     def test_users_follow_url(self):
         url = 'users-api:follow-user'

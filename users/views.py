@@ -144,30 +144,34 @@ def userArticles(request, username):
 @permission_classes((IsAuthenticated,))
 def followUser(request, username):
     userWantingToFollowSomeone = request.user
-    userToFollow = User.objects.get(username=username)
-    userToFollowProfile = userToFollow.userprofile
+    try:
+        userToFollow = User.objects.get(username=username)
+        userToFollowProfile = userToFollow.userprofile
 
-    if userWantingToFollowSomeone == userToFollow: 
-        return Response('You can not follow yourself')
-        
-    if userWantingToFollowSomeone in userToFollowProfile.followers.all():
-        userToFollowProfile.followers.remove(userWantingToFollowSomeone)
-        userToFollowProfile.followers_count =  userToFollowProfile.followers.count()
-        userToFollowProfile.save()
-        return Response('User unfollowed')
-    else:
-        userToFollowProfile.followers.add(userWantingToFollowSomeone)
-        userToFollowProfile.followers_count = userToFollowProfile.followers.count()
-        userToFollowProfile.save()
-        # doing this as a signal is much more difficult and hacky
-        Notification.objects.create(
-            to_user=userToFollow,
-            created_by=userWantingToFollowSomeone,
-            notification_type='follow',
-            content_id=userWantingToFollowSomeone.id,
-            content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
-        )
-        return Response('User followed')
+        if userWantingToFollowSomeone == userToFollow: 
+            return Response('You can not follow yourself')
+            
+        if userWantingToFollowSomeone in userToFollowProfile.followers.all():
+            userToFollowProfile.followers.remove(userWantingToFollowSomeone)
+            userToFollowProfile.followers_count =  userToFollowProfile.followers.count()
+            userToFollowProfile.save()
+            return Response('User unfollowed')
+        else:
+            userToFollowProfile.followers.add(userWantingToFollowSomeone)
+            userToFollowProfile.followers_count = userToFollowProfile.followers.count()
+            userToFollowProfile.save()
+            # doing this as a signal is much more difficult and hacky
+            Notification.objects.create(
+                to_user=userToFollow,
+                created_by=userWantingToFollowSomeone,
+                notification_type='follow',
+                content_id=userWantingToFollowSomeone.id,
+                content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
+            )
+            return Response('User followed')
+    except Exception as e:
+        message = {'detail':f'{e}'}
+        return Response(message,status=status.HTTP_204_NO_CONTENT)
 
 
 class UserProfileUpdate(APIView):

@@ -1,6 +1,7 @@
-from django.db import models
-from django.contrib.auth.models import User
 import uuid
+
+from django.contrib.auth.models import User
+from django.db import models
 
 
 #This needs to be shareable

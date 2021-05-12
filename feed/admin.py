@@ -1,8 +1,9 @@
 from django.contrib import admin
 
+from .models import Mumble, MumbleVote
+
 # Register your models here.
 
-from .models import Mumble, MumbleVote
 
 
 admin.site.register(Mumble)

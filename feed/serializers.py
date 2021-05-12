@@ -1,8 +1,9 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
+from users.serializers import UserProfileSerializer, UserSerializer
 
 from .models import Mumble
-from users.serializers import UserProfileSerializer, UserSerializer
 
 
 class MumbleSerializer(serializers.ModelSerializer):

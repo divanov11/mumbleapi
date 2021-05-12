@@ -10,15 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
 from datetime import timedelta
+from pathlib import Path
+
 import django_heroku
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # sentry configs
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 if os.getcwd() == '/app':
     sentry_sdk.init(

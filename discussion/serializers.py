@@ -1,11 +1,8 @@
 from rest_framework import serializers
-from .models import (
-    Discussion,
-    DiscussionComment,
-    DiscussionVote
-)
+
 from users.serializers import UserProfileSerializer
 
+from .models import Discussion, DiscussionComment, DiscussionVote
 
 
 class DiscussionSerializer(serializers.ModelSerializer):

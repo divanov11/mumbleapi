@@ -1,11 +1,8 @@
 from rest_framework import serializers
-from .models import (
-    Article,
-    ArticleComment,
-    ArticleVote
-)
-from users.serializers import UserProfileSerializer , UserSerializer
 
+from users.serializers import UserProfileSerializer, UserSerializer
+
+from .models import Article, ArticleComment, ArticleVote
 
 
 class ArticleSerializer(serializers.ModelSerializer):

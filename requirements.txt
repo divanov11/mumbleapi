@@ -6,9 +6,14 @@ django-cors-headers==3.7.0
 django-heroku==0.3.1
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.6.0
+flake8==3.9.2
 gunicorn==20.1.0
+isort==5.8.0
+mccabe==0.6.1
 Pillow==8.2.0
 psycopg2==2.8.6
+pycodestyle==2.7.0
+pyflakes==2.3.1
 PyJWT==2.0.1
 pytz==2021.1
 sentry-sdk==1.0.0

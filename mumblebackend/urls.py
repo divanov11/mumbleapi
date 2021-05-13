@@ -16,13 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.api_root),
+    # commenting this because docs is added for better endpoint view
+    # path('', views.api_root),
     path('api/users/', include('users.urls')),
     path('api/articles/', include('article.urls')),
     path('api/discussions/', include('discussion.urls')),
     path('api/notifications/', include('notification.urls')),
     path('api/mumbles/', include('feed.urls')),
+    path('schema/', get_schema_view(
+        title="MumbleAPI",
+        description="API for the Mumble.dev",
+        version="1.0.0"
+    ), name="mumble-schema"),
+    path('', include_docs_urls(
+        title="MumbleAPI",
+        description="API for the Mumble.dev",
+    ), name="mumble-docs")
 ]

@@ -84,7 +84,10 @@ REST_FRAMEWORK = {
         'anon': '520/min',
         'user': '520/min'
     },
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+
+    # Added default schema class because by default django rest required this class
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 
@@ -159,23 +162,21 @@ WSGI_APPLICATION = 'mumblebackend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
 
-    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get('MUMBLE_DB_NAME'),
-            'USER':os.environ.get('MUMBLE_USER'),
-            'PASSWORD':os.environ.get('MUMBLE_DB_PASS'),
-            'HOST':os.environ.get('MUMBLE_HOST'),
-            'PORT':'5432',
+            'USER': os.environ.get('MUMBLE_USER'),
+            'PASSWORD': os.environ.get('MUMBLE_DB_PASS'),
+            'HOST': os.environ.get('MUMBLE_HOST'),
+            'PORT': '5432',
         }
     }
-    
+
 else:
     DATABASES = {
         'default': {
@@ -237,4 +238,3 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 django_heroku.settings(locals())
-

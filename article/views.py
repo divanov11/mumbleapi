@@ -58,7 +58,7 @@ def articles(request):
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(articles,request)
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
 

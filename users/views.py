@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -95,10 +96,12 @@ def users(request):
     query = request.query_params.get('q')
     if query == None:
         query = ''
-
     users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query))
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    result_page = paginator.paginate_queryset(users,request)
+    serializer = UserSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET'])

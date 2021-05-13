@@ -167,6 +167,11 @@ In general, we follow the **fork-and-pull**
    ```bash
    # Run flake8 to check your code against coding style (PEP8), programming errors (like “library imported but unused” and “Undefined name”) e.t.c
    flake8
+   # If you have no issue(s) in your code nothing will be displayed
+   # If you have issue(s) make sure to solve any violations reported by flake8
+   # For a more detailed output from flake use either of the following
+   flake8 -v
+   flake8 -vv
    # Also sort your impots automatically by running isort
    isort .
    ```

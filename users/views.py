@@ -42,12 +42,28 @@ class RegisterView(APIView):
 
     def post(self, request):
         data = request.data
-        user = User.objects.create(
-            username=data['username'],
-            email=data['email'],
-            password=make_password(data['password'])
-        )
-        serializer = UserSerializerWithToken(user, many=False)
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+        messages = {'errors':[]}
+        if username == None:
+            messages['errors'].append('username can\'t be empty')
+        if email == None:
+            messages['errors'].append('Email can\'t be empty')
+        if password == None:
+            messages['errors'].append('Password can\'t be empty')
+        if len(messages['errors']) > 0:
+            return Response(messages=messages,status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = User.objects.create(
+                username=username,
+                email=email,
+                password=make_password(password)
+            )
+            serializer = UserSerializerWithToken(user, many=False)
+        except Exception as e:
+            print(e)
+            return Response({'detail':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -76,34 +92,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-@api_view(['POST'])
-def registerUser(request):
-    data = request.data
-    username = data.get('username')
-    email = data.get('email')
-    password = data.get('password')
-    if username == None:
-        message = {'detail':'Username can not be empty'}
-        return Response(message,status=status.HTTP_400_BAD_REQUEST)
-    if email == None:
-        message = {'detail':'Email can not be empty'}
-        return Response(message,status=status.HTTP_400_BAD_REQUEST)
-    if password == None:
-        message = {'detail':'Password can not be empty'}
-        return Response(message,status=status.HTTP_400_BAD_REQUEST)
-    try:
-        user = User.objects.create(
-            username=username,
-            email=email,
-            password=make_password(password)
-        )
-        serializer = UserSerializerWithToken(user, many=False)
-        return Response(serializer.data)
-    except Exception as e:
-        message = {'detail': f'{e}'}
-        return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])

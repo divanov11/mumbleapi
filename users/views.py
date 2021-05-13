@@ -101,7 +101,7 @@ def users(request):
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(users,request)
     serializer = UserSerializer(result_page, many=True)
-    return Response(serializer.data)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET'])

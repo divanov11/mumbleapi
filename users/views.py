@@ -1,9 +1,13 @@
 import datetime
+import uuid
+import random
+import os.path
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 #email verification imports
 from django.contrib.auth.tokens import default_token_generator
+from django.core.files.storage import default_storage
 # from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db.models import Q
@@ -28,7 +32,7 @@ from notification.serializers import NotificationSerializer
 
 from .models import UserProfile
 from .serializers import (UserProfileSerializer, UserSerializer,
-                        UserSerializerWithToken)
+                          UserSerializerWithToken)
 
 # Create your views here.
 
@@ -204,13 +208,15 @@ class ProfilePictureUpdate(APIView):
     parser_class=(FileUploadParser,)
 
     def patch(self, *args, **kwargs):
-    
+        rd = random.Random()
         profile_pic=self.request.FILES['profile_pic']
-        profile_pic.name='{}.png'.format(self.request.user.id)
+        extension = os.path.splitext(profile_pic.name)[1]
+        profile_pic.name='{}{}'.format(uuid.UUID(int=rd.getrandbits(128)), extension)
+        filename = default_storage.save(profile_pic.name, profile_pic)
+        setattr(self.request.user.userprofile, 'profile_pic', filename)
         serializer=self.serializer_class(
-            self.request.user.profile, data=self.request.data, partial=True)
+            self.request.user.userprofile, data={}, partial=True)
         if serializer.is_valid():
-            serializer.profile_pic.name=datetime.datetime.now()
             user=serializer.save().user
             response={'type': 'Success', 'message': 'successfully updated your info',
                         'user': UserSerializer(user).data}

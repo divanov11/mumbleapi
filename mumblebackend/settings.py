@@ -14,25 +14,27 @@ from pathlib import Path
 import os
 from datetime import timedelta
 import django_heroku
+from django.core.management.utils import get_random_secret_key
 
 # sentry configs
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(
-    dsn="https://de808f6f605c4fd79120ddb21f073904@o599875.ingest.sentry.io/5743882",
-    integrations=[DjangoIntegration()],
+if os.getcwd() == '/app':
+    sentry_sdk.init(
+        dsn="https://de808f6f605c4fd79120ddb21f073904@o599875.ingest.sentry.io/5743882",
+        integrations=[DjangoIntegration()],
 
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces_sample_rate=1.0,
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0,
 
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +44,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pdt)iln^a@3sqjkihy=v+l%v%6*ezj&ur$$ch@8&-_e33dv0&1'
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,7 +85,10 @@ REST_FRAMEWORK = {
         'anon': '520/min',
         'user': '520/min'
     },
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+
+    # Added default schema class because by default django rest required this class
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 
@@ -158,24 +163,21 @@ WSGI_APPLICATION = 'mumblebackend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-
 if os.getcwd() == '/app':
-    #SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    #SECURE_SSL_REDIRECT = True
-    #DEBUG = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
 
-    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get('MUMBLE_DB_NAME'),
-            'USER':os.environ.get('MUMBLE_USER'),
-            'PASSWORD':os.environ.get('MUMBLE_DB_PASS'),
-            'HOST':os.environ.get('MUMBLE_HOST'),
-            'PORT':'5432',
+            'USER': os.environ.get('MUMBLE_USER'),
+            'PASSWORD': os.environ.get('MUMBLE_DB_PASS'),
+            'HOST': os.environ.get('MUMBLE_HOST'),
+            'PORT': '5432',
         }
     }
-    
+
 else:
     DATABASES = {
         'default': {
@@ -237,4 +239,3 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 django_heroku.settings(locals())
-

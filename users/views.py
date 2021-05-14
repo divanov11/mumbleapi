@@ -1,18 +1,22 @@
 import datetime
+import uuid
+import random
+import os.path
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 #email verification imports
 from django.contrib.auth.tokens import default_token_generator
+from django.core.files.storage import default_storage
 # from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.db.models import Q
-from django.shortcuts import render
+from django.db.models import Q , Count
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -37,12 +41,28 @@ class RegisterView(APIView):
 
     def post(self, request):
         data = request.data
-        user = User.objects.create(
-            username=data['username'],
-            email=data['email'],
-            password=make_password(data['password'])
-        )
-        serializer = UserSerializerWithToken(user, many=False)
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+        messages = {'errors':[]}
+        if username == None:
+            messages['errors'].append('username can\'t be empty')
+        if email == None:
+            messages['errors'].append('Email can\'t be empty')
+        if password == None:
+            messages['errors'].append('Password can\'t be empty')
+        if len(messages['errors']) > 0:
+            return Response(messages=messages,status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = User.objects.create(
+                username=username,
+                email=email,
+                password=make_password(password)
+            )
+            serializer = UserSerializerWithToken(user, many=False)
+        except Exception as e:
+            print(e)
+            return Response({'detail':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -73,39 +93,24 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-@api_view(['POST'])
-def registerUser(request):
-    data = request.data
-    #try:
-    user = User.objects.create(
-        username=data['username'],
-        email=data['email'],
-        password=make_password(data['password'])
-    )
-
-    serializer = UserSerializerWithToken(user, many=False)
-    return Response(serializer.data)
-    # except:
-    #     message = {'detail': 'User with this email already exists'}
-    #     return Response(message, status=status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['GET'])
 def users(request):
     query = request.query_params.get('q')
     if query == None:
         query = ''
-
     users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query))
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    result_page = paginator.paginate_queryset(users,request)
+    serializer = UserSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def usersRecommended(request):
     user = request.user
-    users = User.objects.filter(~Q(id=user.id))[0:5]
+    users = User.objects.annotate(followers_count=Count('userprofile__followers')).order_by('followers_count').reverse().exclude(id=user.id)[0:5]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
@@ -133,30 +138,34 @@ def userArticles(request, username):
 @permission_classes((IsAuthenticated,))
 def followUser(request, username):
     userWantingToFollowSomeone = request.user
-    userToFollow = User.objects.get(username=username)
-    userToFollowProfile = userToFollow.userprofile
+    try:
+        userToFollow = User.objects.get(username=username)
+        userToFollowProfile = userToFollow.userprofile
 
-    if userWantingToFollowSomeone == userToFollow: 
-        return Response('You can not follow yourself')
-        
-    if userWantingToFollowSomeone in userToFollowProfile.followers.all():
-        userToFollowProfile.followers.remove(userWantingToFollowSomeone)
-        userToFollowProfile.followers_count =  userToFollowProfile.followers.count()
-        userToFollowProfile.save()
-        return Response('User unfollowed')
-    else:
-        userToFollowProfile.followers.add(userWantingToFollowSomeone)
-        userToFollowProfile.followers_count = userToFollowProfile.followers.count()
-        userToFollowProfile.save()
-        # doing this as a signal is much more difficult and hacky
-        Notification.objects.create(
-            to_user=userToFollow,
-            created_by=userWantingToFollowSomeone,
-            notification_type='follow',
-            content_id=userWantingToFollowSomeone.id,
-            content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
-        )
-        return Response('User followed')
+        if userWantingToFollowSomeone == userToFollow: 
+            return Response('You can not follow yourself')
+            
+        if userWantingToFollowSomeone in userToFollowProfile.followers.all():
+            userToFollowProfile.followers.remove(userWantingToFollowSomeone)
+            userToFollowProfile.followers_count =  userToFollowProfile.followers.count()
+            userToFollowProfile.save()
+            return Response('User unfollowed')
+        else:
+            userToFollowProfile.followers.add(userWantingToFollowSomeone)
+            userToFollowProfile.followers_count = userToFollowProfile.followers.count()
+            userToFollowProfile.save()
+            # doing this as a signal is much more difficult and hacky
+            Notification.objects.create(
+                to_user=userToFollow,
+                created_by=userWantingToFollowSomeone,
+                notification_type='follow',
+                content_id=userWantingToFollowSomeone.id,
+                content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
+            )
+            return Response('User followed')
+    except Exception as e:
+        message = {'detail':f'{e}'}
+        return Response(message,status=status.HTTP_204_NO_CONTENT)
 
 
 class UserProfileUpdate(APIView):
@@ -186,13 +195,15 @@ class ProfilePictureUpdate(APIView):
     parser_class=(FileUploadParser,)
 
     def patch(self, *args, **kwargs):
-    
+        rd = random.Random()
         profile_pic=self.request.FILES['profile_pic']
-        profile_pic.name='{}.png'.format(self.request.user.id)
+        extension = os.path.splitext(profile_pic.name)[1]
+        profile_pic.name='{}{}'.format(uuid.UUID(int=rd.getrandbits(128)), extension)
+        filename = default_storage.save(profile_pic.name, profile_pic)
+        setattr(self.request.user.userprofile, 'profile_pic', filename)
         serializer=self.serializer_class(
-            self.request.user.profile, data=self.request.data, partial=True)
+            self.request.user.userprofile, data={}, partial=True)
         if serializer.is_valid():
-            serializer.profile_pic.name=datetime.datetime.now()
             user=serializer.save().user
             response={'type': 'Success', 'message': 'successfully updated your info',
                         'user': UserSerializer(user).data}

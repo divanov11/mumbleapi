@@ -18,6 +18,7 @@ def getArticle(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def editArticle(request,pk):
     try:
         article = Article.objects.get(id=pk)
@@ -35,6 +36,7 @@ def editArticle(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteArticle(request,pk):
     try:
         article = Article.objects.get(id=pk)
@@ -47,6 +49,7 @@ def deleteArticle(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def articles(request):
     query = request.query_params.get('q')
     if query == None:
@@ -55,11 +58,12 @@ def articles(request):
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(articles,request)
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def editArticleComment(request,pk):
     try:
         comment = ArticleComment.objects.get(id=pk)
@@ -72,6 +76,7 @@ def editArticleComment(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteArticleComment(request,pk):
     try:
         comment = ArticleComment.objects.get(id=pk)

@@ -20,6 +20,7 @@ def getDiscussion(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def editDiscussion(request,pk):
     try:
         discussion= Discussion.objects.get(id=pk)
@@ -38,6 +39,7 @@ def editDiscussion(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteDiscussion(request,pk):
     try:
         discussion= Discussion.objects.get(id=pk)
@@ -59,11 +61,12 @@ def discussions(request):
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(discussions,request)
-    serializer = DiscussionSerializer(discussions, many=True)
+    serializer = DiscussionSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def editDiscussionComment(request,pk):
     try:
         comment = DiscussionComment.objects.get(id=pk)
@@ -76,6 +79,7 @@ def editDiscussionComment(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def deleteDiscussionComment(request,pk):
     try:
         comment = DiscussionComment.objects.get(id=pk)

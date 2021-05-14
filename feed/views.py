@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view, permission_classes
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from rest_framework import status
 
@@ -108,13 +108,22 @@ def remumble(request):
     user = request.user
     data = request.data
     originalMumble = Mumble.objects.get(id=data['id'])
-
-    mumble = Mumble.objects.create(
-        remumble=originalMumble,
-        user=user,
-    )
-    serializer = MumbleSerializer(mumble, many=False)
-    return Response(serializer.data)
+    if originalMumble.user == user:
+        return Response({'detail':'You can not remumble your own mumble.'},status=status.HTTP_403_FORBIDDEN)
+    try:
+        mumble = Mumble.objects.get(
+            remumble=originalMumble,
+            user=user,
+        )
+        if mumble:
+            return Response({'detail':'Already Mumbled'},status=status.HTTP_406_NOT_ACCEPTABLE)
+    except ObjectDoesNotExist:
+        mumble = Mumble.objects.create(
+            remumble=originalMumble,
+            user=user,
+        )
+        serializer = MumbleSerializer(mumble, many=False)
+        return Response(serializer.data)
 
 
 @api_view(['POST'])

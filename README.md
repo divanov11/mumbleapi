@@ -3,7 +3,7 @@
 <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
 <h1>Welcome to the Mumble Api Repository</h1>
 
-<a href="https://discord.gg/9HFUbUp8">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
+<a href="https://discord.gg/9Du4KUY3dE">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
 <a href="https://drawsql.app/dennis-ivy/diagrams/mumble">![Mumble SQL Diagram](https://img.shields.io/badge/Mumble-Diagram-orange?style=for-the-badge)</a>
 <a href="http://mumbleapi.herokuapp.com/">![Mumble](https://img.shields.io/badge/Mumble-API-9cf?style=for-the-badge)</a>
 
@@ -157,4 +157,5 @@ http://127.0.0.1:8000/admin or http://localhost:8000/admin
 
 ## Login with the user credentials (you created) using "createsuperuser" cmd
 
-> ⚠ If everything is good and has been done successfully, your **Django Rest API** should be hosted on port 8000 i.e http://127.0.0.1:8000/ or http://localhost:8000/  
+> ⚠ If everything is good and has been done successfully, your **Django Rest API** should be hosted on port 8000 i.e http://127.0.0.1:8000/ or http://localhost:8000/
+

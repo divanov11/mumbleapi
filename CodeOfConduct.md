@@ -72,7 +72,7 @@ further defined and clarified by project maintainers.
 
 ### Enforcement
 
-**Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team on the <a href="https://discord.gg/TxgpyK8pzf"><img align="center" width="28%" src="https://img.shields.io/discord/825371211399692308?label=Discord%20Server&style=for-the-badge&logo=Discord"></a>**.
+**Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team on the <a href="https://discord.gg/9Du4KUY3dE"><img align="center" width="28%" src="https://img.shields.io/discord/825371211399692308?label=Discord%20Server&style=for-the-badge&logo=Discord"></a>**.
 
 <br />
 
@@ -96,6 +96,6 @@ members of the project's leadership.**
 ### NB
 
 
-> ⚠ If you are victim of one of these unacceptable behaviors, DM the **Mumble Bot** in our <a href="https://discord.gg/TxgpyK8pzf"><img align="center" width="28%" src="https://img.shields.io/discord/825371211399692308?label=Discord%20Server&style=for-the-badge&logo=Discord"></a>
+> ⚠ If you are victim of one of these unacceptable behaviors, DM the **Mumble Bot** in our <a href="https://discord.gg/9Du4KUY3dE"><img align="center" width="28%" src="https://img.shields.io/discord/825371211399692308?label=Discord%20Server&style=for-the-badge&logo=Discord"></a>
 <br/>
 **Moderators and the Repo Managers are there** to solve your problems !

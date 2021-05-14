@@ -108,6 +108,8 @@ def remumble(request):
     user = request.user
     data = request.data
     originalMumble = Mumble.objects.get(id=data['id'])
+    if originalMumble.user == user:
+        return Response({'detail':'You can not remumble your own mumble.'},status=status.HTTP_403_FORBIDDEN)
     try:
         mumble = Mumble.objects.get(
             remumble=originalMumble,

@@ -110,7 +110,7 @@ def users(request):
 @permission_classes((IsAuthenticated,))
 def usersRecommended(request):
     user = request.user
-    users = User.objects.annotate(followers_count=Count('userprofile__followers')).order_by('followers_count').reverse()[0:5]
+    users = User.objects.annotate(followers_count=Count('userprofile__followers')).order_by('followers_count').reverse().exclude(id=user.id)[0:5]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 

@@ -22,4 +22,4 @@ To report a security vulnerability, please :
 
 ### Join the Mumble Community :
 
-Join our Discord Server : <img align="center" src="https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord">
+Join our Discord Server : <a href="https://discord.gg/9Du4KUY3dE"><img align="center" src="https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord"></a>

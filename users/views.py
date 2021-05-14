@@ -10,8 +10,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.files.storage import default_storage
 # from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.db.models import Q
-from django.shortcuts import render
+from django.db.models import Q , Count
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -111,7 +110,7 @@ def users(request):
 @permission_classes((IsAuthenticated,))
 def usersRecommended(request):
     user = request.user
-    users = User.objects.filter(~Q(id=user.id))[0:5]
+    users = User.objects.annotate(followers_count=Count('userprofile__followers')).order_by('followers_count').reverse()[0:5]
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 

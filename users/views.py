@@ -52,7 +52,7 @@ class RegisterView(APIView):
         if password == None:
             messages['errors'].append('Password can\'t be empty')
         if len(messages['errors']) > 0:
-            return Response(messages=messages,status=status.HTTP_400_BAD_REQUEST)
+            return Response({"messages":messages},status=status.HTTP_400_BAD_REQUEST)
         try:
             user = User.objects.create(
                 username=username,

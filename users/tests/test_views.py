@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
-from django.urls import include, path, reverse , resolve
+from django.urls import reverse , resolve
 from rest_framework import status
 from rest_framework.test import APITestCase
 # Create your tests here.
@@ -39,15 +39,12 @@ class AccountTests(APITestCase):
         client = APIClient()
         # authenticating the user
         client.force_authenticate(user=self.test_user)
-        url = 'users-api:follow-user'
-        # getting user which to follow
-        user_following = self.another_user.userprofile
         # get following user count before follow
-        user_followers_before = user_following.followers.count()
-        response = client.post(url,args=['praveen'])
-        user_followers_after = user_following.followers.count()
+        user_followers_before = self.another_user.userprofile.followers.count()
+        response = client.post('/api/users/praveen/follow/',args=[self.another_user.username])
+        user_followers_after = self.another_user.userprofile.followers.count()
 
         # test if follow was successful
 
-        # self.assertEqual(user_followers_after,user_followers_before+1)
-        # self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(user_followers_after,user_followers_before+1)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

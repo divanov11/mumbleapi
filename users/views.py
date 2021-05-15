@@ -54,7 +54,7 @@ class RegisterView(APIView):
         if User.objects.filter(email=email).exists():
             messages['errors'].append("Account already exists with this email id.")    
         if len(messages['errors']) > 0:
-            return Response({"messages":messages},status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail":messages['errors']},status=status.HTTP_400_BAD_REQUEST)
         try:
             user = User.objects.create(
                 username=username,

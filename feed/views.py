@@ -1,12 +1,12 @@
-from rest_framework.response import Response 
-from rest_framework.decorators import api_view, permission_classes
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from .models import Mumble, MumbleVote
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.pagination import PageNumberPagination
 from .serializers import MumbleSerializer
 
 # Create your views here.
@@ -111,11 +111,11 @@ def remumble(request):
     if originalMumble.user == user:
         return Response({'detail':'You can not remumble your own mumble.'},status=status.HTTP_403_FORBIDDEN)
     try:
-        mumble = Mumble.objects.get(
+        mumble = Mumble.objects.filter(
             remumble=originalMumble,
             user=user,
         )
-        if mumble:
+        if mumble.exists():
             return Response({'detail':'Already Mumbled'},status=status.HTTP_406_NOT_ACCEPTABLE)
     except ObjectDoesNotExist:
         mumble = Mumble.objects.create(

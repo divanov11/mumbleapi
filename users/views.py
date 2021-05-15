@@ -4,7 +4,7 @@ import random
 import os.path
 
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 #email verification imports
 from django.contrib.auth.tokens import default_token_generator
 from django.core.files.storage import default_storage
@@ -34,6 +34,8 @@ from .serializers import (UserProfileSerializer, UserSerializer,
                           UserSerializerWithToken)
 
 # Create your views here.
+
+User = get_user_model()
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]

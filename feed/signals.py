@@ -1,8 +1,10 @@
 from django.db.models.signals import post_save, pre_save, post_delete
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from users.models import UserProfile
 from .models import Mumble, MumbleVote
 from .utils import updateCommentCounts, updateRemumbleCounts
+
+User = get_user_model()
 
 def updateMumble(sender, instance, created, **kwargs):
     #If a post is created & is a comment, them update the parent

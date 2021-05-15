@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from .models import Mumble
 from users.serializers import UserProfileSerializer, UserSerializer
 
+User = get_user_model()
 
 class MumbleSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)

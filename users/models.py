@@ -13,7 +13,7 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['birth_date','first_name','last_name']
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email

@@ -7,7 +7,7 @@ import uuid
 class User(AbstractBaseUser):
     email = models.EmailField(unique=True,max_length=200)
     username = models.CharField(unique=True,max_length=200)
-    full_name = models.CharField(max_length=155)
+    full_name = models.CharField(max_length=155,null=True,blank=True)
     birth_date = models.DateField(null=True,blank=True)
     is_active = models.BooleanField(default=True) 
     is_admin = models.BooleanField(default=False)

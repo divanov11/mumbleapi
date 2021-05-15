@@ -12,7 +12,7 @@ urlpatterns = [
     path('login/', views.MyTokenObtainPairView.as_view(), name='login'),
 
     path('profile_update/', views.UserProfileUpdate.as_view(), name="profile_update"), 
-    path('profile_update/photo/', views.ProfilePictureUpdate.as_view(), name="profile_update"), 
+    path('profile_update/photo/', views.ProfilePictureUpdate.as_view(), name="profile_update_photo"), 
     path('<str:username>/follow/', views.followUser, name="follow-user"),
 
     path('<str:username>/', views.user, name="user"),

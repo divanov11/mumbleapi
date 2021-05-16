@@ -19,7 +19,7 @@ class AccountTests(APITestCase):
         reversed_url = reverse(url)
         response = self.client.get(url)
         self.assertEqual(resolve(reversed_url).func,users)
-        # self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_users_follow_url(self):
         url = 'users-api:follow-user'

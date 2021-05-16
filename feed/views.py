@@ -36,6 +36,18 @@ def mumbles(request):
     serializer = MumbleSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def mumbleDetails(request,id):
+    try:
+        mumble = Mumble.objects.get(id=id)
+        serializer = MumbleSerializer(mumble, many=False)
+        return Response(serializer.data)
+    except:
+        message = {
+            'detail':'Mumble doesn\'t exist'
+        }
+        return Response(message, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))

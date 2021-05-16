@@ -48,3 +48,14 @@ class AccountTests(APITestCase):
 
         self.assertEqual(user_followers_after,user_followers_before+1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_profile_update_view(self):
+        url = 'users-api:profile_update'
+        reversed_url = reverse(url)
+        data = {
+            'username':'TEST'
+        }
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.patch(reversed_url,data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

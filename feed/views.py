@@ -124,6 +124,8 @@ def remumble(request):
         )
         serializer = MumbleSerializer(mumble, many=False)
         return Response(serializer.data)
+    except Exception as e:
+        return Response({'detail':f'{e}'})
 
 
 @api_view(['POST'])

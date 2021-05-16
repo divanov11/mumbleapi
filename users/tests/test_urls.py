@@ -41,11 +41,6 @@ class AccountTests(APITestCase):
         url = 'users-api:users-recommended'
         reversed_url = reverse(url)
         self.assertEqual(resolve(reversed_url).func,usersRecommended)
-    
-    def test_users_recommended_url(self):
-        url = 'users-api:users-recommended'
-        reversed_url = reverse(url)
-        self.assertEqual(resolve(reversed_url).func,usersRecommended)
 
     def test_user_url(self):
         url = 'users-api:user'

@@ -100,7 +100,7 @@ def users(request):
     query = request.query_params.get('q')
     if query == None:
         query = ''
-    users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query))
+    users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query)).order_by('userprofile__followers')
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(users,request)

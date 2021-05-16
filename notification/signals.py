@@ -18,6 +18,7 @@ def articleCreated(sender, instance, created, **kwargs):
             created_by=instance.user,
             notification_type='article',
             content_id=instance.id,
+            article=instance,
             content=f"An article named {instance.title} was created by {instance.user.userprofile.name}."
         )
 
@@ -31,6 +32,7 @@ def mumbleCreated(sender, instance, created, **kwargs):
             created_by=instance.user,
             notification_type='mumble',
             content_id=instance.id,
+            mumble=instance,
             content=f"A mumble mentioning {instance.user.userprofile.name} was created."
         )
 
@@ -45,6 +47,7 @@ def discussionCreated(sender, instance, created, **kwargs):
             created_by=instance.user,
             notification_type='discussion',
             content_id=instance.id,
+            discussion=instance,
             content=f"A discussion was started by {instance.user.userprofile.name}."
         )
 

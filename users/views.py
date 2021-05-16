@@ -162,6 +162,7 @@ def followUser(request, username):
                 created_by=userWantingToFollowSomeone,
                 notification_type='follow',
                 content_id=userWantingToFollowSomeone.id,
+                followed_by=userWantingToFollowSomeone,
                 content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
             )
             return Response('User followed')

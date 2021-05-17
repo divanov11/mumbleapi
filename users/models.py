@@ -4,6 +4,11 @@ import uuid
 
 
 # Create your models here.
+class TopicTag(models.Model):
+    name = models.CharField(primary_key=True, max_length=150, null=False, blank=False)
+
+    def __str__(self):
+        return str(self.name)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -14,7 +19,7 @@ class UserProfile(models.Model):
     vote_ratio = models.IntegerField(blank=True, null=True, default=0)
     followers_count = models.IntegerField(blank=True, null=True, default=0)
     #skills = 
-    #interests = 
+    interests = models.ManyToManyField(TopicTag, related_name='topic_interests', blank=True)
     followers = models.ManyToManyField(User, related_name='following', blank=True)
     email_verified = models.BooleanField(default=False)
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)

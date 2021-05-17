@@ -1,17 +1,20 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.fields import related
 import uuid
 
-from django.db.models.fields import related
 
 
-# Create your models here.
+# A topic tag is added to by the user so they can content on their feed with the 
+# related tags that
+# They have selected
 class TopicTag(models.Model):
     name = models.CharField(primary_key=True, max_length=150, null=False, blank=False)
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
+# Skills are added by teh user to indicate topics they are proficient in
 class SkillTag(models.Model):
     name = models.CharField(primary_key=True, max_length=150, null=False, blank=False)
 

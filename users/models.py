@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+from django.db.models.fields import related
+
 
 # Create your models here.
 class TopicTag(models.Model):
@@ -9,6 +11,12 @@ class TopicTag(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class SkillTag(models.Model):
+    name = models.CharField(primary_key=True, max_length=150, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -18,7 +26,7 @@ class UserProfile(models.Model):
     bio = models.TextField(null=True)
     vote_ratio = models.IntegerField(blank=True, null=True, default=0)
     followers_count = models.IntegerField(blank=True, null=True, default=0)
-    #skills = 
+    skills = models.ManyToManyField(SkillTag, related_name='personal_skills', blank=True)
     interests = models.ManyToManyField(TopicTag, related_name='topic_interests', blank=True)
     followers = models.ManyToManyField(User, related_name='following', blank=True)
     email_verified = models.BooleanField(default=False)

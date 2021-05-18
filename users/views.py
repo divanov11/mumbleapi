@@ -53,6 +53,8 @@ class RegisterView(APIView):
             messages['errors'].append('Password can\'t be empty')
         if User.objects.filter(email=email).exists():
             messages['errors'].append("Account already exists with this email id.")    
+        if User.objects.filter(username__iexact=username).exists():
+            messages['errors'].append("Account already exists with this username.") 
         if len(messages['errors']) > 0:
             return Response({"detail":messages['errors']},status=status.HTTP_400_BAD_REQUEST)
         try:

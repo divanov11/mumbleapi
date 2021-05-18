@@ -36,11 +36,11 @@ def mumbles(request):
     serializer = MumbleSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def mumbleDetails(request,id):
+def mumbleDetails(request,pk):
     try:
-        mumble = Mumble.objects.get(id=id)
+        mumble = Mumble.objects.get(id=pk)
         serializer = MumbleSerializer(mumble, many=False)
         return Response(serializer.data)
     except:

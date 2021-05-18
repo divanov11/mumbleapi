@@ -26,6 +26,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def get_skills(self, obj):
         return ['Python', 'C#', 'D3 Charts', 'Flutter']
 
+
+class CurrentUserSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = User
+        fields = ['id', 'profile', 'username','email','is_superuser', 'is_staff']
+
+    def get_profile(self, obj):
+        profile = obj.userprofile
+        serializer = UserProfileSerializer(profile, many=False)
+        return serializer.data
+
 class UserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField(read_only=True)
     class Meta:

@@ -31,7 +31,7 @@ from notification.serializers import NotificationSerializer
 
 from .models import UserProfile
 from .serializers import (UserProfileSerializer, UserSerializer,
-                          UserSerializerWithToken)
+                          UserSerializerWithToken, CurrentUserSerializer)
 
 # Create your views here.
 
@@ -119,6 +119,11 @@ def usersRecommended(request):
 @api_view(['GET'])
 def user(request, username):
     user = User.objects.get(username=username)
+
+    if(request.user.username == username):
+        serializer = CurrentUserSerializer(user, many=False)
+        return Response(serializer.data)
+
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 

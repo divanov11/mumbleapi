@@ -104,7 +104,7 @@ python manage.py migrate
 # Create a user with manage.py
 python manage.py createsuperuser
 ```
-Load test data to your databsae
+Load test data to your database
 
 ```bash
 

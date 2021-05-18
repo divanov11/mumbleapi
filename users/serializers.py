@@ -52,6 +52,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserSerializerWithToken(UserSerializer):
     access = serializers.SerializerMethodField(read_only=True)
+    refresh = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
@@ -66,3 +67,7 @@ class UserSerializerWithToken(UserSerializer):
         token['is_staff'] = obj.is_staff
         token['id'] = obj.id
         return str(token.access_token)
+    
+    def get_refresh(self, obj):
+        token = RefreshToken.for_user(obj)
+        return str(token)

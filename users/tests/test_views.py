@@ -5,6 +5,8 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 # Create your tests here.
 
+from users.views import email_validator
+
 class AccountTests(APITestCase):
 
     def setUp(self):
@@ -59,3 +61,9 @@ class AccountTests(APITestCase):
         client.force_authenticate(user=self.test_user)
         response = client.patch(reversed_url,data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+    
+    def test_user_email_is_valid(self):
+        email = 'rshalem@gmail.com'
+        self.assertEqual(email_validator(email), 'rshalem@gmail.com')
+        print('PASSED EMAIL VERIFICATION TEST')

@@ -47,8 +47,10 @@ You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-i
 |       [**asgiref**](https://pypi.org/project/asgiref/)       |     **3.3.4**      |
 | [**dj-database-url**](https://pypi.org/project/dj-database-url/) |     **0.5.0**      |
 |     [**Django**](https://docs.djangoproject.com/en/3.2/)     |      **3.2**       |
+|     [**django-ckeditor**](https://docs.djangoproject.com/en/3.2/)     |      **6.0.0**       |
 | [**django-cors-headers**](https://pypi.org/project/django-cors-headers/) |     **3.7.0**      |
 | [**django-heroku**](https://pypi.org/project/django-heroku/) |     **0.3.1**      |
+| [**django-js-asset**](https://pypi.org/project/django-heroku/) |     **1.2.2**      |
 | [**djangorestframework**](https://www.django-rest-framework.org/) |     **3.12.4**     |
 | [**djangorestframework-simplejwt**](https://pypi.org/project/djangorestframework-simplejwt/) |     **4.6.0**      |
 |      [**gunicorn**](https://pypi.org/project/gunicorn/)      |     **20.1.0**     |

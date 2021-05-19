@@ -14,6 +14,7 @@ from django.db.models import Q , Count
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from email_validator import validate_email, EmailNotValidError
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
@@ -34,6 +35,15 @@ from .serializers import (UserProfileSerializer, UserSerializer,
                           UserSerializerWithToken, CurrentUserSerializer)
 
 # Create your views here.
+def email_validator(email):
+    """validates & return the entered email if correct
+    else returns an exception as string"""
+    try:
+        validated_email_data = validate_email(email)
+        email_add = validated_email_data['email']
+        return email_add
+    except EmailNotValidError as e:
+        return str(e)
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -44,11 +54,14 @@ class RegisterView(APIView):
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
+        email_valid_check_result = email_validator(email)
         messages = {'errors':[]}
         if username == None:
             messages['errors'].append('username can\'t be empty')
         if email == None:
             messages['errors'].append('Email can\'t be empty')
+        if not email_valid_check_result == email:
+            messages['errors'].append(email_valid_check_result)
         if password == None:
             messages['errors'].append('Password can\'t be empty')
         if User.objects.filter(email=email).exists():

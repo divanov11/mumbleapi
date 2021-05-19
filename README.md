@@ -61,6 +61,8 @@ You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-i
 |           [**six**](https://pypi.org/project/six/)           |     **1.15.0**     |
 |      [**sqlparse**](https://pypi.org/project/sqlparse/)      |     **0.4.1**      |
 |    [**whitenoise**](https://pypi.org/project/whitenoise/)    |     **5.2.0**      |
+|    [**email-validator**](https://pypi.org/project/email-validator/)    |     **1.1.2**      |
+|    [**dnspython**](https://pypi.org/project/dnspython/)    |     **2.1.0**      |
 
 
 

@@ -54,7 +54,7 @@ def articles(request):
     query = request.query_params.get('q')
     if query == None:
         query = ''
-    articles = Article.objects.filter(Q(content__icontains=query)|Q(title__icontains=query))
+    articles = Article.objects.filter(Q(content__icontains=query)|Q(title__icontains=query)).order_by("-created", "vote_rank")
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(articles,request)

@@ -28,7 +28,7 @@ def mumbles(request):
     ids = [i.user.id for i in following]
     ids.append(user.id)
     #Make sure parent==None is always on
-    mumbles = Mumble.objects.filter(parent=None, user__id__in=ids)
+    mumbles = Mumble.objects.filter(parent=None, user__id__in=ids).order_by("-created")
     mumbles = mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))
     paginator = PageNumberPagination()
     paginator.page_size = 10

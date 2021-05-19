@@ -57,7 +57,7 @@ def discussions(request):
     if query == None:
         query = ''
     # Q objects is used to make complex query to search in discussion content and headline
-    discussions = Discussion.objects.filter(Q(content__icontains=query)|Q(headline__icontains=query))
+    discussions = Discussion.objects.filter(Q(content__icontains=query)|Q(headline__icontains=query)).order_by("-created")
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(discussions,request)

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 import uuid
 
 
@@ -10,7 +11,7 @@ class Mumble(models.Model):
     remumble = models.ForeignKey("self", on_delete=models.CASCADE, related_name='remumbles', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     #content is allowed to be plan for remumbles
-    content = models.TextField(null=True, blank=True)
+    content = RichTextField(null=True, blank=True)
     image = models.ImageField(blank=True, null=True)
     vote_rank = models.IntegerField(blank=True, null=True, default=0)
     comment_count = models.IntegerField(blank=True, null=True, default=0)

@@ -2,7 +2,18 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import UserProfile
+from .models import UserProfile, TopicTag, SkillTag
+
+
+class TopicTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TopicTag
+        fields = '__all__'
+
+class SkillTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SkillTag
+        fields = '__all__'
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -21,10 +32,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return pic
 
     def get_interests(self, obj):
-        return ['Python', 'C#', 'D3 Charts', 'Flutter']
+        insterests = obj.interests.all()
+        serializer = TopicTagSerializer(insterests, many=True)
+        return serializer.data
 
     def get_skills(self, obj):
-        return ['Python', 'C#', 'D3 Charts', 'Flutter']
+        skills = obj.skills.all()
+        serializer = SkillTagSerializer(skills, many=True)
+        return serializer.data
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):

@@ -18,8 +18,8 @@ class SkillTagSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     profile_pic = serializers.SerializerMethodField(read_only=True)
-    interests = serializers.SerializerMethodField(read_only=True)
-    skills = serializers.SerializerMethodField(read_only=True)
+    interests = TopicTagSerializer(many=True, read_only=True)
+    skills = SkillTagSerializer(many=True, read_only=True)
     class Meta:
         model = UserProfile
         fields = '__all__'
@@ -30,16 +30,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         except:
             pic = None
         return pic
-
-    def get_interests(self, obj):
-        insterests = obj.interests.all()
-        serializer = TopicTagSerializer(insterests, many=True)
-        return serializer.data
-
-    def get_skills(self, obj):
-        skills = obj.skills.all()
-        serializer = SkillTagSerializer(skills, many=True)
-        return serializer.data
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):

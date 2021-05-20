@@ -129,8 +129,8 @@ def remumble(request):
         )
         if mumble.exists():
             return Response({'detail':'Already Mumbled'},status=status.HTTP_406_NOT_ACCEPTABLE)
-    except ObjectDoesNotExist:
-        mumble = Mumble.objects.create(
+        else:
+            mumble = Mumble.objects.create(
             remumble=originalMumble,
             user=user,
         )

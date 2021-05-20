@@ -4,7 +4,7 @@ from .models import (
     DiscussionComment,
     DiscussionVote
 )
-from users.serializers import UserProfileSerializer
+from users.serializers import UserProfileSerializer, SkillTagSerializer
 
 
 
@@ -22,7 +22,9 @@ class DiscussionSerializer(serializers.ModelSerializer):
         return serializer.data
 
     def get_tags(self, obj):
-        return ['Python', 'Django', 'Postman', 'API']
+        tags = obj.tags.all()
+        serializer = SkillTagSerializer(tags, many=True)
+        return serializer.data
 
 class DiscussionCommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)

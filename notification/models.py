@@ -6,6 +6,7 @@ from article.models import Article
 from discussion.models import Discussion
 from feed.models import Mumble
 
+
 class Notification(models.Model):
 
     CHOICES = (

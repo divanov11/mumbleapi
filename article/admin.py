@@ -1,7 +1,19 @@
 from django.contrib import admin
-from .models import (Article,ArticleComment,ArticleVote)
-# Register your models here.
+from .models import Article, ArticleComment, ArticleVote
 
-admin.site.register(Article)
-admin.site.register(ArticleComment)
-admin.site.register(ArticleVote)
+
+class AdminArticle(admin.ModelAdmin):
+    pass
+
+
+class AdminArticleComment(admin.ModelAdmin):
+    pass
+
+
+class AdminArticleVote(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Article, AdminArticle)
+admin.site.register(ArticleComment, AdminArticleComment)
+admin.site.register(ArticleVote, AdminArticleVote)

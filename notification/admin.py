@@ -1,4 +1,9 @@
 from django.contrib import admin
 from .models import Notification
 
-admin.site.register(Notification)
+
+class AdminNotification(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Notification, AdminNotification)

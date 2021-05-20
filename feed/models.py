@@ -26,7 +26,7 @@ class Mumble(models.Model):
     def __str__(self):
         try:
             content = self.content[0:80]
-        except:
+        except Exception:
             content = 'Remumbled: ' + str(self.remumble.content[0:80])
         return content
 

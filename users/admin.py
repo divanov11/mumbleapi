@@ -1,8 +1,19 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import TopicTag, SkillTag, UserProfile
 
-admin.site.register(TopicTag)
-admin.site.register(SkillTag)
-admin.site.register(UserProfile)
+
+class AdminTopicTag(admin.ModelAdmin):
+    pass
+
+
+class AdminSkillTag(admin.ModelAdmin):
+    pass
+
+
+class AdminUserProfile(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(TopicTag, AdminTopicTag)
+admin.site.register(SkillTag, AdminSkillTag)
+admin.site.register(UserProfile, AdminUserProfile)

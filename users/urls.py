@@ -13,8 +13,10 @@ urlpatterns = [
     path('', views.users, name='users'),
     path('recommended/', views.usersRecommended, name="users-recommended"),
 
+    path('profile/', views.profile, name='profile'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.MyTokenObtainPairView.as_view(), name='login'),
+    path('following/', views.following, name='following'),
     path('refresh_token/', TokenRefreshView.as_view(), name='refresh_token'),
 
     path('profile_update/', views.UserProfileUpdate.as_view(), name="profile_update"), 

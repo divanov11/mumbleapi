@@ -4,12 +4,13 @@ from .models import (
     ArticleComment,
     ArticleVote
 )
-from users.serializers import UserProfileSerializer , UserSerializer
+from users.serializers import UserProfileSerializer , TopicTagSerializer
 
 
 
 class ArticleSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
+    tags = TopicTagSerializer(many=True, read_only=True)
     
     class Meta:
         model = Article

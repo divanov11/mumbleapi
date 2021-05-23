@@ -95,5 +95,40 @@ class AccountTests(APITestCase):
         client = APIClient()
         client.force_authenticate(user=self.test_user)
         response = client.get(reversed_url)
-        print(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_mumbles_view(self):
+        url = 'users-api:user-mumbles'
+        reversed_url = reverse(url,args=[self.test_user.username])
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.get(reversed_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_articles_view(self):
+        url = 'users-api:user-articles'
+        reversed_url = reverse(url,args=[self.test_user.username])
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.get(reversed_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_password_change_view(self):
+        url = 'users-api:password-change'
+        reversed_url = reverse(url)
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        data = {
+            'new_password':"Test@123",
+            'new_password_confirm':"Test@123"
+        }
+        response = client.post(reversed_url,data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_send_activate_email_view(self):
+        url = 'users-api:send-activation-email'
+        reversed_url = reverse(url)
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.post(reversed_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

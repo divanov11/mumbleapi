@@ -95,5 +95,4 @@ class AccountTests(APITestCase):
         client = APIClient()
         client.force_authenticate(user=self.test_user)
         response = client.get(reversed_url)
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -8,6 +8,7 @@ from .serializers import DiscussionSerializer , DiscussionCommentSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
+from users.models import TopicTag
 
 
 @api_view(['GET'])
@@ -36,7 +37,7 @@ def editDiscussion(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail':f'{e}'},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
@@ -49,7 +50,7 @@ def deleteDiscussion(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail':f'{e}'},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def discussions(request):
@@ -76,7 +77,7 @@ def editDiscussionComment(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail':f'{e}'},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
@@ -90,7 +91,7 @@ def deleteDiscussionComment(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail':f'{e}'},status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
@@ -111,15 +112,19 @@ def createDiscussion(request):
         return Response(serializer.data)
     else:
         content = data.get('content')
-        # tags field will be included after issue 23 is resolved
-        # tags = data.get('tags')
+        tags = data.get('tags')
         headline = data.get('headline')
         discussion= Discussion.objects.create(
             user=user,
             content=content,
             headline=headline,
-            # tags=tags
             )
+        if tags is not None:
+            for tag_name in tags:
+                tag_instance = TopicTag.objects.filter(name=tag_name).first()
+                if not tag_instance:
+                    tag_instance = TopicTag.objects.create(name=tag_name)
+                discussion.tags.add(tag_instance)
         discussion.save()
     serializer = DiscussionSerializer(discussion, many=False)
     return Response(serializer.data)

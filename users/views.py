@@ -115,7 +115,10 @@ def users(request):
     query = request.query_params.get('q')
     if query == None:
         query = ''
-    users = User.objects.filter(Q(userprofile__name__icontains=query) | Q(userprofile__username__icontains=query)).order_by('userprofile__followers')
+    users = User.objects.filter(
+        Q(userprofile__name__icontains=query) | 
+        Q(userprofile__username__icontains=query)
+    ).order_by('-userprofile__followers_count')
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(users,request)
@@ -156,33 +159,49 @@ def userArticles(request, username):
     serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def following(request):
+    user = request.user
+    following = user.following.all()
+    serializer = UserProfileSerializer(following, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def profile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def followUser(request, username):
-    userWantingToFollowSomeone = request.user
+    user = request.user
     try:
-        userToFollow = User.objects.get(username=username)
-        userToFollowProfile = userToFollow.userprofile
+        user_to_follow = User.objects.get(username=username)
+        user_to_follow_profile = user_to_follow.userprofile
 
-        if userWantingToFollowSomeone == userToFollow: 
+        if user == user_to_follow: 
             return Response('You can not follow yourself')
             
-        if userWantingToFollowSomeone in userToFollowProfile.followers.all():
-            userToFollowProfile.followers.remove(userWantingToFollowSomeone)
-            userToFollowProfile.followers_count =  userToFollowProfile.followers.count()
-            userToFollowProfile.save()
+        if user in user_to_follow_profile.followers.all():
+            user_to_follow_profile.followers.remove(user)
+            user_to_follow_profile.followers_count =  user_to_follow_profile.followers.count()
+            user_to_follow_profile.save()
             return Response('User unfollowed')
         else:
-            userToFollowProfile.followers.add(userWantingToFollowSomeone)
-            userToFollowProfile.followers_count = userToFollowProfile.followers.count()
-            userToFollowProfile.save()
+            user_to_follow_profile.followers.add(user)
+            user_to_follow_profile.followers_count = user_to_follow_profile.followers.count()
+            user_to_follow_profile.save()
             # doing this as a signal is much more difficult and hacky
             Notification.objects.create(
-                to_user=userToFollow,
-                created_by=userWantingToFollowSomeone,
+                to_user=user_to_follow,
+                created_by=user,
                 notification_type='follow',
-                followed_by=userWantingToFollowSomeone,
-                content=f"{userWantingToFollowSomeone.userprofile.name} started following you."
+                followed_by=user,
+                content=f"{user.userprofile.name} started following you."
             )
             return Response('User followed')
     except Exception as e:

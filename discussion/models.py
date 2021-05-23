@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from users.models import TopicTag
 import uuid
 
 
@@ -9,8 +10,8 @@ class Discussion(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     headline = models.CharField(max_length=500, default="no headline")
     content = RichTextField(max_length=10000)
-    # tags field will be included after issue 23 is resolved
-    # tags 
+    # discussion tags from user model
+    tags = models.ManyToManyField(TopicTag, related_name='discussion_tags', blank=True) 
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

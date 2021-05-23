@@ -7,6 +7,7 @@ from .models import Article , ArticleComment , ArticleVote
 from .serializers import ArticleSerializer , ArticleCommentSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from users.models import TopicTag
 
 @api_view(['GET'])
 def getArticle(request, pk):
@@ -114,8 +115,13 @@ def createArticle(request):
             user=user,
             content=content,
             title=title,
-            tags=tags
             )
+        if tags is not None:
+            for tag_name in tags:
+                tag_instance = TopicTag.objects.filter(name=tag_name).first()
+                if not tag_instance:
+                    tag_instance = TopicTag.objects.create(name=tag_name)
+                article.tags.add(tag_instance)
         article.save()
     serializer = ArticleSerializer(article, many=False)
     return Response(serializer.data)

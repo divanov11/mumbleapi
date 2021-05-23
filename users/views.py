@@ -276,7 +276,7 @@ def sendActivationEmail(request):
         email.send()
         return Response('Mail sent Successfully',status=status.HTTP_200_OK)
     except Exception as e:
-        return Response('Something went wrong , please try again',status=status.HTTP_403_FORBIDDEN)
+        return Response({'detail':f'{e}'},status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['GET'])

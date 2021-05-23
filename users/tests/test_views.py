@@ -3,6 +3,7 @@ from rest_framework.test import APIClient
 from django.urls import reverse , resolve
 from rest_framework import status
 from rest_framework.test import APITestCase
+import json
 # Create your tests here.
 
 from users.views import email_validator
@@ -37,7 +38,7 @@ class AccountTests(APITestCase):
         self.another_user = User.objects.get(username='praveen')
 
 
-    def test_users_follow_url(self):
+    def test_users_follow_view(self):
         client = APIClient()
         # authenticating the user
         client.force_authenticate(user=self.test_user)
@@ -50,6 +51,25 @@ class AccountTests(APITestCase):
 
         self.assertEqual(user_followers_after,user_followers_before+1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_users_login(self):
+        url = 'users-api:login'
+        reversed_url = reverse(url)
+        data = {
+            'username':'praveen',
+            'password':'SomethingRandomPassword@123'
+        }
+        client = APIClient()
+        response = client.post(reversed_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = json.loads(response.content.decode('UTF-8'))
+        # if response[0]:
+        #     print("Login Token Being Generated Correctly")
+        # if response[1]:
+        #     print("Rrefresh Token also genrerate Correctly")
+        # if response.content.get("username") == data.get('username'):
+        #     print("Correct User fetched")
+
 
     def test_user_profile_update_view(self):
         url = 'users-api:profile_update'

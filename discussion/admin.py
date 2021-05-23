@@ -3,15 +3,24 @@ from .models import Discussion, DiscussionComment, DiscussionVote
 
 
 class AdminDiscussion(admin.ModelAdmin):
-    pass
+    list_display = ('headline', 'user', 'created',)
+    search_fields = ('user',)
+    list_filter = ('created',)
+    empty_value_display = '-empty field-'
 
 
 class AdminDiscussionComment(admin.ModelAdmin):
-    pass
+    list_display = ('discussion', 'user', 'created',)
+    search_fields = ('user',)
+    list_filter = ('created',)
+    empty_value_display = '-empty field-'
 
 
 class AdminDiscussionVote(admin.ModelAdmin):
-    pass
+    list_display = ('discussion', 'user', 'value',)
+    search_fields = ('user',)
+    list_filter = ('created',)
+    empty_value_display = '-empty field-'
 
 
 admin.site.register(Discussion, AdminDiscussion)

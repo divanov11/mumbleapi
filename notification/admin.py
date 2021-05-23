@@ -3,7 +3,10 @@ from .models import Notification
 
 
 class AdminNotification(admin.ModelAdmin):
-    pass
+    search_fields = ('to_user',)
+    list_filter = ('to_user', 'followed_by',)
+    empty_value_display = '-empty field-'
+
 
 
 admin.site.register(Notification, AdminNotification)

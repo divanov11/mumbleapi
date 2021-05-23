@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 from django.urls import reverse , resolve
@@ -28,7 +29,7 @@ class AccountTests(APITestCase):
 
         data = {
             'username':'praveen',
-            'email':'praveen@gmail.com', 
+            'email':'praveen@gmail.com',
             'password':'SomethingRandomPassword@123'
         }
         response = self.client.post(url, data, format='json')
@@ -62,7 +63,7 @@ class AccountTests(APITestCase):
         client = APIClient()
         response = client.post(reversed_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = json.loads(response.content.decode('UTF-8'))
+        # response = json.loads(response.content.decode('UTF-8'))
         # if response[0]:
         #     print("Login Token Being Generated Correctly")
         # if response[1]:
@@ -87,3 +88,12 @@ class AccountTests(APITestCase):
         email = 'rshalem@gmail.com'
         self.assertEqual(email_validator(email), 'rshalem@gmail.com')
         print('PASSED EMAIL VERIFICATION TEST')
+
+    def test_user_following_view(self):
+        url = 'users-api:following'
+        reversed_url = reverse(url)
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.get(reversed_url)
+        print(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

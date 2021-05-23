@@ -163,8 +163,8 @@ def userArticles(request, username):
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def following(request):
-    user = request.user
-    following = user.following.all()
+    user = request.user.userprofile
+    following = user.followers.all()
     serializer = UserProfileSerializer(following, many=True)
     return Response(serializer.data)
 

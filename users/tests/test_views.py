@@ -7,6 +7,8 @@ from rest_framework.test import APITestCase
 import json
 # Create your tests here.
 
+from ..models import SkillTag, TopicTag
+
 from users.views import email_validator
 
 class AccountTests(APITestCase):
@@ -131,4 +133,34 @@ class AccountTests(APITestCase):
         client = APIClient()
         client.force_authenticate(user=self.test_user)
         response = client.post(reversed_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_update_skills(self):
+        url = 'users-api:update_skills'
+        reversed_url = reverse(url)
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.patch(reversed_url, [
+            {'name': 'javascript'}
+        ])
+        response_json = json.loads(response.content)
+        tag = SkillTag.objects.get(name='javascript')
+        self.assertEqual(tag.name, 'javascript')
+        self.assertEqual(response_json['skills'], [{'name': 'javascript'}])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_update_interests(self):
+        url = 'users-api:update_interests'
+        reversed_url = reverse(url)
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.patch(reversed_url, [
+            {'name': 'agile'}
+        ])
+        response_json = json.loads(response.content)
+        tag = TopicTag.objects.get(name='agile')
+        self.assertEqual(tag.name, 'agile')
+        self.assertEqual(response_json['interests'], [{'name': 'agile'}])
         self.assertEqual(response.status_code, status.HTTP_200_OK)

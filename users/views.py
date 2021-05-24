@@ -177,7 +177,7 @@ def profile(request):
 
 @api_view(['PATCH'])
 @permission_classes((IsAuthenticated,))
-def updateSkills(request): 
+def update_skills(request): 
     user_profile = request.user.userprofile
     skills = request.data
     to_set = []
@@ -194,7 +194,7 @@ def updateSkills(request):
 
 @api_view(['PATCH'])
 @permission_classes((IsAuthenticated,))
-def updateInterests(request): 
+def update_interests(request): 
     user_profile = request.user.userprofile
     interests = request.data
     to_set = []

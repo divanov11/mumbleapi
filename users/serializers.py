@@ -19,7 +19,7 @@ class SkillTagSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     profile_pic = serializers.SerializerMethodField(read_only=True)
     interests = TopicTagSerializer(many=True, read_only=True)
-    skills = SkillTagSerializer(many=True, read_only=True)
+    skills = SkillTagSerializer(many=True, read_only=False)
     class Meta:
         model = UserProfile
         fields = '__all__'

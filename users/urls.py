@@ -20,6 +20,8 @@ urlpatterns = [
     path('refresh_token/', TokenRefreshView.as_view(), name='refresh_token'),
 
     path('profile_update/', views.UserProfileUpdate.as_view(), name="profile_update"), 
+    path('profile_update/skills/', views.updateSkills, name='update_skills'),
+    path('profile_update/interests/', views.updateInterests, name='update_interests'),
     path('profile_update/photo/', views.ProfilePictureUpdate.as_view(), name="profile_update_photo"), 
     path('<str:username>/follow/', views.followUser, name="follow-user"),
 

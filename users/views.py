@@ -30,7 +30,7 @@ from feed.serializers import MumbleSerializer
 from notification.models import Notification
 from notification.serializers import NotificationSerializer
 
-from .models import UserProfile
+from .models import UserProfile, SkillTag, TopicTag
 from .serializers import (UserProfileSerializer, UserSerializer,
                           UserSerializerWithToken, CurrentUserSerializer)
 
@@ -173,6 +173,40 @@ def following(request):
 def profile(request):
     user = request.user
     serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+@api_view(['PATCH'])
+@permission_classes((IsAuthenticated,))
+def updateSkills(request): 
+    user_profile = request.user.userprofile
+    skills = request.data
+    to_set = []
+    for skill in skills:
+        try:
+            s = SkillTag.objects.get_or_create(name=skill['name'])[0]
+            to_set.append(s)
+        except Exception as e:
+            pass
+    user_profile.skills.set(to_set)
+    user_profile.save()
+    serializer = UserProfileSerializer(user_profile, many=False)
+    return Response(serializer.data)
+
+@api_view(['PATCH'])
+@permission_classes((IsAuthenticated,))
+def updateInterests(request): 
+    user_profile = request.user.userprofile
+    interests = request.data
+    to_set = []
+    for interest in interests:
+        try:
+            interest = TopicTag.objects.get_or_create(name=interest['name'])[0]
+            to_set.append(interest)
+        except Exception as e:
+            pass
+    user_profile.interests.set(to_set)
+    user_profile.save()
+    serializer = UserProfileSerializer(user_profile, many=False)
     return Response(serializer.data)
 
 @api_view(['POST'])

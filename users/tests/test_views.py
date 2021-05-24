@@ -39,20 +39,6 @@ class AccountTests(APITestCase):
         self.another_user = User.objects.get(username='praveen')
 
 
-    def test_users_follow_view(self):
-        client = APIClient()
-        # authenticating the user
-        client.force_authenticate(user=self.test_user)
-        # get following user count before follow
-        user_followers_before = self.another_user.userprofile.followers.count()
-        response = client.post('/api/users/praveen/follow/',args=[self.another_user.username])
-        user_followers_after = self.another_user.userprofile.followers.count()
-
-        # test if follow was successful
-
-        self.assertEqual(user_followers_after,user_followers_before+1)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
     def test_users_login(self):
         url = 'users-api:login'
         reversed_url = reverse(url)
@@ -88,14 +74,6 @@ class AccountTests(APITestCase):
         email = 'rshalem@gmail.com'
         self.assertEqual(email_validator(email), 'rshalem@gmail.com')
         print('PASSED EMAIL VERIFICATION TEST')
-
-    def test_user_following_view(self):
-        url = 'users-api:following'
-        reversed_url = reverse(url)
-        client = APIClient()
-        client.force_authenticate(user=self.test_user)
-        response = client.get(reversed_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_user_mumbles_view(self):
         url = 'users-api:user-mumbles'
@@ -152,9 +130,9 @@ class AccountTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         user_following_after = self.test_user.following.count()
-        user_followers_after = self.another_user.userprofile.followers.count()
+        another_user_followers_after = self.another_user.userprofile.followers.count()
 
-        self.assertEqual(user_followers_after,user_followers_before + 1)
+        self.assertEqual(another_user_followers_after,user_followers_before + 1)
         self.assertEqual(user_following_after,user_following_before + 1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

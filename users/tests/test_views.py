@@ -139,9 +139,8 @@ class AccountTests(APITestCase):
     def test_update_skills(self):
         url = 'users-api:update_skills'
         reversed_url = reverse(url)
-        client = APIClient()
-        client.force_authenticate(user=self.test_user)
-        response = client.patch(reversed_url, [
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.patch(reversed_url, [
             {'name': 'javascript'}
         ])
         response_json = json.loads(response.content)
@@ -154,9 +153,8 @@ class AccountTests(APITestCase):
     def test_update_interests(self):
         url = 'users-api:update_interests'
         reversed_url = reverse(url)
-        client = APIClient()
-        client.force_authenticate(user=self.test_user)
-        response = client.patch(reversed_url, [
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.patch(reversed_url, [
             {'name': 'agile'}
         ])
         response_json = json.loads(response.content)
@@ -164,3 +162,18 @@ class AccountTests(APITestCase):
         self.assertEqual(tag.name, 'agile')
         self.assertEqual(response_json['interests'], [{'name': 'agile'}])
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_users_follow_view(self):
+        # test_user should be following 0 people at the start
+        user_following_before = self.test_user.following.count()
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.post('/api/users/praveen/follow/',args=[self.another_user.username])
+
+        # check the following endpoint to verify that test_user comes back
+        url = 'users-api:following'
+        reversed_url = reverse(url)
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.get(reversed_url)
+        user_following_after = self.test_user.following.count()
+        self.assertEqual(user_following_after,user_following_before + 1)
+

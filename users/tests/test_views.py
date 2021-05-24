@@ -132,3 +132,21 @@ class AccountTests(APITestCase):
         client.force_authenticate(user=self.test_user)
         response = client.post(reversed_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_users_follow_view(self):
+        # test_user should be following 0 people at the start
+        user_following_before = self.test_user.following.count()
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.post('/api/users/praveen/follow/',args=[self.another_user.username])
+
+        # check the following endpoint to verify that test_user comes back
+        url = 'users-api:following'
+        reversed_url = reverse(url)
+        client = APIClient()
+        client.force_authenticate(user=self.test_user)
+        response = client.get(reversed_url)
+        user_following_after = self.test_user.following.count()
+        self.assertEqual(user_following_after,user_following_before + 1)
+
+        

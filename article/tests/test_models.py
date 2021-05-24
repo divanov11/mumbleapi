@@ -21,7 +21,7 @@ class ArticleTestCases(APITestCase):
         self.assertEqual(User.objects.get().username, 'test')
 
     def test_create_article(self):
-        url = reverse('create-article')
+        url = reverse('mumbles-api-articles:create-article')
         user = User.objects.get(username='test')
         client = APIClient()
         client.force_authenticate(user=user)

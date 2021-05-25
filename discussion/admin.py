@@ -24,11 +24,6 @@ class AdminDiscussionVote(admin.ModelAdmin):
     list_filter = ('created',)
     empty_value_display = '-empty field-'
 
-
-admin.site.register(Discussion, AdminDiscussion)
-admin.site.register(DiscussionComment, AdminDiscussionComment)
-admin.site.register(DiscussionVote, AdminDiscussionVote)
-
 @admin.register(Discussion)
 class DiscussionAdmin(admin.ModelAdmin):
     list_display = ['id', 'headline', 'user', 'created']

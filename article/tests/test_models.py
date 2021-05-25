@@ -1,9 +1,8 @@
-from django.test import RequestFactory,TestCase
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
-from django.urls import include, path, reverse , resolve
+from django.urls import reverse , resolve
 from rest_framework import status
-from rest_framework.test import APITestCase, URLPatternsTestCase
+from rest_framework.test import APITestCase
 from article.views import createArticle
 
 class ArticleTestCases(APITestCase):

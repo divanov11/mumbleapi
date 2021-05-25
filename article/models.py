@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 from users.models import TopicTag
 import uuid
-# Create your models here.
+
 
 class Article(models.Model):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)

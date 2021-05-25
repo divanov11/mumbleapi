@@ -1,8 +1,13 @@
 #
 <div align="center">
   <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
+  <b>
+  <span>
+  API
+  </span>
+  </b>
   <h1 align="center">
-    Contributing to MUMBLE API
+    Contributing
   </h1>
 
   <a href="https://discord.gg/9Du4KUY3dE">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>

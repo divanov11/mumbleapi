@@ -1,7 +1,12 @@
 #
 <div align="center">
 <img src="https://mumble.dev/apple-touch-icon.png" width="20%">
-<h1>Security at Mumble</h1>
+<b>
+<span>
+API
+</span>
+</b>
+<h1>Security</h1>
 </div>
 
 ### Reporting a Vulnerability :

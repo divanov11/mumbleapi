@@ -1,5 +1,10 @@
 <p align="center">
   <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
+  <b>
+  <span>
+  API
+  </span>
+  </b>
   <h1 align="center">
     Code of Conduct 
   </h1>

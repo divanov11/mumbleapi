@@ -180,14 +180,9 @@ def profile(request):
 def update_skills(request): 
     user_profile = request.user.userprofile
     skills = request.data
-    to_set = []
-    for skill in skills:
-        try:
-            s = SkillTag.objects.get_or_create(name=skill['name'])[0]
-            to_set.append(s)
-        except Exception as e:
-            pass
-    user_profile.skills.set(to_set)
+    user_profile.skills.set(
+        SkillTag.objects.get_or_create(name=skill['name'])[0] for skill in skills
+    )
     user_profile.save()
     serializer = UserProfileSerializer(user_profile, many=False)
     return Response(serializer.data)
@@ -197,14 +192,9 @@ def update_skills(request):
 def update_interests(request): 
     user_profile = request.user.userprofile
     interests = request.data
-    to_set = []
-    for interest in interests:
-        try:
-            interest = TopicTag.objects.get_or_create(name=interest['name'])[0]
-            to_set.append(interest)
-        except Exception as e:
-            pass
-    user_profile.interests.set(to_set)
+    user_profile.interests.set(
+        TopicTag.objects.get_or_create(name=interest['name'])[0] for interest in interests
+    )
     user_profile.save()
     serializer = UserProfileSerializer(user_profile, many=False)
     return Response(serializer.data)

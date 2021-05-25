@@ -1,51 +1,49 @@
 from django.contrib import admin
+from datetime import timedelta
 from .models import (Discussion, DiscussionComment, DiscussionVote)
 from django.apps import apps
 
 models = apps.get_models()
 
-class AdminDiscussion(admin.ModelAdmin):
-    list_display = ('headline', 'user', 'created',)
-    search_fields = ('user',)
-    list_filter = ('created',)
-    empty_value_display = '-empty field-'
 
-
-class AdminDiscussionComment(admin.ModelAdmin):
-    list_display = ('discussion', 'user', 'created',)
-    search_fields = ('user',)
-    list_filter = ('created',)
-    empty_value_display = '-empty field-'
-
-
-class AdminDiscussionVote(admin.ModelAdmin):
-    list_display = ('discussion', 'user', 'value',)
-    search_fields = ('user',)
-    list_filter = ('created',)
-    empty_value_display = '-empty field-'
 
 @admin.register(Discussion)
 class DiscussionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'headline', 'user', 'created']
+    list_display = ['id', 'headline', 'user', 'get_utc']
     list_filter = ['user']
     search_fields = ['user', 'headline']
     ordering = ['-created']
 
+    def get_utc(self, obj):
+        return obj.created + timedelta(minutes=330)
+
+    get_utc.short_description = 'Created (UTC)'
+
 
 @admin.register(DiscussionComment)
 class DiscussionCommentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'discussion', 'user', 'created']
+    list_display = ['id', 'discussion', 'user', 'get_utc']
     list_filter = ['user']
     search_fields = ['user', 'discussion']
     ordering = ['-created']
+
+    def get_utc(self, obj):
+        return obj.created + timedelta(minutes=330)
+
+    get_utc.short_description = 'Created (UTC)'
 
 
 @admin.register(DiscussionVote)
 class DiscussionVoteAdmin(admin.ModelAdmin):
-    list_display = ['id', 'discussion', 'user', 'created']
+    list_display = ['id', 'discussion', 'user', 'get_utc']
     list_filter = ['user']
     search_fields = ['user', 'discussion']
     ordering = ['-created']
+
+    def get_utc(self, obj):
+        return obj.created + timedelta(minutes=330)
+
+    get_utc.short_description = 'Created (UTC)'
 
 
 for model in models:

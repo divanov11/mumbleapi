@@ -1,6 +1,11 @@
 #
 <div align="center">
 <img src="./static/images/dark-logo.1c6c40e2.png" width="20%">
+<b>
+<span>
+API
+</span>
+</b>
 <h1>Welcome to the Mumble Api Repository</h1>
 
 <a href="https://discord.gg/9Du4KUY3dE">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
@@ -45,25 +50,38 @@ You can see clearly the diagram at :&nbsp; <a href="https://drawsql.app/dennis-i
 |           [**Python**](https://docs.python.org/3/)           |      **3.x**       |
 |           [**pip**](https://pypi.org/project/pip/)           | **latest version** |
 |       [**asgiref**](https://pypi.org/project/asgiref/)       |     **3.3.4**      |
-| [**dj-database-url**](https://pypi.org/project/dj-database-url/) |     **0.5.0**      |
+|       [**certifi**](https://pypi.org/project/certifi/)       |   **2020.12.5**    |
+|       [**chardet**](https://pypi.org/project/chardet/)       |     **4.0.0**      |
+|       [**coreapi**](https://pypi.org/project/coreapi/)       |     **2.3.3**      |
+|     [**coreschema**](https://pypi.org/project/coreschema/)|  |     **0.0.4**      |
+| [**dj-database-url**](https://pypi.org/project/dj-database-url/) | **0.5.0** |
 |     [**Django**](https://docs.djangoproject.com/en/3.2/)     |      **3.2**       |
-|     [**django-ckeditor**](https://docs.djangoproject.com/en/3.2/)     |      **6.0.0**       |
-| [**django-cors-headers**](https://pypi.org/project/django-cors-headers/) |     **3.7.0**      |
+| [**django-ckeditor**](https://pypi.org/project/django-ckeditor/) |  **6.0.0**  |
+| [**django-cors-headers**](https://pypi.org/project/django-cors-headers/) |   **3.7.0**   |
 | [**django-heroku**](https://pypi.org/project/django-heroku/) |     **0.3.1**      |
-| [**django-js-asset**](https://pypi.org/project/django-heroku/) |     **1.2.2**      |
+| [**django-js-asset**](https://pypi.org/project/django-heroku/) |     **1.2.2**    |
 | [**djangorestframework**](https://www.django-rest-framework.org/) |     **3.12.4**     |
 | [**djangorestframework-simplejwt**](https://pypi.org/project/djangorestframework-simplejwt/) |     **4.6.0**      |
+|    [**dnspython**](https://pypi.org/project/dnspython/)    |     **2.1.0**      |
+|    [**email-validator**](https://pypi.org/project/email-validator/)    |     **1.1.2**      |
 |      [**gunicorn**](https://pypi.org/project/gunicorn/)      |     **20.1.0**     |
-|        [**Pillow**](https://pypi.org/project/Pillow/)        |     **8.2.0**      |
+|    [*idna*](https://pypi.org/project/idna/)   | **2.10**|
+|    [*itypes*](https://pypi.org/project/itypes/)   | **1.2.0**|
+|    [*Jinja2*](https://pypi.org/project/Jinja2/)   |**3.0.0**|
+|    [*MarkupSafe*](https://pypi.org/project/MarkupSafe/)   | **2.0.0**|
+|     [**Pillow**](https://pypi.org/project/Pillow/)        |     **8.2.0**      |
 |      [**psycopg2**](https://pypi.org/project/psycopg2/)      |     **2.8.6**      |
 |         [**PyJWT**](https://pypi.org/project/PyJWT/)         |     **2.0.1**      |
 |          [**pytz**](https://pypi.org/project/pytz/)          |     **2021.1**     |
+|    [*PyYAML*](https://pypi.org/project/PyYAML/)   | **5.4.1** |
+|    [**requests**](https://pypi.org/project/requests/)   | **2.25.1** |
+|    [**sentry-sdk**](https://pypi.org/project/sentry-sdk/)   | **1.0.0** |
 |           [**six**](https://pypi.org/project/six/)           |     **1.15.0**     |
 |      [**sqlparse**](https://pypi.org/project/sqlparse/)      |     **0.4.1**      |
+|    [**typing-extension**](https://pypi.org/project/typing-extensions/)   | **3.10.0.0** |
+|    [**uritemplate**](https://pypi.org/project/uritemplate/)   | **3.0.1** |
+|    [**urllib3**](https://pypi.org/project/urllib3/)   | **1.26.4** |
 |    [**whitenoise**](https://pypi.org/project/whitenoise/)    |     **5.2.0**      |
-|    [**email-validator**](https://pypi.org/project/email-validator/)    |     **1.1.2**      |
-|    [**dnspython**](https://pypi.org/project/dnspython/)    |     **2.1.0**      |
-
 
 
 ## Install and Run

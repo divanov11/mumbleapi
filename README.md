@@ -121,6 +121,29 @@ python manage.py loaddata articledata.json
 # load data for discussion
 python manage.py loaddata discussiondata.json
 ```
+
+Run the tests
+
+```bash
+# run django tests for article app
+python manage.py test article
+```
+
+```bash
+# run django tests for discussion app
+python manage.py test discussion
+```
+
+```bash
+# run django tests for feed app
+python manage.py test feed
+```
+
+```bash
+# run django tests for users app
+python manage.py test users
+```
+
 Run the development server
 
 ```bash

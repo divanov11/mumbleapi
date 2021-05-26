@@ -6,6 +6,8 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 # Create your tests here.
 
+from ..models import SkillTag, TopicTag
+
 from users.views import email_validator
 
 class AccountTests(APITestCase):
@@ -132,20 +134,45 @@ class AccountTests(APITestCase):
         response = client.post(reversed_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
+    def test_update_skills(self):
+        url = 'users-api:update_skills'
+        reversed_url = reverse(url)
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.patch(reversed_url, [
+            {'name': 'javascript'}
+        ])
+        response_json = json.loads(response.content)
+        tag = SkillTag.objects.get(name='javascript')
+        self.assertEqual(tag.name, 'javascript')
+        self.assertEqual(response_json['skills'], [{'name': 'javascript'}])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_update_interests(self):
+        url = 'users-api:update_interests'
+        reversed_url = reverse(url)
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.patch(reversed_url, [
+            {'name': 'agile'}
+        ])
+        response_json = json.loads(response.content)
+        tag = TopicTag.objects.get(name='agile')
+        self.assertEqual(tag.name, 'agile')
+        self.assertEqual(response_json['interests'], [{'name': 'agile'}])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_users_follow_view(self):
         # test_user should be following 0 people at the start
         user_following_before = self.test_user.following.count()
-        client = APIClient()
-        client.force_authenticate(user=self.test_user)
-        response = client.post('/api/users/praveen/follow/',args=[self.another_user.username])
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.post('/api/users/praveen/follow/',args=[self.another_user.username])
 
         # check the following endpoint to verify that test_user comes back
         url = 'users-api:following'
         reversed_url = reverse(url)
-        client = APIClient()
-        client.force_authenticate(user=self.test_user)
-        response = client.get(reversed_url)
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.get(reversed_url)
         user_following_after = self.test_user.following.count()
         self.assertEqual(user_following_after,user_following_before + 1)
 
-        

@@ -26,7 +26,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_profile_pic(self, obj):
         try:
-            pic = 'static' + obj.profile_pic.url
+            pic = obj.profile_pic.url
         except:
             pic = None
         return pic
@@ -68,7 +68,7 @@ class UserSerializerWithToken(UserSerializer):
 
         token['username'] = obj.username
         token['name'] = obj.userprofile.name
-        token['profile_pic'] = 'static' + obj.userprofile.profile_pic.url
+        token['profile_pic'] = obj.userprofile.profile_pic.url
         token['is_staff'] = obj.is_staff
         token['id'] = obj.id
         return str(token.access_token)

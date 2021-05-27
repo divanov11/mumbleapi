@@ -17,15 +17,10 @@ class AdminMumble(admin.ModelAdmin):
 
 
 class AdminMumbleVote(admin.ModelAdmin):
-    list_display = ('user', 'mumble', 'value','get_utc')
+    list_display = ('user', 'mumble', 'value')
     search_fields = ('user',)
     list_filter = ('user',)
     empty_value_display = '-empty field-'
-
-    def get_utc(self, obj):
-        return obj.created + timedelta(minutes=330)
-
-    get_utc.short_description = 'Created (UTC)'
 
 
 admin.site.register(Mumble, AdminMumble)

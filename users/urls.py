@@ -24,6 +24,7 @@ urlpatterns = [
     path('profile_update/interests/', views.update_interests, name='update_interests'),
     path('profile_update/photo/', views.ProfilePictureUpdate.as_view(), name="profile_update_photo"), 
     path('<str:username>/follow/', views.followUser, name="follow-user"),
+    path('delete-profile/', views.deleteUser, name="delete-user"),
 
     path('<str:username>/', views.user, name="user"),
     path('<str:username>/mumbles/', views.userMumbles, name="user-mumbles"),

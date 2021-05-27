@@ -276,6 +276,14 @@ class ProfilePictureUpdate(APIView):
             response=serializer.errors
         return Response(response)
 
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def deleteUser(request):
+    user = request.user
+    user.delete()
+    return Response({'detail':'Account deleted successfully'},status=status.HTTP_200_OK)
+
 # THIS EMAIL VERIFICATION SYSTEM IS ONLY VALID FOR LOCAL TESTING
 # IN PRODUCTION WE NEED A REAL EMAIL , TILL NOW WE ARE USING DEFAULT EMAIL BACKEND
 # THIS DEFAULT BACKEND WILL PRINT THE VERIFICATION EMAIL IN THE CONSOLE 

@@ -239,4 +239,21 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-django_heroku.settings(locals())
+django_heroku.settings(locals(), test_runner=False)
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+LINODE_BUCKET = 'mumble'
+LINODE_BUCKET_REGION = 'us-east-1'
+LINODE_BUCKET_ACCESS_KEY = os.environ.get('MUMBLE_LINODE_BUCKET_ACCESS_KEY')
+LINODE_BUCKET_SECRET_KEY = os.environ.get('MUMBLE_LINODE_BUCKET_SECRET_KEY')
+
+AWS_QUERYSTRING_AUTH = True
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_S3_ENDPOINT_URL = f'https://{LINODE_BUCKET_REGION}.linodeobjects.com'
+AWS_ACCESS_KEY_ID = LINODE_BUCKET_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = LINODE_BUCKET_SECRET_KEY
+AWS_STORAGE_BUCKET_NAME = LINODE_BUCKET
+

@@ -24,7 +24,7 @@ def readNotification(request, pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])

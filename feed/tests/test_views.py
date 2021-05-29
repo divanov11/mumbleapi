@@ -62,23 +62,3 @@ class FeedTestsViews(APITestCase):
         reversed_url = reverse(url,args=[self.mumble.get('id')])
         response = client.get(reversed_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    # def test_mumbles_remumble_view(self):
-    #     url = 'mumbles-api:mumble-remumble'
-    #     reversed_url = reverse(url)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    # def test_mumbles_vote_view(self):
-    #     url = 'mumbles-api:posts-vote'
-    #     reversed_url = reverse(url)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    # def test_mumbles_delete_view(self):
-    #     url = 'mumbles-api:delete-mumble'
-    #     reversed_url = reverse(url,args=['98123ehj9238d398hd23h'])
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    # def test_mumbles_comments_view(self):
-    #     url = 'mumbles-api:mumble-comments'
-    #     reversed_url = reverse(url,args=['98123ehj9238d398hd23h'])
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -16,7 +15,7 @@ def getArticle(request, pk):
         serializer = ArticleSerializer(article, many=False)
         return Response(serializer.data)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
@@ -34,7 +33,7 @@ def editArticle(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
@@ -47,7 +46,7 @@ def deleteArticle(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
@@ -74,7 +73,7 @@ def editArticleComment(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
@@ -88,7 +87,7 @@ def deleteArticleComment(request,pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])

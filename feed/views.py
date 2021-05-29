@@ -104,7 +104,7 @@ def deleteMumble(request, pk):
             mumble.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
     except Exception as e:
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def mumbleComments(request, pk):
@@ -137,7 +137,7 @@ def remumble(request):
         serializer = MumbleSerializer(mumble, many=False)
         return Response(serializer.data)
     except Exception as e:
-        return Response({'detail':f'{e}'})
+        return Response({'detail':f'{e}'},status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['POST'])

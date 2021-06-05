@@ -28,7 +28,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from article.serializers import ArticleSerializer
 from feed.serializers import MumbleSerializer
 from notification.models import Notification
-from notification.serializers import NotificationSerializer
 
 from .models import UserProfile, SkillTag, TopicTag
 from .serializers import (UserProfileSerializer, UserSerializer,
@@ -352,3 +351,17 @@ def passwordChange(request):
         return Response({'detail':'New password field required'})
     elif new_password_confirm is None:
         return Response({'detail':'New password confirm field required'})
+
+@api_view(['PATCH'])
+@permission_classes((IsAuthenticated,))
+def EmailUpdate(request):
+    user = request.user
+    email = request.data.get('email')
+    if email is not None:
+        user.email = email
+        user.userprofile.email_verified = False
+        user.save()
+        return Response({'detail':'Email Update successfully'})
+    else:
+        return Response({'detail':'Email can\'t be empty'},status=status.HTTP_406_NOT_ACCEPTABLE)
+

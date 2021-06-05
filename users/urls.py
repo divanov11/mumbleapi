@@ -38,4 +38,5 @@ urlpatterns = [
     # email verification urls
     path('email/send-email-activation',views.sendActivationEmail,name='send-activation-email'),
     path('verify/<uidb64>/<token>/',views.activate, name='verify'),
+    path('email-update/',views.EmailUpdate, name='email-update'),
 ]

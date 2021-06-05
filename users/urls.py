@@ -23,6 +23,7 @@ urlpatterns = [
     path('profile_update/skills/', views.update_skills, name='update_skills'),
     path('profile_update/interests/', views.update_interests, name='update_interests'),
     path('profile_update/photo/', views.ProfilePictureUpdate.as_view(), name="profile_update_photo"), 
+    path('profile_update/delete/', views.ProfilePictureDelete, name="profile_delete_photo"), 
     path('<str:username>/follow/', views.followUser, name="follow-user"),
     path('delete-profile/', views.deleteUser, name="delete-user"),
 

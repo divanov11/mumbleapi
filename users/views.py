@@ -276,6 +276,14 @@ class ProfilePictureUpdate(APIView):
             response=serializer.errors
         return Response(response)
 
+@api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
+def ProfilePictureDelete(request):
+    user = request.user.userprofile
+    user.profile_pic.url = 'default.png'
+    return Response({'detail':'Profile picture deleted '})
+
+
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))

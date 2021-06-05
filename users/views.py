@@ -247,6 +247,13 @@ class UserProfileUpdate(APIView):
             
             response = {'success': True, 'message': 'successfully updated your info',
                         'user': UserSerializer(user).data}
+            new_email = self.request.data.get('email')
+            user = self.request.user
+            if new_email is not None:
+                user.email = new_email
+                profile.email_verified = False
+                user.save()
+                profile.save()
             return Response(response, status=200)
         else:
             response = serializer.errors
@@ -351,17 +358,3 @@ def passwordChange(request):
         return Response({'detail':'New password field required'})
     elif new_password_confirm is None:
         return Response({'detail':'New password confirm field required'})
-
-@api_view(['PATCH'])
-@permission_classes((IsAuthenticated,))
-def EmailUpdate(request):
-    user = request.user
-    email = request.data.get('email')
-    if email is not None:
-        user.email = email
-        user.userprofile.email_verified = False
-        user.save()
-        return Response({'detail':'Email Update successfully'})
-    else:
-        return Response({'detail':'Email can\'t be empty'},status=status.HTTP_406_NOT_ACCEPTABLE)
-

@@ -13,7 +13,7 @@ from .serializers import NotificationSerializer
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def readNotification(request, pk):
+def read_notification(request, pk):
     try:
         notification= Notification.objects.get(id=pk)
         if notification.to_user == request.user:
@@ -29,7 +29,7 @@ def readNotification(request, pk):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def getNotifications(request):
+def get_notifications(request):
     is_read = request.query_params.get('is_read')
     if is_read == None:
         notifications = request.user.notifications.order_by('-created')

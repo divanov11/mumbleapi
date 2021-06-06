@@ -11,7 +11,7 @@ app_name = 'users-api'
 urlpatterns = [
     #api/users/
     path('', views.users, name='users'),
-    path('recommended/', views.usersRecommended, name="users-recommended"),
+    path('recommended/', views.users_recommended, name="users-recommended"),
 
     path('profile/', views.profile, name='profile'),
     path('register/', views.RegisterView.as_view(), name='register'),
@@ -23,18 +23,18 @@ urlpatterns = [
     path('profile_update/skills/', views.update_skills, name='update_skills'),
     path('profile_update/interests/', views.update_interests, name='update_interests'),
     path('profile_update/photo/', views.ProfilePictureUpdate.as_view(), name="profile_update_photo"), 
-    path('<str:username>/follow/', views.followUser, name="follow-user"),
-    path('delete-profile/', views.deleteUser, name="delete-user"),
+    path('<str:username>/follow/', views.follow_user, name="follow-user"),
+    path('delete-profile/', views.delete_user, name="delete-user"),
 
     path('<str:username>/', views.user, name="user"),
-    path('<str:username>/mumbles/', views.userMumbles, name="user-mumbles"),
-    path('<str:username>/articles/', views.userArticles, name="user-articles"),
+    path('<str:username>/mumbles/', views.user_mumbles, name="user-mumbles"),
+    path('<str:username>/articles/', views.user_articles, name="user-articles"),
 
     # Forget password or reset password
-    path('password/change/',views.passwordChange,name="password-change"),
+    path('password/change/',views.password_change,name="password-change"),
     # path('password/reset/',views.passwordReset,name="password-reset"),
 
     # email verification urls
-    path('email/send-email-activation',views.sendActivationEmail,name='send-activation-email'),
+    path('email/send-email-activation',views.send_activation_email,name='send-activation-email'),
     path('verify/<uidb64>/<token>/',views.activate, name='verify'),
 ]

@@ -29,17 +29,17 @@ class FeedTestsUrls(APITestCase):
     def test_mumbles_create_url(self):
         url = 'mumbles-api:mumble-create'
         reversed_url = reverse(url)
-        self.assertEqual(resolve(reversed_url).func,views.createMumble)
+        self.assertEqual(resolve(reversed_url).func,views.create_mumble)
     
     def test_mumbles_edit_url(self):
         url = 'mumbles-api:mumble-edit'
         reversed_url = reverse(url,args=['9812-3ehj9-238d39-8hd23h'])
-        self.assertEqual(resolve(reversed_url).func,views.editMumble)
+        self.assertEqual(resolve(reversed_url).func,views.edit_mumble)
     
     def test_mumbles_detail_url(self):
         url = 'mumbles-api:mumble-details'
         reversed_url = reverse(url,args=['9812-3ehj9-238d39-8hd23h'])
-        self.assertEqual(resolve(reversed_url).func,views.mumbleDetails)
+        self.assertEqual(resolve(reversed_url).func,views.mumble_details)
     
     def test_mumbles_remumble_url(self):
         url = 'mumbles-api:mumble-remumble'
@@ -49,14 +49,14 @@ class FeedTestsUrls(APITestCase):
     def test_mumbles_vote_url(self):
         url = 'mumbles-api:posts-vote'
         reversed_url = reverse(url)
-        self.assertEqual(resolve(reversed_url).func,views.updateVote)
+        self.assertEqual(resolve(reversed_url).func,views.update_vote)
 
     def test_mumbles_delete_url(self):
         url = 'mumbles-api:delete-mumble'
         reversed_url = reverse(url,args=['9812-3ehj9-238d39-8hd23h'])
-        self.assertEqual(resolve(reversed_url).func,views.deleteMumble)
+        self.assertEqual(resolve(reversed_url).func,views.delete_mumble)
 
     def test_mumbles_comments_url(self):
         url = 'mumbles-api:mumble-comments'
         reversed_url = reverse(url,args=['9812-3ehj9-238d39-8hd23h'])
-        self.assertEqual(resolve(reversed_url).func,views.mumbleComments)
+        self.assertEqual(resolve(reversed_url).func,views.mumble_comments)

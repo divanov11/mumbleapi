@@ -3,7 +3,7 @@ from rest_framework.test import APIClient
 from django.urls import reverse , resolve
 from rest_framework import status
 from rest_framework.test import APITestCase
-from article.views import createArticle
+from article.views import create_article
 
 class ArticleTestCases(APITestCase):
 
@@ -31,4 +31,4 @@ class ArticleTestCases(APITestCase):
         }
         response = client.post(url,data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(resolve(url).func,createArticle)
+        self.assertEqual(resolve(url).func,create_article)

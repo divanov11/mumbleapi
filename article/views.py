@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from users.models import TopicTag
 
 @api_view(['GET'])
-def getArticle(request, pk):
+def get_article(request, pk):
     try:
         article = Article.objects.get(id=pk)
         serializer = ArticleSerializer(article, many=False)
@@ -19,7 +19,7 @@ def getArticle(request, pk):
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def editArticle(request,pk):
+def edit_article(request,pk):
     try:
         article = Article.objects.get(id=pk)
         if article.user == request.user:
@@ -37,7 +37,7 @@ def editArticle(request,pk):
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def deleteArticle(request,pk):
+def delete_article(request,pk):
     try:
         article = Article.objects.get(id=pk)
         if article.user == request.user:
@@ -64,7 +64,7 @@ def articles(request):
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def editArticleComment(request,pk):
+def edit_article_comment(request,pk):
     try:
         comment = ArticleComment.objects.get(id=pk)
         if comment.user == request.user:
@@ -77,7 +77,7 @@ def editArticleComment(request,pk):
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def deleteArticleComment(request,pk):
+def delete_article_comment(request,pk):
     try:
         comment = ArticleComment.objects.get(id=pk)
         if comment.user == request.user:
@@ -92,11 +92,11 @@ def deleteArticleComment(request,pk):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def createArticle(request):
+def create_article(request):
     user = request.user
     data = request.data
-    isComment = data.get('isComment')
-    if isComment:
+    is_comment = data.get('isComment')
+    if is_comment:
         article = Article.objects.get(id=data.get('postId'))
         comment = ArticleComment.objects.create(
             user=user,
@@ -127,18 +127,16 @@ def createArticle(request):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def updateVote(request):
+def update_vote(request):
     user = request.user
     data = request.data
-    # lets grab article id
-    articleId = data.get('postId')
-    # lets grab article comment id if there is else it will ne None 
-    commentId = data.get('commentId')
+    article_id = data.get('postId')
+    comment_id = data.get('commentId')
 
-    article = Article.objects.get(id=articleId)
+    article = Article.objects.get(id=article_id)
 
-    if commentId:
-        comment = ArticleComment.objects.get(id=commentId)
+    if comment_id:
+        comment = ArticleComment.objects.get(id=comment_id)
         vote, created = ArticleVote.objects.get_or_create(article=article,comment=comment,user=user,value=1)
         if not created:
             vote.delete()

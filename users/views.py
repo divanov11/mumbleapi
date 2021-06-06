@@ -28,7 +28,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from article.serializers import ArticleSerializer
 from feed.serializers import MumbleSerializer
 from notification.models import Notification
-from notification.serializers import NotificationSerializer
 
 from .models import UserProfile, SkillTag, TopicTag
 from .serializers import (UserProfileSerializer, UserSerializer,
@@ -248,6 +247,13 @@ class UserProfileUpdate(APIView):
             
             response = {'success': True, 'message': 'successfully updated your info',
                         'user': UserSerializer(user).data}
+            new_email = self.request.data.get('email')
+            user = self.request.user
+            if new_email is not None:
+                user.email = new_email
+                profile.email_verified = False
+                user.save()
+                profile.save()
             return Response(response, status=200)
         else:
             response = serializer.errors
@@ -275,6 +281,14 @@ class ProfilePictureUpdate(APIView):
         else:
             response=serializer.errors
         return Response(response)
+
+@api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
+def ProfilePictureDelete(request):
+    user = request.user.userprofile
+    user.profile_pic.url = 'default.png'
+    return Response({'detail':'Profile picture deleted '})
+
 
 
 @api_view(['POST'])

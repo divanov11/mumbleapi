@@ -21,7 +21,9 @@ from django.core.management.utils import get_random_secret_key
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-if os.getcwd() == '/app':
+is_deployed = os.getcwd() is '/app'
+
+if is_deployed:
     sentry_sdk.init(
         dsn="https://de808f6f605c4fd79120ddb21f073904@o599875.ingest.sentry.io/5743882",
         integrations=[DjangoIntegration()],
@@ -164,7 +166,7 @@ WSGI_APPLICATION = 'mumblebackend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-if os.getcwd() == '/app':
+if is_deployed:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
 
@@ -242,7 +244,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 django_heroku.settings(locals(), test_runner=False)
 
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' if is_deployed else 'django.core.files.storage.FileSystemStorage'
 
 LINODE_BUCKET = 'mumble'
 LINODE_BUCKET_REGION = 'us-east-1'

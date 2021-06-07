@@ -27,9 +27,21 @@ def mumbles(request):
     ids = []
     ids = [i.user.id for i in following]
     ids.append(user.id)
+    print('IDS:', ids)
+    
     #Make sure parent==None is always on
-    mumbles = Mumble.objects.filter(parent=None, user__id__in=ids).order_by("-created")
-    mumbles = mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query))
+    #Query all mumbles form users you follow | TOP PRIORITY
+    mumbles = list(Mumble.objects.filter(parent=None, user__id__in=ids).order_by("-created"))[0:5]
+    #mumbles = list(mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query)))
+
+    #Query top ranked mumbles and attach to end of original queryset
+    topMumbles = Mumble.objects.filter(Q(parent=None) & ~Q(user__id__in=ids)).order_by("-vote_rank", "-created")
+
+    #Add top ranked mumbles to feed after prioritizing follow list 
+    for mumble in topMumbles:
+        mumbles.append(mumble)
+
+
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(mumbles, request)

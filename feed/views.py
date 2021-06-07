@@ -31,20 +31,22 @@ def mumbles(request):
     
     #Make sure parent==None is always on
     #Query 5 mumbles form users you follow | TOP PRIORITY
+    
     mumbles = list(Mumble.objects.filter(parent=None, user__id__in=ids).order_by("-created"))[0:5]
     #mumbles = list(mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query)))
 
-    recentMumbles = Mumble.objects.filter(Q(parent=None) & Q(vote_rank__gte=0) & Q(remumble=None)).order_by("-created").reverse()[0:5]
+    recentMumbles = Mumble.objects.filter(Q(parent=None) & Q(vote_rank__gte=0) & Q(remumble=None)).order_by("-created")[0:5]
 
     #Query top ranked mumbles and attach to end of original queryset
     topMumbles = Mumble.objects.filter(Q(parent=None)).order_by("-vote_rank", "-created")
 
     #Add top ranked mumbles to feed after prioritizing follow list 
+    index = 0
     for mumble in recentMumbles:
         if mumble not in mumbles:
-            mumbles.insert(0, mumble) 
-            print('mumbles:', mumble.user)
-            print('------------------------------')
+            mumbles.insert(index, mumble) 
+            index += 1
+
 
     #Add top ranked mumbles to feed after prioritizing follow list 
     for mumble in topMumbles:

@@ -34,7 +34,7 @@ def mumbles(request):
     mumbles = list(Mumble.objects.filter(parent=None, user__id__in=ids).order_by("-created"))[0:5]
     #mumbles = list(mumbles.filter(Q(user__userprofile__name__icontains=query) | Q(content__icontains=query)))
 
-    recentMumbles = Mumble.objects.filter(Q(parent=None)).order_by("-created")[0:5]
+    recentMumbles = Mumble.objects.filter(Q(parent=None) & Q(vote_rank__gte=0)).order_by("-created")[0:5]
 
     #Query top ranked mumbles and attach to end of original queryset
     topMumbles = Mumble.objects.filter(Q(parent=None)).order_by("-vote_rank", "-created")

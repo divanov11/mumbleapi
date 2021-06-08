@@ -16,14 +16,15 @@ def create_profile(sender, instance, created, **kwargs):
 
 
 def update_profile(sender, instance, created, **kwargs):
-    user_profile, _ = UserProfile.objects.get_or_create(user=instance)
+    user = instance.user
     if created == False:
         
-        user_profile.username = instance.username
+        user.username = instance.username
 
         #instance.userprofile.email = instance.email
-        user_profile.save()
+
+        user.save()
         print('Profile updated!')
 
 post_save.connect(create_profile, sender=User)
-post_save.connect(update_profile, sender=User)
+post_save.connect(update_profile, sender=UserProfile)

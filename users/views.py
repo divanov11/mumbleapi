@@ -11,6 +11,7 @@ from django.core.files.storage import default_storage
 # from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db.models import Q , Count
+from django.http import request
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -239,6 +240,12 @@ class UserProfileUpdate(APIView):
 
 
     def patch(self, *args, **kwargs):
+        username = self.request.data.get('username')
+
+        # this makes sure that there is no IntegrityError
+        if User.objects.filter(username=username).exists() and username != self.request.user.username:
+            return Response( {'success': False, 'message': 'User with that username already exists'},status=400)
+
         profile = self.request.user.userprofile
         serializer = self.serializer_class(
             profile, data=self.request.data, partial=True)

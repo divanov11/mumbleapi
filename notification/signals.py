@@ -9,7 +9,7 @@ from users.models import UserProfile
 from .models import Notification
 
 
-def articleCreated(sender, instance, created, **kwargs):
+def article_created(sender, instance, created, **kwargs):
     if not created: return
     followers = instance.user.userprofile.followers.all()
     for follower in followers:
@@ -22,7 +22,7 @@ def articleCreated(sender, instance, created, **kwargs):
         )
 
 
-def mumbleCreated(sender, instance, created, **kwargs):
+def mumble_created(sender, instance, created, **kwargs):
     if not created: return
     followers = instance.user.userprofile.followers.all()
     for follower in followers:
@@ -36,7 +36,7 @@ def mumbleCreated(sender, instance, created, **kwargs):
 
 
 
-def discussionCreated(sender, instance, created, **kwargs):
+def discussion_created(sender, instance, created, **kwargs):
     if not created: return
     followers = instance.user.userprofile.followers.all()
     for follower in followers:
@@ -48,6 +48,6 @@ def discussionCreated(sender, instance, created, **kwargs):
             content=f"A discussion was started by {instance.user.userprofile.name}."
         )
 
-post_save.connect(articleCreated, sender=Article)
-post_save.connect(mumbleCreated, sender=Mumble)
-post_save.connect(discussionCreated, sender=Discussion)
+post_save.connect(article_created, sender=Article)
+post_save.connect(mumble_created, sender=Mumble)
+post_save.connect(discussion_created, sender=Discussion)

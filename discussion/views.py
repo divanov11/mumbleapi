@@ -12,7 +12,7 @@ from users.models import TopicTag
 
 
 @api_view(['GET'])
-def getDiscussion(request, pk):
+def get_discussion(request, pk):
     try:
         discussion= Discussion.objects.get(id=pk)
         serializer = DiscussionSerializer(discussion, many=False)
@@ -22,7 +22,7 @@ def getDiscussion(request, pk):
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def editDiscussion(request,pk):
+def edit_discussion(request,pk):
     try:
         discussion= Discussion.objects.get(id=pk)
         if discussion.user == request.user:
@@ -41,7 +41,7 @@ def editDiscussion(request,pk):
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def deleteDiscussion(request,pk):
+def delete_discussion(request,pk):
     try:
         discussion= Discussion.objects.get(id=pk)
         if discussion.user == request.user:
@@ -68,7 +68,7 @@ def discussions(request):
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def editDiscussionComment(request,pk):
+def edit_discussion_comment(request,pk):
     try:
         comment = DiscussionComment.objects.get(id=pk)
         if comment.user == request.user:
@@ -81,7 +81,7 @@ def editDiscussionComment(request,pk):
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def deleteDiscussionComment(request,pk):
+def delete_discussion_comment(request,pk):
     try:
         comment = DiscussionComment.objects.get(id=pk)
         if comment.user == request.user:
@@ -96,11 +96,11 @@ def deleteDiscussionComment(request,pk):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def createDiscussion(request):
+def create_discussion(request):
     user = request.user
     data = request.data
-    isComment = data.get('isComment')
-    if isComment:
+    is_comment = data.get('isComment')
+    if is_comment:
         discussion= Discussion.objects.get(id=data.get('postId'))
         comment = DiscussionComment.objects.create(
             user=user,
@@ -131,18 +131,16 @@ def createDiscussion(request):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def updateVote(request):
+def update_vote(request):
     user = request.user
     data = request.data
-    # get the discussion id
-    discussionId = data.get('postId')
-    # get discussionComment if, if it doesn't exist it will be None
-    commentId = data.get('commentId')
+    discussion_id = data.get('postId')
+    comment_id = data.get('commentId')
 
-    discussion= Discussion.objects.get(id=discussionId)
+    discussion= Discussion.objects.get(id=discussion_id)
 
-    if commentId:
-        comment = DiscussionComment.objects.get(id=commentId)
+    if comment_id:
+        comment = DiscussionComment.objects.get(id=comment_id)
         vote, created = DiscussionVote.objects.get_or_create(discussion=discussion,comment=comment,user=user,value=1)
         if not created:
             vote.delete()

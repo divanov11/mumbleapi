@@ -2,10 +2,10 @@ from django.urls import reverse , resolve
 from rest_framework import status
 from rest_framework.test import APITestCase
 from users.views import (
-    followUser , users , UserProfileUpdate , 
-    ProfilePictureUpdate , usersRecommended ,
-    user , userMumbles, userArticles, passwordChange,
-    sendActivationEmail, sendActivationEmail , activate)
+    follow_user , users , UserProfileUpdate , 
+    ProfilePictureUpdate , users_recommended ,
+    user , user_mumbles, user_articles, password_change,
+    send_activation_email, activate)
 # Create your tests here.
 
 class AccountTests(APITestCase):
@@ -23,7 +23,7 @@ class AccountTests(APITestCase):
     def test_users_follow_url(self):
         url = 'users-api:follow-user'
         reversed_url = reverse(url,args=['praveen'])
-        self.assertEqual(resolve(reversed_url).func,followUser)
+        self.assertEqual(resolve(reversed_url).func,follow_user)
 
     def test_user_profile_update_url(self):
         url = 'users-api:profile_update'
@@ -39,7 +39,7 @@ class AccountTests(APITestCase):
     def test_users_recommended_url(self):
         url = 'users-api:users-recommended'
         reversed_url = reverse(url)
-        self.assertEqual(resolve(reversed_url).func,usersRecommended)
+        self.assertEqual(resolve(reversed_url).func,users_recommended)
 
     def test_user_url(self):
         url = 'users-api:user'
@@ -49,22 +49,22 @@ class AccountTests(APITestCase):
     def test_user_mumbles(self):
         url = 'users-api:user-mumbles'
         reversed_url = reverse(url,args=['test'])
-        self.assertEqual(resolve(reversed_url).func,userMumbles)
+        self.assertEqual(resolve(reversed_url).func,user_mumbles)
 
     def test_user_articles_url(self):
         url = 'users-api:user-articles'
         reversed_url = reverse(url,args=['test'])
-        self.assertEqual(resolve(reversed_url).func,userArticles)
+        self.assertEqual(resolve(reversed_url).func,user_articles)
 
     def test_user_password_url(self):
         url = 'users-api:password-change'
         reversed_url = reverse(url)
-        self.assertEqual(resolve(reversed_url).func,passwordChange)
+        self.assertEqual(resolve(reversed_url).func,password_change)
 
     def test_send_activation_email_url(self):
         url = 'users-api:send-activation-email'
         reversed_url = reverse(url)
-        self.assertEqual(resolve(reversed_url).func,sendActivationEmail)
+        self.assertEqual(resolve(reversed_url).func,send_activation_email)
 
     def test_active_user_account_url(self):
         url = 'users-api:verify'

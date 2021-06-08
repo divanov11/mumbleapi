@@ -62,7 +62,7 @@ def mumbles(request):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def mumbleDetails(request,pk):
+def mumble_details(request,pk):
     try:
         mumble = Mumble.objects.get(id=pk)
         serializer = MumbleSerializer(mumble, many=False)
@@ -75,12 +75,12 @@ def mumbleDetails(request,pk):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def createMumble(request):
+def create_mumble(request):
     user = request.user
     data = request.data
 
-    isComment = data.get('isComment')
-    if isComment:
+    is_comment = data.get('isComment')
+    if is_comment:
         parent = Mumble.objects.get(id=data['postId'])
         mumble = Mumble.objects.create(
             parent=parent,
@@ -98,7 +98,7 @@ def createMumble(request):
 
 @api_view(['PATCH'])
 @permission_classes((IsAuthenticated,))
-def editMumble(request,pk):
+def edit_mumble(request,pk):
     user = request.user
     data = request.data
 
@@ -118,7 +118,7 @@ def editMumble(request,pk):
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def deleteMumble(request, pk):
+def delete_mumble(request, pk):
     user = request.user
     try:
         mumble = Mumble.objects.get(id=pk)
@@ -131,7 +131,7 @@ def deleteMumble(request, pk):
         return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-def mumbleComments(request, pk):
+def mumble_comments(request, pk):
     mumble = Mumble.objects.get(id=pk)
     comments = mumble.mumble_set.all()
     serializer = MumbleSerializer(comments, many=True)
@@ -143,19 +143,19 @@ def mumbleComments(request, pk):
 def remumble(request):
     user = request.user
     data = request.data
-    originalMumble = Mumble.objects.get(id=data['id'])
-    if originalMumble.user == user:
+    original_mumble = Mumble.objects.get(id=data['id'])
+    if original_mumble.user == user:
         return Response({'detail':'You can not remumble your own mumble.'},status=status.HTTP_403_FORBIDDEN)
     try:
         mumble = Mumble.objects.filter(
-            remumble=originalMumble,
+            remumble=original_mumble,
             user=user,
         )
         if mumble.exists():
             return Response({'detail':'Already Mumbled'},status=status.HTTP_406_NOT_ACCEPTABLE)
         else:
             mumble = Mumble.objects.create(
-            remumble=originalMumble,
+            remumble=original_mumble,
             user=user,
         )
         serializer = MumbleSerializer(mumble, many=False)
@@ -166,7 +166,7 @@ def remumble(request):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def updateVote(request):
+def update_vote(request):
     user = request.user 
     data = request.data
 

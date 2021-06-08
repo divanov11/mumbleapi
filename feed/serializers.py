@@ -8,8 +8,8 @@ from users.serializers import UserProfileSerializer, UserSerializer
 class MumbleSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
     original_mumble = serializers.SerializerMethodField(read_only=True)
-    upVoters = serializers.SerializerMethodField(read_only=True)
-    downVoters = serializers.SerializerMethodField(read_only=True)
+    up_voters = serializers.SerializerMethodField(read_only=True)
+    down_voters = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Mumble
@@ -29,7 +29,7 @@ class MumbleSerializer(serializers.ModelSerializer):
         else:
             return None
 
-    def get_upVoters(self, obj):
+    def get_up_voters(self, obj):
         # Returns list of users that upvoted post
         voters = obj.votes.through.objects.filter(mumble=obj, value='upvote').values_list('user', flat=True)
 
@@ -37,7 +37,7 @@ class MumbleSerializer(serializers.ModelSerializer):
         serializer = UserSerializer(voter_objects, many=True)
         return serializer.data
 
-    def get_downVoters(self, obj):
+    def get_down_voters(self, obj):
         # Returns list of users that upvoted post
         voters = obj.votes.through.objects.filter(mumble=obj, value='downvote').values_list('user', flat=True)
 

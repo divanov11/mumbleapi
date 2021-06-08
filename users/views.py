@@ -127,7 +127,7 @@ def users(request):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def usersRecommended(request):
+def users_recommended(request):
     user = request.user
     users = User.objects.annotate(followers_count=Count('userprofile__followers')).order_by('followers_count').reverse().exclude(id=user.id)[0:5]
     serializer = UserSerializer(users, many=True)
@@ -145,14 +145,14 @@ def user(request, username):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def userMumbles(request, username):
+def user_mumbles(request, username):
     user = User.objects.get(username=username)
     mumbles = user.mumble_set.filter(parent=None)
     serializer = MumbleSerializer(mumbles, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def userArticles(request, username):
+def user_articles(request, username):
     user = User.objects.get(username=username)
     articles = user.article_set
     serializer = ArticleSerializer(articles, many=True)
@@ -200,7 +200,7 @@ def update_interests(request):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def followUser(request, username):
+def follow_user(request, username):
     user = request.user
     try:
         user_to_follow = User.objects.get(username=username)
@@ -293,7 +293,7 @@ def ProfilePictureDelete(request):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def deleteUser(request):
+def delete_user(request):
     user = request.user
     user.delete()
     return Response({'detail':'Account deleted successfully'},status=status.HTTP_200_OK)
@@ -305,7 +305,7 @@ def deleteUser(request):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def sendActivationEmail(request):
+def send_activation_email(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
     try:
@@ -342,7 +342,7 @@ def activate(request, uidb64, token):
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def passwordChange(request):
+def password_change(request):
     user = request.user
     data = request.data
     new_password = data.get('new_password')

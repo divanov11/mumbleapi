@@ -236,15 +236,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-
-django_heroku.settings(locals(), test_runner=False)
-
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' if is_deployed else 'django.core.files.storage.FileSystemStorage'
 
@@ -261,3 +257,4 @@ AWS_ACCESS_KEY_ID = LINODE_BUCKET_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY = LINODE_BUCKET_SECRET_KEY
 AWS_STORAGE_BUCKET_NAME = LINODE_BUCKET
 
+django_heroku.settings(locals(), test_runner=False)

@@ -242,7 +242,10 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' if is_deployed else 'django.core.files.storage.FileSystemStorage'
+if is_deployed:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 LINODE_BUCKET = 'mumble'
 LINODE_BUCKET_REGION = 'us-east-1'

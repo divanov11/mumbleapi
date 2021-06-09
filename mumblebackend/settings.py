@@ -21,7 +21,7 @@ from django.core.management.utils import get_random_secret_key
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-is_deployed = os.getcwd() is '/app'
+is_deployed = os.getcwd() == '/app'
 
 if is_deployed:
     sentry_sdk.init(

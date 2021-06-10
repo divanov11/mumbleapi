@@ -142,14 +142,16 @@ def users_recommended(request):
 def user(request, username):
     user = User.objects.get(username=username)
 
+    # if request user is trying to search for a user who has blocked him/her. We won't let them find their profile.
+    if request.user in user.userprofile.blocked_users.all():
+        return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
+
+    if user in request.user.userprofile.blocked_users.all():
+        return Response({'detail':'Unblock Account to view'},status=status.HTTP_200_OK)
+
     if(request.user.username == username):
         serializer = CurrentUserSerializer(user, many=False)
         return Response(serializer.data)
-
-    # if request user is trying to search for a user who has blocked him/her. We won't let them find their profile.
-    # If request user has blocked the user, we let hi find the profile so he can unblock.
-    if request.user in user.userprofile.blocked_users.all():
-        return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
 
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
@@ -159,6 +161,8 @@ def user_mumbles(request, username):
     user = User.objects.get(username=username)
     if request.user in user.userprofile.blocked_users.all():
         return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
+    if user in request.user.userprofile.blocked_users.all():
+        return Response({'detail':'Unblock Account to view its mumbles'},status=status.HTTP_200_OK)
     mumbles = user.mumble_set.filter(parent=None)
     serializer = MumbleSerializer(mumbles, many=True)
     return Response(serializer.data)
@@ -168,6 +172,8 @@ def user_articles(request, username):
     user = User.objects.get(username=username)
     if request.user in user.userprofile.blocked_users.all():
         return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
+    if user in request.user.userprofile.blocked_users.all():
+        return Response({'detail':'Unblock Account to view its articles'},status=status.HTTP_200_OK)
     articles = user.article_set
     serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)

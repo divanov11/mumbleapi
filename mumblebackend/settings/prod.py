@@ -1,9 +1,12 @@
 from mumblebackend.settings.base import *
 from .base import *
+import django_heroku
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
+
+import os
 
 CACHES = {
     'default': {
@@ -51,3 +54,5 @@ EMAIL_USE_TLS = True
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+django_heroku.settings(locals(), test_runner=False)

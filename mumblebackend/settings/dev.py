@@ -1,6 +1,6 @@
 from mumblebackend.settings.base import *
 from .base import *
-
+import os
 # override base.py settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

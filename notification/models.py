@@ -17,16 +17,16 @@ class Notification(models.Model):
     )
 
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
-    to_user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True, related_name='notifications')
+    to_user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='notifications')
     created = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
+    created_by = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True)
     content = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
     notification_type = models.CharField(max_length=20, choices=CHOICES)
-    article = models.ForeignKey(Article,on_delete=models.SET_NULL, null=True, blank=True)
-    mumble = models.ForeignKey(Mumble,on_delete=models.SET_NULL, null=True, blank=True)
-    discussion = models.ForeignKey(Discussion,on_delete=models.SET_NULL, null=True, blank=True)
-    followed_by = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True, related_name='followed_by')
+    article = models.ForeignKey(Article,on_delete=models.CASCADE, null=True, blank=True)
+    mumble = models.ForeignKey(Mumble,on_delete=models.CASCADE, null=True, blank=True)
+    discussion = models.ForeignKey(Discussion,on_delete=models.CASCADE, null=True, blank=True)
+    followed_by = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='followed_by')
     
     def __str__(self):
         return str(self.id)

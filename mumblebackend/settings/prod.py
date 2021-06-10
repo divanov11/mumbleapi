@@ -8,12 +8,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 import os
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
 
 sentry_sdk.init(
     dsn="https://de808f6f605c4fd79120ddb21f073904@o599875.ingest.sentry.io/5743882",

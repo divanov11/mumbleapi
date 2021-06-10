@@ -118,6 +118,11 @@ def users(request):
         Q(userprofile__name__icontains=query) | 
         Q(userprofile__username__icontains=query)
     ).order_by('-userprofile__followers_count')
+    # check if user is not blocked
+    for user in list(users):
+        if user in request.user.userprofile.blocked_users.all():
+            if request.user in user.userprofile.blocked_users.all():
+                users.remove(user)
     paginator = PageNumberPagination()
     paginator.page_size = 10
     result_page = paginator.paginate_queryset(users,request)
@@ -141,12 +146,19 @@ def user(request, username):
         serializer = CurrentUserSerializer(user, many=False)
         return Response(serializer.data)
 
+    # if request user is trying to search for a user who has blocked him/her. We won't let them find their profile.
+    # If request user has blocked the user, we let hi find the profile so he can unblock.
+    if request.user in user.userprofile.blocked_users.all():
+        return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
+
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def user_mumbles(request, username):
     user = User.objects.get(username=username)
+    if request.user in user.userprofile.blocked_users.all():
+        return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
     mumbles = user.mumble_set.filter(parent=None)
     serializer = MumbleSerializer(mumbles, many=True)
     return Response(serializer.data)
@@ -154,6 +166,8 @@ def user_mumbles(request, username):
 @api_view(['GET'])
 def user_articles(request, username):
     user = User.objects.get(username=username)
+    if request.user in user.userprofile.blocked_users.all():
+        return Response({'detail':'Account not Found'},status=status.HTTP_200_OK)
     articles = user.article_set
     serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
@@ -208,7 +222,8 @@ def follow_user(request, username):
 
         if user == user_to_follow: 
             return Response('You can not follow yourself')
-            
+        if user in user_to_follow_profile.blocked_users.all():
+            return Response('User Not Found')            
         if user in user_to_follow_profile.followers.all():
             user_to_follow_profile.followers.remove(user)
             user_to_follow_profile.followers_count =  user_to_follow_profile.followers.count()
@@ -289,7 +304,20 @@ def ProfilePictureDelete(request):
     user.profile_pic.url = 'default.png'
     return Response({'detail':'Profile picture deleted '})
 
-
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def block_user(request, username):
+    user = request.user
+    toblock_user = User.objects.get(username=username)
+    # Block User
+    if toblock_user not in user.userprofile.blocked_users.all():
+        user.userprofile.followers.remove(toblock_user)
+        user.userprofile.blocked_users.add(toblock_user)
+        return Response({'detail':'Account blocked successfully'},status=status.HTTP_200_OK)
+    # Unblock User
+    if toblock_user in user.userprofile.blocked_users.all():
+        user.userprofile.blocked_users.remove(toblock_user)
+        return Response({'detail':'Account un-blocked successfully'},status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))

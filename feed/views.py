@@ -8,12 +8,11 @@ from rest_framework.response import Response
 
 from .models import Mumble, MumbleVote
 from .serializers import MumbleSerializer
-
 # Create your views here.
 
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated, ))
 def mumbles(request):
     query = request.query_params.get('q')
     if query == None:
@@ -21,8 +20,9 @@ def mumbles(request):
 
     user = request.user
     following = user.following.select_related('user')
+    blocked_users_by_request_user = user.userprofile.blocked_users.all()
 
-    following = user.following.all()
+    following = user.following.all().exclude()
 
     ids = []
     ids = [i.user.id for i in following]
@@ -43,15 +43,21 @@ def mumbles(request):
     #Add top ranked mumbles to feed after prioritizing follow list 
     index = 0
     for mumble in recentMumbles:
-        if mumble not in mumbles:
-            mumbles.insert(index, mumble) 
-            index += 1
+        # check if user is not blocked 
+        if mumble.user not in blocked_users_by_request_user:
+            if user not in mumble.user.userprofile.blocked_users.all():
+                if mumble not in mumbles:
+                    mumbles.insert(index, mumble) 
+                    index += 1
 
 
     #Add top ranked mumbles to feed after prioritizing follow list 
     for mumble in topMumbles:
-        if mumble not in mumbles:
-            mumbles.append(mumble)
+        # check if user is not blocked 
+        if mumble.user not in blocked_users_by_request_user:
+            if user not in mumble.user.userprofile.blocked_users.all():
+                if mumble not in mumbles:
+                    mumbles.append(mumble)
 
 
     paginator = PageNumberPagination()

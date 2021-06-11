@@ -27,6 +27,7 @@ urlpatterns = [
     path('delete-profile/', views.delete_user, name="delete-user"),
     path('profile_update/delete/', views.ProfilePictureDelete, name="profile_delete_photo"), 
     path('<str:username>/', views.user, name="user"),
+    path('skills/<str:skill>', views.users_by_skill, name="users-by-skill"),
     path('<str:username>/mumbles/', views.user_mumbles, name="user-mumbles"),
     path('<str:username>/articles/', views.user_articles, name="user-articles"),
 

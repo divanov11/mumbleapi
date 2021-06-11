@@ -111,9 +111,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['GET'])
 def users(request):
-    query = request.query_params.get('q')
-    if query == None:
-        query = ''
+    query = request.query_params.get('q') or ''
     users = User.objects.filter(
         Q(userprofile__name__icontains=query) | 
         Q(userprofile__username__icontains=query)
@@ -123,6 +121,23 @@ def users(request):
     result_page = paginator.paginate_queryset(users,request)
     serializer = UserSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET'])
+def users_by_skill(request, skill):
+    try:
+        skill = SkillTag.objects.get(name=skill)
+        print(skill)
+        users = User.objects.filter(
+            Q(userprofile__skills__in=[skill])
+        ).order_by('-userprofile__followers_count')
+        paginator = PageNumberPagination()
+        paginator.page_size = 1
+        result_page = paginator.paginate_queryset(users,request)
+        serializer = UserSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+    except Exception as e:
+        return Response({'detail':f'{e}'},status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])

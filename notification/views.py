@@ -15,12 +15,10 @@ from .serializers import NotificationSerializer
 @permission_classes((IsAuthenticated,))
 def read_notification(request, pk):
     try:
-        notification= Notification.objects.get(id=pk)
+        notification = Notification.objects.get(id=pk)
         if notification.to_user == request.user:
-            notification.is_read = True
-            notification.save()
-            serializer = NotificationSerializer(notification, many=False)
-            return Response(serializer.data)
+            notification.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:

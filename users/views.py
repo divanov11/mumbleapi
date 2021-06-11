@@ -132,7 +132,7 @@ def users_by_skill(request, skill):
             Q(userprofile__skills__in=[skill])
         ).order_by('-userprofile__followers_count')
         paginator = PageNumberPagination()
-        paginator.page_size = 1
+        paginator.page_size = 10
         result_page = paginator.paginate_queryset(users,request)
         serializer = UserSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)

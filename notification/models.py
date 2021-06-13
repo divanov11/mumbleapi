@@ -29,4 +29,4 @@ class Notification(models.Model):
     followed_by = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='followed_by')
     
     def __str__(self):
-        return str(self.id)
+        return self.content

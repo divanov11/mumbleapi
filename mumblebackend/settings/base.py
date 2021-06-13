@@ -22,21 +22,24 @@ ALLOWED_HOSTS = ["mumbleapi.herokuapp.com", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "users.apps.UsersConfig",
-    "feed.apps.FeedConfig",
-    "article.apps.ArticleConfig",
-    "discussion.apps.DiscussionConfig",
-    "notification.apps.NotificationConfig",
-    "rest_framework",
-    "corsheaders",
-    "ckeditor",
-    "channels",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+
+    'users.apps.UsersConfig',
+    'feed.apps.FeedConfig',
+    'article.apps.ArticleConfig',
+    'discussion.apps.DiscussionConfig',
+    'message.apps.MessageConfig',
+    'notification.apps.NotificationConfig',
+
+    'rest_framework',
+    'corsheaders',
+    'ckeditor',
 ]
 
 REST_FRAMEWORK = {

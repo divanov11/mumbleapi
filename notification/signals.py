@@ -18,7 +18,7 @@ def article_created(sender, instance, created, **kwargs):
             created_by=instance.user,
             notification_type='article',
             article=instance,
-            content=f"An article named {instance.title} was created by {instance.user.userprofile.name}."
+            content=f"An article {instance.title} recently posted by {instance.user.userprofile.name}."
         )
 
 
@@ -31,7 +31,7 @@ def mumble_created(sender, instance, created, **kwargs):
             created_by=instance.user,
             notification_type='mumble',
             mumble=instance,
-            content=f"A mumble mentioning {instance.user.userprofile.name} was created."
+            content=f"{instance.user.userprofile.name} posted a new Mumble."
         )
 
 

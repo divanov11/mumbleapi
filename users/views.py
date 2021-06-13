@@ -161,10 +161,13 @@ def user(request, username):
 
 @api_view(['GET'])
 def user_mumbles(request, username):
-    user = User.objects.get(username=username)
-    mumbles = user.mumble_set.filter(parent=None)
-    serializer = MumbleSerializer(mumbles, many=True)
-    return Response(serializer.data)
+    try:
+        user = User.objects.get(username=username)
+        mumbles = user.mumble_set.filter(parent=None)
+        serializer = MumbleSerializer(mumbles, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'detail':f'{e}'},status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def user_articles(request, username):

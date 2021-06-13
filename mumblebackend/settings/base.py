@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'feed.apps.FeedConfig',
     'article.apps.ArticleConfig',
     'discussion.apps.DiscussionConfig',
+    'message.apps.MessageConfig',
     'notification.apps.NotificationConfig',
 
     'rest_framework',

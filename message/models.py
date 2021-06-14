@@ -10,5 +10,8 @@ class Message(models.Model):
     content = models.CharField(max_length=255)
     is_read = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return str(self.id)

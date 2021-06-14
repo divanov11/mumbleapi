@@ -35,7 +35,7 @@ def get_unread_messages_count(request):
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def get_messages(request):
-    messages = request.user.messages.order_by('-created')
+    messages = request.user.messages
     serializer = MessageSerializer(messages, many=True)
     return Response(serializer.data)
 

@@ -12,14 +12,15 @@ from channels.auth import AuthMiddlewareStack
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 import notification.routing
-
+from channels.security.websocket import AllowedHostsOriginValidator
+from .channelsmiddleware import JwtAuthMiddlewareStack
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mumblebackend.settings")
 
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        "websocket": AuthMiddlewareStack(
-            URLRouter(notification.routing.websocket_urlpatterns)
+        "websocket": AllowedHostsOriginValidator(JwtAuthMiddlewareStack(
+            URLRouter(notification.routing.websocket_urlpatterns))
         ),
     }
 )

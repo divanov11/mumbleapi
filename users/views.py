@@ -262,9 +262,6 @@ class UserProfileUpdate(APIView):
             profile, data=self.request.data, partial=True)
         if serializer.is_valid():
             user = serializer.save().user
-            
-            response = {'success': True, 'message': 'successfully updated your info',
-                        'user': UserSerializer(user).data}
             new_email = self.request.data.get('email')
             user = self.request.user
             if new_email is not None:
@@ -272,7 +269,8 @@ class UserProfileUpdate(APIView):
                 profile.email_verified = False
                 user.save()
                 profile.save()
-            return Response(response, status=200)
+            return Response({'success': True, 'message': 'successfully updated your info',
+                        'user': UserSerializer(user).data,'updated_email': new_email}, status=200)
         else:
             response = serializer.errors
             return Response(response, status=401)

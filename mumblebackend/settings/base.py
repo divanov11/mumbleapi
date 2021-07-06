@@ -22,6 +22,7 @@ ALLOWED_HOSTS = ['mumbleapi.herokuapp.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -188,3 +189,54 @@ AWS_SECRET_ACCESS_KEY = LINODE_BUCKET_SECRET_KEY
 AWS_STORAGE_BUCKET_NAME = LINODE_BUCKET
 
 django_heroku.settings(locals(), test_runner=False)
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "MumbleAPI Admin panel",
+
+    # Title on the brand, and login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "MumbleAPI",
+
+    # square logo to use for your site, must be present in static files, used for favicon and brand on top left
+    "site_logo": "images/dark-logo.1c6c40e2.png",
+
+    # Welcome text on the login screen
+    "welcome_sign": "Welcome to the MumbleAPI Admin panel",
+
+    # Copyright on the footer
+    "copyright": "MumbleAPI",
+
+    "show_ui_builder": True,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": True,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": True,
+    "sidebar_nav_flat_style": False,
+    "theme": "cosmo",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
+    }
+}

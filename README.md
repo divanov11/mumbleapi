@@ -11,12 +11,11 @@ API
 <a href="https://discord.gg/9Du4KUY3dE">![Mumble Community](https://img.shields.io/discord/825371211399692308?label=Mumble%20Community&style=for-the-badge&logo=Discord)</a>
 <a href="https://drawsql.app/dennis-ivy/diagrams/mumble">![Mumble SQL Diagram](https://img.shields.io/badge/Mumble-Diagram-orange?style=for-the-badge)</a>
 <a href="http://mumbleapi.herokuapp.com/">![Mumble](https://img.shields.io/badge/Mumble-API-9cf?style=for-the-badge)</a>
+<a href="https://open.vscode.dev/divanov11/mumbleapi.git"><img src="https://open.vscode.dev/badges/open-in-vscode.svg" height="25px"></a>
+
 
 </div>
-<div align="center">
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/divanov11/mumbleapi.git)
-</div>
 <br/>
 
 ## Getting Started 

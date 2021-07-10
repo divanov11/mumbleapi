@@ -13,9 +13,9 @@ API
 <a href="http://mumbleapi.herokuapp.com/">![Mumble](https://img.shields.io/badge/Mumble-API-9cf?style=for-the-badge)</a>
 
 </div>
-
+<div align="center">
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/divanov11/mumbleapi.git)
-
+</div>
 <br/>
 
 ## Getting Started 

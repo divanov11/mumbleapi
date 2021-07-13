@@ -1,17 +1,35 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import UserProfile
 import uuid
 
-class Message(models.Model):
+class Thread(models.Model):
     id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
-    to_user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True, related_name='messages')
-    created = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
-    content = models.CharField(max_length=255)
-    is_read = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['-created']
+    users = models.ManyToManyField(UserProfile, blank=True)
+    updated = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.id)
+        participants = []
+        for i in self.users.all():
+            participants.append(str(i.name))
+        return str(participants)
+
+    def latestMessage(self):
+        message = self.message_set.last()
+        print('Latest message:', message)
+        if message:
+            return message
+        else:
+            return None
+
+
+class Message(models.Model):
+    thread = models.ForeignKey(
+        Thread, null=True, blank=True, on_delete=models.SET_NULL)
+    sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    body = models.TextField()
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.body)

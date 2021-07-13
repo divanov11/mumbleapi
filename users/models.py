@@ -1,7 +1,5 @@
-from message.models import Message
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.fields import related
 import uuid
 
 

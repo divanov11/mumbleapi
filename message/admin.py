@@ -1,11 +1,6 @@
 from django.contrib import admin
-from .models import Message
+from .models import Message , Thread
 
 
-class AdminMessage(admin.ModelAdmin):
-    search_fields = ('to_user',)
-    list_filter = ('to_user',)
-    empty_value_display = '-empty field-'
-
-
-admin.site.register(Message, AdminMessage)
+admin.site.register(Message)
+admin.site.register(Thread)

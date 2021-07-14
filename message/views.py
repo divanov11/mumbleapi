@@ -19,6 +19,13 @@ def read_message(request, pk):
     except Exception as e:
         return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['POST'])
+@permission_classes((IsAuthenticated))
+def CreateThread(request):
+    sender = request.user.userprofile
+    thread,created = Thread.objects.get_or_create(users__in=[sender.id])
+    serializer = ThreadSerializer(thread, many=False)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
@@ -46,7 +53,7 @@ def create_message(request):
         else:
             chat_box = Thread()
             chat_box.save()
-            chat_box.users.set([sender,reciever])
+            chat_box.users.set([sender])
         serializer = ThreadSerializer(chat_box,many=False)
         return Response(serializer.data)
     else:

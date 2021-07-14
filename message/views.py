@@ -7,18 +7,15 @@ from .serializers import MessageSerializer , ThreadSerializer
 from .models import UserMessage , Thread
 from django.db.models import Q
 
-@api_view(['PUT'])
+@api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def read_message(request, pk):
     try:
-        message = UserMessage.objects.get(id=pk)
-        if message.sender == request.user.userprofile:
-            message.is_read = True
-            message.save()
-            serializer = MessageSerializer(message, many=False)
-            return Response(serializer.data)
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        thread = Thread.objects.get(id=pk)
+        messages = thread.messages.all()
+        print(messages)
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
     except Exception as e:
         return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 

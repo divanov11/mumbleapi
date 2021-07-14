@@ -33,13 +33,12 @@ def get_messages(request):
 def create_message(request):
     sender = request.user.userprofile
     data = request.data
-    reciever_id = data.get('reciever_id')
-    if reciever_id:
+    thread_id = data.get('thread_id')
+    if thread_id:
         message = data.get('message')
-        reciever = UserProfile.objects.get(id=reciever_id)
-        threads = Thread.objects.filter(users__in=[sender.id])
-        if threads.count() > 0:
-            chat_box = threads.first()
+        thread,created = Thread.objects.get_or_create(id=thread_id,users__in=[sender.id])
+        if thread:
+            chat_box = thread
             if message is not None:
                 message = UserMessage.objects.create(thread=chat_box,sender=sender,body=message)
             else:

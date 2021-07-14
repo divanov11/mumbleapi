@@ -61,7 +61,7 @@ class UserSerializerWithToken(UserSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = ['password']
 
     def get_access(self, obj):
         token = RefreshToken.for_user(obj)

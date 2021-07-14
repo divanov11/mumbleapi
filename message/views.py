@@ -1,19 +1,18 @@
-from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-
-from .serializers import MessageSerializer
-from .models import Message
-
+from users.models import UserProfile
+from .serializers import MessageSerializer , ThreadSerializer
+from .models import UserMessage , Thread
+from django.db.models import Q
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def read_message(request, pk):
     try:
-        message = Message.objects.get(id=pk)
-        if message.to_user == request.user:
+        message = UserMessage.objects.get(id=pk)
+        if message.sender == request.user.userprofile:
             message.is_read = True
             message.save()
             serializer = MessageSerializer(message, many=False)
@@ -23,32 +22,36 @@ def read_message(request, pk):
     except Exception as e:
         return Response({'details': f"{e}"},status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET'])
-@permission_classes((IsAuthenticated,))
-def get_unread_messages_count(request):
-    count = request.user.messages.filter(is_read=False).count()
-    return Response({
-        'count': count
-    })
-
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def get_messages(request):
-    messages = request.user.messages
-    serializer = MessageSerializer(messages, many=True)
+    user = request.user.userprofile
+    threads = Thread.objects.filter(users__in=[user])
+    serializer = ThreadSerializer(threads, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def create_message(request):
-    user = request.user
+    sender = request.user.userprofile
     data = request.data
-    to_user = User.objects.get(id=data['to_user'])
-    message = Message.objects.create(
-        to_user=to_user,
-        created_by=user,
-        content=data['content']
-    )
-    serializer = MessageSerializer(message, many=False)
-    return Response(serializer.data)
+    reciever_id = data.get('reciever_id')
+    if reciever_id:
+        message = data.get('message')
+        reciever = UserProfile.objects.get(id=reciever_id)
+        threads = Thread.objects.filter(users__in=[sender.id])
+        if threads.count() > 0:
+            chat_box = threads.first()
+            if message is not None:
+                message = UserMessage.objects.create(thread=chat_box,sender=sender,body=message)
+            else:
+                return Response({'details':'Content for message required'})
+        else:
+            chat_box = Thread()
+            chat_box.save()
+            chat_box.users.set([sender,reciever])
+        serializer = ThreadSerializer(chat_box,many=False)
+        return Response(serializer.data)
+    else:
+        return Response({'details':'Please provide other user id'})

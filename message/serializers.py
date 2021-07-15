@@ -9,17 +9,14 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ThreadSerializer(serializers.ModelSerializer):
-    chat_users = UserProfileSerializer(read_only=True)
     chat_messages = serializers.SerializerMethodField(read_only=True)
     last_message = serializers.SerializerMethodField(read_only=True)
     un_read_count = serializers.SerializerMethodField(read_only=True)
+    sender = UserProfileSerializer(read_only=True)
+    reciever = UserProfileSerializer(read_only=True)
     class Meta:
         model = Thread
-        fields = ['id','updated','timestamp','chat_users','chat_messages','last_message','un_read_count']
-    
-    def get_chat_users(self,obj):
-        serializers = UserProfileSerializer(obj.users.all(),many=True)
-        return serializers.data
+        fields = ['id','updated','timestamp','sender','reciever','chat_messages','last_message','un_read_count']
 
     def get_chat_messages(self,obj):
         messages = MessageSerializer(obj.messages.order_by('timestamp'),many=True)

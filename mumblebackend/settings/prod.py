@@ -36,6 +36,10 @@ DATABASES = {
         'PASSWORD': os.environ.get('MUMBLE_DB_PASS'),
         'HOST': os.environ.get('MUMBLE_HOST'),
         'PORT': '5432',
+    },
+    'message': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'messages.sqlite3',
     }
 }
 

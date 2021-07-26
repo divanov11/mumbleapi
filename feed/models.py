@@ -4,8 +4,13 @@ from ckeditor.fields import RichTextField
 import uuid
 
 
+class BaseModel(models.Model):
+    id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
+    class Meta:
+        abstract = True
+        
 #This needs to be shareable
-class Mumble(models.Model):
+class Mumble(BaseModel):
     parent =models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     #For re-mumble (Share) functionality
     remumble = models.ForeignKey("self", on_delete=models.CASCADE, related_name='remumbles', null=True, blank=True)
@@ -18,7 +23,6 @@ class Mumble(models.Model):
     share_count = models.IntegerField(blank=True, null=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
     votes = models.ManyToManyField(User, related_name='mumble_user', blank=True, through='MumbleVote')
-    id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
 
     class Meta:
         ordering = ['-created']
@@ -43,7 +47,7 @@ class Mumble(models.Model):
 
     
 
-class MumbleVote(models.Model):
+class MumbleVote(BaseModel):
     
     CHOICES = (
         ('upvote', 'upvote'),
@@ -53,7 +57,6 @@ class MumbleVote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     mumble = models.ForeignKey(Mumble, on_delete=models.CASCADE, null=True, blank=True)
     value = models.CharField(max_length=20, choices=CHOICES)
-    id = models.UUIDField(default=uuid.uuid4,  unique=True, primary_key=True, editable=False)
 
     def __str__(self):
         return str(self.user) + ' ' +  str(self.value)  + '"' + str(self.mumble) + '"'

@@ -78,7 +78,7 @@ class AccountTests(APITestCase):
         url = 'users-api:profile_update'
         reversed_url = reverse(url)
         data = {
-            'username':'TEST'
+            'email':'TEST@gmail.com'
         }
         client = APIClient()
         client.force_authenticate(user=self.test_user)
